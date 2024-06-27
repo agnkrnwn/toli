@@ -1,17 +1,3 @@
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch((error) => {
-          console.error('Service Worker registration failed:', error);
-        });
-    });
-  }
-  
-
-  
 // Fungsi untuk memeriksa dukungan LocalStorage
 function isLocalStorageSupported() {
     try {
@@ -45,54 +31,37 @@ function populateTaskList() {
 
     tasks.forEach((task, index) => {
         const taskItem = document.createElement('li');
-        taskItem.className = 'list-group-item';
-    
+        taskItem.className = 'task-item';
         if (task.done) {
             taskItem.classList.add('done');
         }
-    
+
         taskItem.innerHTML = `
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="task-content">
-                    <div class="task-text">${task.text}</div>
-                    <div class="task-timestamp">${task.timestamp}</div>
-                    ${task.done ? `<div class="task-completedAt">Selesai pada: ${task.completedAt}</div>` : ''}
-                </div>
-                <div class="task-buttons">
-                    <button class="btn btn-success btn-sm mr-2" onclick="markTaskAsDone(${index})"><i class="bi bi-check"></i></button>
-                    <button class="btn btn-primary btn-sm mr-2" onclick="editTask(${index})"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})"><i class="bi bi-trash"></i></button>
-                </div>
+            <div class="task-content">
+                <div class="task-text">${task.text}</div>
+                <div class="task-timestamp">${task.timestamp}</div>
+                ${task.done ? `<div class="task-completedAt">Selesai pada: ${task.completedAt}</div>` : ''}
+            </div>
+            <div class="task-buttons">
+                <button class="task-btn done-btn" onclick="markTaskAsDone(${index})"><i class="fas fa-check"></i></button>
+                <button class="task-btn edit-btn" onclick="editTask(${index})"><i class="fas fa-edit"></i></button>
+                <button class="task-btn delete-btn" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
             </div>
         `;
         taskList.appendChild(taskItem);
     });
-    
-    // Menambahkan tugas yang selesai ke akhir
-    const completedTasks = tasks.filter(task => task.done);
-    completedTasks.forEach(task => {
-    const taskItem = document.createElement('li');
-    taskItem.className = 'list-group-item done';
-    // taskItem.textContent = task.text;
-    //taskList.appendChild(taskItem);
-});
 
-if (completedTasks.length > 0) {
-    const deleteAllButton = document.createElement('button');
-    deleteAllButton.className = 'btn btn-danger btn-sm mt-3';
-    deleteAllButton.textContent = 'Hapus Semua Tugas Selesai';
-    deleteAllButton.onclick = deleteCompletedTasks;
-    taskList.appendChild(deleteAllButton);
-}
-    
+    // Tampilkan atau sembunyikan tombol "Hapus Semua Tugas Selesai"
+    const deleteCompletedBtn = document.getElementById('deleteCompletedBtn');
+    deleteCompletedBtn.style.display = tasks.some(task => task.done) ? 'block' : 'none';
 }
 
 // Fungsi untuk menambah tugas baru
-function addTask(event) {
+function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
 
-    if ((event.key === 'Enter' || event.target.id === 'addTaskBtn') && taskText !== '') {
+    if (taskText !== '') {
         const tasks = getTasksFromLocalStorage();
         const now = new Date();
         const formattedDate = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
@@ -102,9 +71,6 @@ function addTask(event) {
         populateTaskList();
     }
 }
-
-
-
 
 // Fungsi untuk menghapus tugas
 function deleteTask(index) {
@@ -122,7 +88,7 @@ function deleteTask(index) {
 function markTaskAsDone(index) {
     const tasks = getTasksFromLocalStorage();
     tasks[index].done = true;
-    tasks[index].completedAt = new Date().toLocaleString(); // Menyimpan waktu selesai
+    tasks[index].completedAt = new Date().toLocaleString();
 
     const completedTask = tasks.splice(index, 1)[0];
     tasks.push(completedTask);
@@ -136,30 +102,23 @@ function markTaskAsDone(index) {
     }
 }
 
-
 // Fungsi untuk mengedit tugas
 function editTask(index) {
     const tasks = getTasksFromLocalStorage();
     const editedTaskInput = document.getElementById('editedTaskInput');
     
-    // Mengisi input modal dengan teks tugas yang akan diedit
     editedTaskInput.value = tasks[index].text;
+    showModal('editTaskModal');
 
-    // Menampilkan modal
-    $('#editTaskModal').modal('show');
-
-    // Menyimpan indeks tugas yang akan diedit sebagai atribut data pada tombol "Simpan Perubahan"
     const saveEditedTaskBtn = document.getElementById('saveEditedTaskBtn');
-    saveEditedTaskBtn.setAttribute('data-task-index', index);
-
-    // Menambahkan event listener pada tombol "Simpan Perubahan"
-    saveEditedTaskBtn.addEventListener('click', saveEditedTask);
+    saveEditedTaskBtn.onclick = function() {
+        saveEditedTask(index);
+    };
 }
 
-function saveEditedTask() {
+function saveEditedTask(index) {
     const editedTaskInput = document.getElementById('editedTaskInput');
     const editedTaskText = editedTaskInput.value.trim();
-    const index = parseInt(this.getAttribute('data-task-index'));
 
     if (editedTaskText !== '') {
         const tasks = getTasksFromLocalStorage();
@@ -168,18 +127,20 @@ function saveEditedTask() {
         populateTaskList();
     }
 
-    // Menutup modal
-    $('#editTaskModal').modal('hide');
+    hideModal('editTaskModal');
 }
 
+// Fungsi untuk menampilkan modal
+function showModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+}
 
+// Fungsi untuk menyembunyikan modal
+function hideModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
 
-// Inisialisasi
-document.getElementById('addTaskBtn').addEventListener('click', addTask);
-document.getElementById('taskInput').addEventListener('keydown', addTask);
-populateTaskList();
-
-
+// Fungsi untuk memperbarui tanggal dan waktu
 function updateDateTime() {
     const datetimeElement = document.getElementById('datetime');
     const now = new Date();
@@ -187,56 +148,30 @@ function updateDateTime() {
     datetimeElement.textContent = formattedDateTime;
 }
 
-// Panggil fungsi updateDateTime setiap detik
-setInterval(updateDateTime, 1000);
-
-document.getElementById('toggleCalculator').addEventListener('click', () => {
-    const calculator = document.getElementById('calculator');
-    calculator.classList.toggle('show');
-});
-
-function formatRupiah(number) {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
-}
-
-document.getElementById('calculateButton').addEventListener('click', () => {
-    const originalPrice = parseFloat(document.getElementById('originalPrice').value);
-    const discountPercentage = parseFloat(document.getElementById('discountPercentage').value);
-
-    if (isNaN(originalPrice) || isNaN(discountPercentage)) {
-        document.getElementById('discountResult').textContent = 'Masukkan angka valid';
-    } else {
-        const discountAmount = (originalPrice * discountPercentage) / 100;
-        const finalPrice = originalPrice - discountAmount;
-
-        document.getElementById('discountResult').innerHTML = `
-            Harga Akhir: ${formatRupiah(finalPrice)} <br>
-             Potongan Harga: ${formatRupiah(discountAmount)}
-            
-        `;
-    }
-});
-
-function deleteCompletedTasks() {
-    const confirmation = confirm("Apakah Anda yakin ingin menghapus semua tugas yang sudah selesai?");
-    if (confirmation) {
-        const tasks = getTasksFromLocalStorage();
-        const updatedTasks = tasks.filter(task => !task.done);
-        saveTasksToLocalStorage(updatedTasks);
-        populateTaskList();
-    }
-}
-
+// Fungsi untuk menampilkan popup semua tugas selesai
 function showAllTasksCompletedPopup() {
-    $('#completionModal').modal('show');
-    startConfetti();
-
-    // Menambahkan event listener untuk menutup modal
-    $('#completionModal').on('hidden.bs.modal', function (e) {
-        stopConfetti();
-    });
+    showModal('completionModal');
 }
 
+// Fungsi untuk menghapus semua tugas yang sudah selesai
+function deleteCompletedTasks() {
+    const tasks = getTasksFromLocalStorage();
+    const remainingTasks = tasks.filter(task => !task.done);
+    saveTasksToLocalStorage(remainingTasks);
+    populateTaskList();
+}
 
+// Event Listeners
+document.getElementById('addTaskBtn').addEventListener('click', addTask);
+document.getElementById('taskInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
+document.getElementById('cancelEditBtn').addEventListener('click', () => hideModal('editTaskModal'));
+document.getElementById('closeCompletionModalBtn').addEventListener('click', () => hideModal('completionModal'));
+document.getElementById('deleteCompletedBtn').addEventListener('click', deleteCompletedTasks);
 
-
+// Inisialisasi
+populateTaskList();
+setInterval(updateDateTime, 1000);
