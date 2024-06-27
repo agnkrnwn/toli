@@ -1,177 +1,150 @@
-// Fungsi untuk memeriksa dukungan LocalStorage
-function isLocalStorageSupported() {
-    try {
-        return 'localStorage' in window && window['localStorage'] !== null;
-    } catch (e) {
-        return false;
-    }
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
 }
 
-// Fungsi untuk mendapatkan daftar tugas dari LocalStorage
-function getTasksFromLocalStorage() {
-    if (isLocalStorageSupported()) {
-        const tasks = localStorage.getItem('tasks');
-        return tasks ? JSON.parse(tasks) : [];
-    }
-    return [];
+const todoForm = document.getElementById("todo-form");
+const todoInput = document.getElementById("todo-input");
+const todoList = document.getElementById("todo-list");
+const clearCompletedBtn = document.getElementById("clear-completed");
+const editModal = document.getElementById("edit-modal");
+const editInput = document.getElementById("edit-input");
+const saveEditBtn = document.getElementById("save-edit");
+const cancelEditBtn = document.getElementById("cancel-edit");
+
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+let currentEditIndex = -1;
+
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-// Fungsi untuk menyimpan daftar tugas ke LocalStorage
-function saveTasksToLocalStorage(tasks) {
-    if (isLocalStorageSupported()) {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
+function formatDate(date) {
+  return new Date(date).toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
-// Fungsi untuk mengisi ul dengan tugas-tugas
-function populateTaskList() {
-    const tasks = getTasksFromLocalStorage();
-    const taskList = document.getElementById('taskList');
-    taskList.innerHTML = '';
+function sortTodos() {
+  todos.sort((a, b) => {
+    if (a.completed === b.completed) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    return a.completed ? 1 : -1;
+  });
+}
 
-    tasks.forEach((task, index) => {
-        const taskItem = document.createElement('li');
-        taskItem.className = 'task-item';
-        if (task.done) {
-            taskItem.classList.add('done');
-        }
-
-        taskItem.innerHTML = `
-            <div class="task-content">
-                <div class="task-text">${task.text}</div>
-                <div class="task-timestamp">${task.timestamp}</div>
-                ${task.done ? `<div class="task-completedAt">Selesai pada: ${task.completedAt}</div>` : ''}
+function renderTodos() {
+  sortTodos();
+  todoList.innerHTML = "";
+  todos.forEach((todo, index) => {
+    const li = document.createElement("li");
+    li.className = `todo-item ${todo.completed ? "completed" : ""}`;
+    li.innerHTML = `
+            <div class="todo-content">
+                <span class="todo-text">${todo.text}</span>
+                <div class="todo-actions">
+                    <button class="complete-btn" data-index="${index}"><i class="fas fa-check"></i></button>
+                    <button class="edit-btn" data-index="${index}"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                </div>
             </div>
-            <div class="task-buttons">
-                <button class="task-btn done-btn" onclick="markTaskAsDone(${index})"><i class="fas fa-check"></i></button>
-                <button class="task-btn edit-btn" onclick="editTask(${index})"><i class="fas fa-edit"></i></button>
-                <button class="task-btn delete-btn" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
+            <div class="todo-time">
+                Dibuat: ${formatDate(todo.createdAt)}
+                ${
+                  todo.completed
+                    ? `<br>Selesai: ${formatDate(todo.completedAt)}`
+                    : ""
+                }
             </div>
         `;
-        taskList.appendChild(taskItem);
+    todoList.appendChild(li);
+  });
+}
+
+todoForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const todoText = todoInput.value.trim();
+  if (todoText) {
+    todos.unshift({
+      text: todoText,
+      completed: false,
+      createdAt: new Date().toISOString(),
+      completedAt: null,
     });
-
-    // Tampilkan atau sembunyikan tombol "Hapus Semua Tugas Selesai"
-    const deleteCompletedBtn = document.getElementById('deleteCompletedBtn');
-    deleteCompletedBtn.style.display = tasks.some(task => task.done) ? 'block' : 'none';
-}
-
-// Fungsi untuk menambah tugas baru
-function addTask() {
-    const taskInput = document.getElementById('taskInput');
-    const taskText = taskInput.value.trim();
-
-    if (taskText !== '') {
-        const tasks = getTasksFromLocalStorage();
-        const now = new Date();
-        const formattedDate = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-        tasks.push({ text: taskText, done: false, timestamp: formattedDate });
-        saveTasksToLocalStorage(tasks);
-        taskInput.value = '';
-        populateTaskList();
-    }
-}
-
-// Fungsi untuk menghapus tugas
-function deleteTask(index) {
-    const isConfirmed = window.confirm('Apakah Anda yakin ingin menghapus tugas ini?');
-    
-    if (isConfirmed) {
-        const tasks = getTasksFromLocalStorage();
-        tasks.splice(index, 1);
-        saveTasksToLocalStorage(tasks);
-        populateTaskList();
-    }
-}
-
-// Fungsi untuk menandai tugas sebagai selesai
-function markTaskAsDone(index) {
-    const tasks = getTasksFromLocalStorage();
-    tasks[index].done = true;
-    tasks[index].completedAt = new Date().toLocaleString();
-
-    const completedTask = tasks.splice(index, 1)[0];
-    tasks.push(completedTask);
-
-    saveTasksToLocalStorage(tasks);
-    populateTaskList();
-
-    const allTasksCompleted = tasks.every(task => task.done);
-    if (allTasksCompleted) {
-        showAllTasksCompletedPopup();
-    }
-}
-
-// Fungsi untuk mengedit tugas
-function editTask(index) {
-    const tasks = getTasksFromLocalStorage();
-    const editedTaskInput = document.getElementById('editedTaskInput');
-    
-    editedTaskInput.value = tasks[index].text;
-    showModal('editTaskModal');
-
-    const saveEditedTaskBtn = document.getElementById('saveEditedTaskBtn');
-    saveEditedTaskBtn.onclick = function() {
-        saveEditedTask(index);
-    };
-}
-
-function saveEditedTask(index) {
-    const editedTaskInput = document.getElementById('editedTaskInput');
-    const editedTaskText = editedTaskInput.value.trim();
-
-    if (editedTaskText !== '') {
-        const tasks = getTasksFromLocalStorage();
-        tasks[index].text = editedTaskText;
-        saveTasksToLocalStorage(tasks);
-        populateTaskList();
-    }
-
-    hideModal('editTaskModal');
-}
-
-// Fungsi untuk menampilkan modal
-function showModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-}
-
-// Fungsi untuk menyembunyikan modal
-function hideModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
-
-// Fungsi untuk memperbarui tanggal dan waktu
-function updateDateTime() {
-    const datetimeElement = document.getElementById('datetime');
-    const now = new Date();
-    const formattedDateTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-    datetimeElement.textContent = formattedDateTime;
-}
-
-// Fungsi untuk menampilkan popup semua tugas selesai
-function showAllTasksCompletedPopup() {
-    showModal('completionModal');
-}
-
-// Fungsi untuk menghapus semua tugas yang sudah selesai
-function deleteCompletedTasks() {
-    const tasks = getTasksFromLocalStorage();
-    const remainingTasks = tasks.filter(task => !task.done);
-    saveTasksToLocalStorage(remainingTasks);
-    populateTaskList();
-}
-
-// Event Listeners
-document.getElementById('addTaskBtn').addEventListener('click', addTask);
-document.getElementById('taskInput').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        addTask();
-    }
+    saveTodos();
+    renderTodos();
+    todoInput.value = "";
+  }
 });
-document.getElementById('cancelEditBtn').addEventListener('click', () => hideModal('editTaskModal'));
-document.getElementById('closeCompletionModalBtn').addEventListener('click', () => hideModal('completionModal'));
-document.getElementById('deleteCompletedBtn').addEventListener('click', deleteCompletedTasks);
 
-// Inisialisasi
-populateTaskList();
-setInterval(updateDateTime, 1000);
+todoList.addEventListener("click", (e) => {
+  if (e.target.closest(".complete-btn")) {
+    const index = e.target.closest(".complete-btn").dataset.index;
+    todos[index].completed = !todos[index].completed;
+    todos[index].completedAt = todos[index].completed
+      ? new Date().toISOString()
+      : null;
+    saveTodos();
+    renderTodos();
+  } else if (e.target.closest(".edit-btn")) {
+    const index = e.target.closest(".edit-btn").dataset.index;
+    currentEditIndex = index;
+    editInput.value = todos[index].text;
+    editModal.style.display = "block";
+  } else if (e.target.closest(".delete-btn")) {
+    const index = e.target.closest(".delete-btn").dataset.index;
+    if (confirm("Apakah Anda yakin ingin menghapus tugas ini?")) {
+      todos.splice(index, 1);
+      saveTodos();
+      renderTodos();
+    }
+  }
+});
+
+clearCompletedBtn.addEventListener("click", () => {
+  if (
+    confirm("Apakah Anda yakin ingin menghapus semua tugas yang sudah selesai?")
+  ) {
+    todos = todos.filter((todo) => !todo.completed);
+    saveTodos();
+    renderTodos();
+  }
+});
+
+saveEditBtn.addEventListener("click", () => {
+  const newText = editInput.value.trim();
+  if (newText && currentEditIndex !== -1) {
+    todos[currentEditIndex].text = newText;
+    saveTodos();
+    renderTodos();
+    editModal.style.display = "none";
+  }
+});
+
+cancelEditBtn.addEventListener("click", () => {
+  editModal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === editModal) {
+    editModal.style.display = "none";
+  }
+});
+
+renderTodos();

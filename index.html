@@ -3,45 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskMaster</title>
+    <title>To-Do List</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>TaskMaster</h1>
-            <p id="datetime"></p>
-        </header>
-        
-        <div class="task-input">
-            <input type="text" id="taskInput" placeholder="Tambahkan tugas baru...">
-            <button id="addTaskBtn"><i class="fas fa-plus"></i></button>
-        </div>
-
-        <ul id="taskList"></ul>
-
-        <button id="deleteCompletedBtn" class="delete-completed-btn">Hapus Semua Tugas Selesai</button>
+        <h1>Elegant To-Do List</h1>
+        <form id="todo-form" class="todo-input">
+            <input type="text" id="todo-input" placeholder="Tambah tugas baru..." required>
+            <button type="submit"><i class="fas fa-plus"></i></button>
+        </form>
+        <ul id="todo-list" class="todo-list"></ul>
+        <button id="clear-completed" class="clear-completed">
+            <i class="fas fa-trash"></i> Hapus Semua Tugas Selesai
+        </button>
     </div>
 
-    <div class="modal" id="editTaskModal">
+    <!-- Modal Edit -->
+    <div id="edit-modal" class="modal">
         <div class="modal-content">
             <h2>Edit Tugas</h2>
-            <input type="text" id="editedTaskInput">
-            <div class="modal-buttons">
-                <button id="saveEditedTaskBtn">Simpan</button>
-                <button id="cancelEditBtn">Batal</button>
+            <input type="text" id="edit-input">
+            <div class="modal-actions">
+                <button id="save-edit">Simpan</button>
+                <button id="cancel-edit">Batal</button>
             </div>
-        </div>
-    </div>
-
-    <div class="modal" id="completionModal">
-        <div class="modal-content">
-            <h2>Tugas Selesai!</h2>
-            <p>Selamat! Semua tugas hari ini telah selesai.</p>
-            <p><strong>INGAT!! HARUS KONSISTEN!!!</strong></p>
-            <button id="closeCompletionModalBtn">SIAP!!</button>
         </div>
     </div>
 
