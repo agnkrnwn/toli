@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Apps</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/asset/icon/favicon-16x16.png">
+    <link rel="stylesheet" href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="asset/css/all.min.css">
+    <style>
+        @font-face {
+        font-family: 'Poppins';
+        src: url('/asset/webfonts/Poppins-Bold.ttf') format('truetype');
+        font-weight: 100;
+        font-style: normal;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            padding: 2rem;
+        }
+        h1 {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .app-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .app-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .app-btn i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .app-btn span {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">My Applications</h1>
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-3">
+                <a href="https://agnk.netlify.app/todo" target="_blank" class="app-btn">
+                    <i class="fas fa-list-alt"></i>
+                    <span>To Do List</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://label-izza.netlify.app" target="_blank" class="app-btn">
+                    <i class="fas fa-tags"></i>
+                    <span>Label Generator</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agungk.netlify.app" target="_blank" class="app-btn">
+                    <i class="fas fa-quote-right"></i>
+                    <span>Quran Quote</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://antuhul.netlify.app" target="_blank" class="app-btn">
+                    <i class="fas fa-clock"></i>
+                    <span>Prayer Schedule</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agungk.netlify.app/hadist" target="_blank" class="app-btn">
+                    <i class="fas fa-book"></i>
+                    <span>Hadith</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agungk.netlify.app/asmaul" target="_blank" class="app-btn">
+                    <i class="fas fa-star-and-crescent"></i>
+                    <span>Asmaul Husna</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agungk.netlify.app/audio" target="_blank" class="app-btn">
+                    <i class="fas fa-headphones-alt"></i>
+                    <span>Quran MP3</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agnk.netlify.app/qrcode" target="_blank" class="app-btn">
+                    <i class="fas fa-qrcode"></i>
+                    <span>QR Code</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agnk.netlify.app/hitungbahan" target="_blank" class="app-btn">
+                    <i class="fas fa-calculator"></i>
+                    <span>Hitung Bahan</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="https://agnk.netlify.app/hitungmodal" target="_blank" class="app-btn">
+                    <i class="fas fa-calculator"></i>
+                    <span>Hitung Modal</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="asset/js/bootstrap.bundle.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

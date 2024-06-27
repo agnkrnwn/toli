@@ -1,0 +1,57 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.app-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1f1f1f;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100%;
+    height: 150px;
+}
+
+.app-btn:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.app-btn i {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.app-btn span {
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+@media (max-width: 767.98px) {
+    .app-btn span {
+        font-size: 1em;
+    }
+
+    .app-btn i {
+        font-size: 1.5em;
+    }
+
+    .app-btn {
+        height: 120px;
+    }
+}

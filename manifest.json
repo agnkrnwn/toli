@@ -1,21 +1,20 @@
 {
-    "name": "To-Do list App",
-    "short_name": "To-Do List",
+    "name": "My Applications",
+    "short_name": "MyApps",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#fff",
-    "theme_color": "#007bff",
+    "background_color": "#121212",
+    "theme_color": "#121212",
     "icons": [
-      {
-        "src": "icon192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "icon512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
+        {
+            "src": "/asset/icon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+          },
+          {
+            "src": "/asset/icon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+          }
     ]
-  }
-  
+}

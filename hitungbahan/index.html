@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Bahan Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"}
+                    }
+                },
+                fontFamily: {
+                    'body': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+                    'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji']
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary-600 dark:text-primary-400">Kalkulator Bahan</h1>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400">
+                <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+            </button>
+        </div>
+        <form id="hitungForm" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 transition-colors duration-300 ease-in-out">
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="lebarBahan">
+                    Lebar Bahan (cm)
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400" id="lebarBahan" type="number" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="lebarPola">
+                    Lebar Pola (cm)
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400" id="lebarPola" type="number" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="panjangPola">
+                    Panjang Pola (cm)
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400" id="panjangPola" type="number" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="jumlahLusin">
+                    Jumlah Lusin
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400" id="jumlahLusin" type="number" value="1" min="1" required>
+            </div>
+            <div class="flex items-center justify-center">
+                <button class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400 transition-colors duration-300 ease-in-out" type="button" onclick="hitungBahan()">
+                    Hitung Kebutuhan Bahan
+                </button>
+            </div>
+        </form>
+        <div id="hasil" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 py-6 mb-4 hidden transition-colors duration-300 ease-in-out">
+            <h2 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-4">Hasil Perhitungan</h2>
+            <div id="hasilContent" class="text-gray-700 dark:text-gray-300"></div>
+            <button id="tampilkanVisual" class="mt-4 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400 transition-colors duration-300 ease-in-out">
+                Tampilkan Visual
+            </button>
+        </div>
+
+        <div id="visualisasi" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 py-6 mb-4 hidden transition-colors duration-300 ease-in-out">
+            <h2 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-4">Visualisasi</h2>
+            <div id="svgContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        function hitungBahan() {
+            var lebarBahan = parseFloat(document.getElementById("lebarBahan").value);
+            var lebarPola = parseFloat(document.getElementById("lebarPola").value);
+            var panjangPola = parseFloat(document.getElementById("panjangPola").value);
+            var jumlahLusin = parseInt(document.getElementById("jumlahLusin").value);
+
+            var jumlahPotonganPerlebar = Math.floor(lebarBahan / lebarPola);
+            var sisaBahanPerlebar = lebarBahan % lebarPola;
+            var jumlahPotonganTotal = jumlahLusin * 12;
+            var jumlahBarisPola = Math.ceil(jumlahPotonganTotal / jumlahPotonganPerlebar);
+            var panjangBahanTotal = jumlahBarisPola * panjangPola;
+            var panjangBahanTotalYard = panjangBahanTotal / 91.44;
+            
+            var luasBahanTotal = lebarBahan * panjangBahanTotal;
+            var luasBahanTerpakai = jumlahPotonganTotal * lebarPola * panjangPola;
+            var efisiensiPenggunaanBahan = (luasBahanTerpakai / luasBahanTotal) * 100;
+
+            var hasilPerlusan = `
+                <p class="mb-2"><span class="font-semibold">Lebar Bahan:</span> ${lebarBahan} cm</p>
+                <p class="mb-2"><span class="font-semibold">Pola:</span> L ${lebarPola} cm X P ${panjangPola} cm</p>
+                <p class="mb-2"><span class="font-semibold">Jumlah Lusin:</span> ${jumlahLusin}</p>
+                <p class="mb-2"><span class="font-semibold">Potongan didapatkan perbaris:</span> ${jumlahPotonganPerlebar} pcs</p>
+                <p class="mb-2"><span class="font-semibold">Sisa bahan perlebar:</span> ${sisaBahanPerlebar.toFixed(2)} cm</p>
+                <p class="mb-2"><span class="font-semibold">Total panjang bahan yang diperlukan:</span> ${panjangBahanTotal.toFixed(2)} cm (${panjangBahanTotalYard.toFixed(2)} yard)</p>
+                <p class="mb-2"><span class="font-semibold">Efisiensi penggunaan bahan:</span> ${efisiensiPenggunaanBahan.toFixed(2)}%</p>
+            `;
+
+            document.getElementById("hasilContent").innerHTML = hasilPerlusan;
+            document.getElementById("hasil").classList.remove("hidden");
+        }
+
+        function tampilkanVisual() {
+            var lebarBahan = parseFloat(document.getElementById("lebarBahan").value);
+            var lebarPola = parseFloat(document.getElementById("lebarPola").value);
+            var panjangPola = parseFloat(document.getElementById("panjangPola").value);
+            var jumlahLusin = parseInt(document.getElementById("jumlahLusin").value);
+
+            var jumlahPotonganPerlebar = Math.floor(lebarBahan / lebarPola);
+            var sisaBahanPerlebar = lebarBahan % lebarPola;
+            var jumlahPotonganTotal = jumlahLusin * 12;
+            var jumlahBarisPola = Math.ceil(jumlahPotonganTotal / jumlahPotonganPerlebar);
+
+            // Buat SVG
+            var svgWidth = 300;
+            var svgHeight = 200;
+            var scaleX = svgWidth / lebarBahan;
+            var scaleY = svgHeight / (panjangPola * jumlahBarisPola);
+
+            var svg = `<svg width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
+
+            // Gambar bahan
+            svg += `<rect x="0" y="0" width="${svgWidth}" height="${svgHeight}" fill="#ddd" stroke="#999" stroke-width="2"/>`;
+
+            // Gambar pola
+            for (var i = 0; i < jumlahBarisPola; i++) {
+                for (var j = 0; j < jumlahPotonganPerlebar; j++) {
+                    if (i * jumlahPotonganPerlebar + j < jumlahPotonganTotal) {
+                        svg += `<rect x="${j * lebarPola * scaleX}" y="${i * panjangPola * scaleY}" width="${lebarPola * scaleX}" height="${panjangPola * scaleY}" fill="#3b82f6" stroke="#2563eb" stroke-width="1"/>`;
+                    }
+                }
+            }
+
+            svg += '</svg>';
+
+            document.getElementById("svgContainer").innerHTML = svg;
+            document.getElementById("visualisasi").classList.remove("hidden");
+        }
+
+        document.getElementById("tampilkanVisual").addEventListener("click", tampilkanVisual);
+
+
+        // Toggle dark mode
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
