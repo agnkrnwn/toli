@@ -1,0 +1,386 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('/asset/font/Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+      url('/asset/font/material.woff2') format('woff2');
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: #121212;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card {
+    max-width: 600px;
+    width: 100%; /* Menambahkan ini untuk responsivitas */
+    margin: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    background-color: #1e1e1e;
+    border: none;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h1 {
+    color: #1db954;
+    font-weight: bold;
+  }
+  
+  .form-label {
+    color: #b3b3b3;
+  }
+  
+  .form-select {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+  }
+  
+  .form-select:focus {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #1db954;
+    box-shadow: none;
+  }
+  
+  
+  .album-cover img {
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .custom-audio-player {
+    /* background-color: #979797; */
+    border-radius: 10px;
+    margin: 5px 5px;
+    text-align: center;
+  }
+  
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  
+  .audio-controls .control-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+  }
+  
+  .audio-controls .control-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .audio-controls .material-icons {
+    font-size: 40px;
+    color: #1db954;
+  }
+  
+  .progress-container {
+    flex-grow: 1;
+    margin: 0 15px;
+  }
+  
+  .progress {
+    height: 10px;
+    border-radius: 4px;
+    background-color: #404040;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #1db954;
+  }
+  
+  
+  .time-display {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    margin-top: 0.5em;
+    text-align: center;
+  }
+  
+  .surah-qari-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1db954;
+  }
+  
+  .volume-control {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .volume-control .material-icons {
+    margin-right: 10px;
+    color: #1db954;
+  }
+  
+  .volume-slider {
+    width: 100%;
+    height: 10px;
+    background-color: #404040;
+    border-radius: 5px;
+    -webkit-appearance: none;
+  }
+  
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: #1db954;
+    border-radius: 50%;
+  }
+  
+  .volume-slider::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: #1db954;
+    border-radius: 50%;
+  }
+  
+  .bootstrap-select{
+    width: 100% !important;
+  }
+  
+  .bootstrap-select .dropdown-toggle {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+  }
+  
+  .bootstrap-select .dropdown-menu {
+    margin-top: 30px;
+    background-color: #333333;
+    color: #ffffff;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .bootstrap-select .dropdown-item {
+    color: #ffffff;
+  }
+  
+  .bootstrap-select .dropdown-item:hover,
+  .bootstrap-select .dropdown-item:focus {
+    background-color: #1db954;
+    color: #ffffff;
+  }
+  
+  .bootstrap-select .bs-searchbox input {
+    background-color: #ffffff;
+    color: #333333;
+    width: 100%;
+  }
+  
+  .bootstrap-select .dropdown-menu li a {
+    
+    white-space: normal;
+    word-wrap: break-word;
+  }
+  
+  .form-group {
+    margin-bottom: 0;
+  }
+  
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bootstrap-select .dropdown-toggle {
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+  
+  .bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25);
+  }
+  
+  .bootstrap-select .bs-searchbox {
+    display: block !important;
+  }
+  
+  .control-buttonplay {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #1e1e1e ;
+    color: #1DB954;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    box-shadow: 0 0px 10px rgb(77, 77, 77);;
+    
+  }
+  
+  .control-buttonplay:hover {
+    background-color: #1e1e1e ;
+    color: #1DB954;
+  }
+  
+  .control-buttonplay .material-icons {
+    margin-right: 10px;
+  }
+  
+  #cardContent {
+    margin-bottom: 60px; /* Sesuaikan dengan tinggi tombol sticky */
+  }
+  
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  
+  /* Container untuk tombol-tombol */
+  #closePopup, #download-button {
+    display: inline-flex;
+    margin-right: 10px; /* Jarak antar tombol */
+  }
+  
+  /* Gaya tombol */
+  .btn {
+    background-color: #333333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #1DB954;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: none; /* Menghilangkan border default */
+    transition: background-color 0.3s ease; /* Efek transisi saat hover */
+  }
+  
+  /* Efek hover */
+  .btn:hover {
+    background-color: #444444;
+  }
+  
+  /* Menghilangkan margin-right dari tombol terakhir */
+  #download-button {
+    margin-right: 0;
+  }
+  h5{
+    color: #1DB954;
+    margin-bottom: 20px;
+  }
+  
+  
+  .row {
+    flex-direction: column;
+  }
+  
+  .col-md-4 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 767px) {
+    .col-md-4 {
+        margin-bottom: 1rem;
+    }
+  
+    .bootstrap-select {
+        width: 100% !important;
+    }
+  
+    .bootstrap-select .dropdown-menu {
+        min-width: 100%;
+    }
+  
+    .audio-controls .material-icons {
+      font-size: 30px;
+      color: #1db954;
+    }
+    .progress {
+      height: 8px;
+    }
+  
+    .volume-slider {
+      height: 8px;
+    }
+  }

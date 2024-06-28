@@ -1,0 +1,267 @@
+:root {
+    --bg-color: #1a1b26;
+    --card-color: #24283b;
+    --text-color: #a9b1d6;
+    --accent-color: #7aa2f7;
+    --delete-color: #f7768e;
+    --complete-color: #9ece6a;
+    --putih-color: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/asset/font/Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px; /* Kurangi lebar maksimum */
+    background-color: var(--card-color);
+    border-radius: 15px;
+    padding: 20px; /* Kurangi padding */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Kurangi margin */
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 24px; /* Kurangi ukuran font */
+}
+
+.todo-input {
+    display: flex;
+    flex-direction: column; /* Ubah ke column */
+    margin-bottom: 15px; /* Kurangi margin */
+}
+
+.todo-input input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    font-size: 14px; /* Kurangi ukuran font */
+    height: 36px; /* Kurangi tinggi */
+    margin-bottom: 10px; /* Tambahkan margin bawah */
+}
+
+.todo-input button {
+    width: 100%;
+    padding: 8px 0; /* Sesuaikan padding */
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 36px; /* Sesuaikan tinggi */
+    font-size: 14px; /* Sesuaikan ukuran font */
+}
+.todo-input button:hover {
+    background-color: #5d7fe6;
+}
+
+.todo-list {
+    list-style-type: none;
+}
+
+.todo-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.todo-item.completed {
+    opacity: 0.6;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+}
+
+.todo-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-text {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+
+.todo-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px; /* Kurangi ukuran ikon */
+    margin-left: 5px; /* Kurangi jarak antar tombol */
+    transition: color 0.3s ease;
+}
+
+.todo-actions .complete-btn {
+    color: var(--complete-color);
+}
+
+.todo-actions .edit-btn {
+    color: var(--accent-color);
+}
+
+.todo-actions .delete-btn {
+    color: var(--delete-color);
+}
+
+.todo-time {
+    font-size: 10px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-top: 3px;
+}
+
+.clear-completed {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 15px;
+    background-color: var(--delete-color);
+    color: var(--putih-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px; 
+}
+
+.clear-completed:hover {
+    background-color: #e0677a;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Tambahkan ini di bagian akhir file CSS Anda */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#save-edit {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+#cancel-edit {
+    background-color: var(--delete-color);
+    color: var(--bg-color);
+}
+
+#save-edit:hover, #cancel-edit:hover {
+    opacity: 0.8;
+}
+
+/* Perbarui media query */
+@media (max-width: 480px) {
+    .todo-input {
+        flex-direction: column;
+    }
+
+    .todo-input input,
+    .todo-input button {
+        width: 100%;
+        border-radius: 5px;
+        height: 40px; /* Pastikan tinggi konsisten */
+        line-height: 40px; /* Sesuaikan line-height */
+    }
+
+    .todo-input input {
+        margin-bottom: 10px;
+    }
+
+    .todo-input button {
+        padding: 0 15px; /* Sesuaikan padding */
+    }
+}

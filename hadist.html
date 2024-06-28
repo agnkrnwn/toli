@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hadith Quote Generator</title>
+  <link rel="icon" href="asset/icon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icon/favicon-16x16.png">
+  <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="asset/css/hadist.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center mb-2">
+      <div class="col-md-4 mb-2 btn-container text-center">
+        <a href="index.html" class="btn btn-primary my-2">
+          <i class="material-icons">menu_book</i> Quran
+        </a>
+        <a href="asmaul.html" class="btn btn-primary my-2">
+          <i class="material-icons">list</i> Asmaul
+        </a>
+        <button id="save-screenshot" class="btn btn-danger my-2 w-100">
+          <i class="material-icons">download</i>
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center mb-3">
+      <div class="col-md-4 mb-2">
+        <div class="input-group">
+          <select id="hadith-author" class="form-control">
+            <option value="">author</option>
+            <option value="abu-dawud">Abu Dawud - 4419</option>
+            <option value="ahmad">Ahmad - 4305</option>
+            <option value="bukhari">Bukhari - 6638</option>
+            <option value="darimi">Darimi - 2949</option>
+            <option value="ibnu-majah">Ibnu Majah - 4285</option>
+            <option value="malik">Malik - 1587</option>
+            <option value="muslim">Muslim - 4930</option>
+            <option value="nasai">Nasai - 5364</option>
+            <option value="tirmidzi">Tirmidzi - 3625</option>
+          </select>
+          <input id="hadith-number" type="number" class="form-control" placeholder="Nomor Hadis">
+        </div>
+      </div>
+      <div class="col-md-4 mb-2 btn-container text-center">
+        <button id="generate-custom" class="btn btn-info">
+          <i class="material-icons">search</i>
+        </button>
+        <button id="generate-hadith" class="btn btn-info">
+          <i class="material-icons">shuffle</i>
+        </button>
+        <button id="toggle-arabic" class="toggle-btn off">
+          <i class="material-icons">visibility_off</i>
+        </button>
+      </div>
+    </div>
+  </div>
+    <div class="potrait-container">
+      <div class="potrait" style="background-image: url('asset/background/background2.jpg');">
+        <div id="quote" class="quote-box">
+          <div id="quote-text" class="quote-text">
+            <!-- Hadith text will be inserted here -->
+          </div>
+          <div id="quote-reference" class="quote-reference">
+            <!-- Hadith reference will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function (registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        })
+        .catch(function (error) {
+          console.log('ServiceWorker registration failed: ', error);
+        });
+    }
+  </script>
+  <script src="asset/js/jquery.min.js"></script>
+  <script src="asset/js/bootstrap.min.js"></script>
+  <script src="asset/js/html2canvas.min.js"></script>
+  <script src="asset/js/FileSaver.min.js"></script>
+  <script src="asset/js/hadist2.js"></script>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+anunya ada di 
+https://agungk.netlify.app
 
-
-Proyek ini dilisensikan di bawah lisensi [MIT](LICENSE).
+dah itu aja jangan banyak banyak ya
