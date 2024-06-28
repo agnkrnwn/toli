@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="dark transition-colors duration-300">
+<html lang="id" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,6 @@
     <link href="/asset/css/select2.min.css" rel="stylesheet" />
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/asset/data/hadist/arbain.json">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -25,7 +24,8 @@
                     }
                 },
                 fontFamily: {
-                    'sans': ['Poppins', 'sans-serif'],
+                    'body': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+                    'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji']
                 }
             }
         }
@@ -47,6 +47,7 @@
             color: #000000;
         }
 
+        /* Gaya baru untuk select2 */
         .select2-container {
             width: 100% !important;
         }
@@ -77,16 +78,11 @@
             background-color: #4B5563;
             color: #fff;
         }
-
-        .select2-container .select2-selection--single:hover {
-            border-color: #3b82f6;
-        }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
-
-    <div class="container mx-auto px-6 py-12 max-w-4xl bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-xl shadow-xl dark:bg-gray-800 dark:bg-opacity-30">
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
               <button id="notificationToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
@@ -104,7 +100,7 @@
             </div>
           </div>
 
-        <div class="mb-4 relative">
+          <div class="mb-4 relative">
             <select id="select-kota"
                 class="appearance-none w-full p-2 border border-gray-300 rounded-md bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-600">
                 <option value="">- Pilih Kota -</option>
@@ -122,73 +118,62 @@
             <i class="fas fa-calendar-alt mr-2"></i>Tampilkan Jadwal
         </button>
 
-        <div id="loading" class="hidden mt-4 text-center">
-            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
-        </div>
-
-        <div id="schedule"
-            class="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 hidden transition-all duration-300 ease-in-out transform hover:scale-[1.02]">
+        <div id="schedule" class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hidden">
             <h2 id="location" class="text-2xl font-semibold mb-2 text-gray-900 dark:text-white"></h2>
-
+            
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                 <div id="gregorian-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
                 <div id="hijri-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
                 <div id="javanese-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
             </div>
-
+            
             <p id="countdown" class="text-lg font-semibold text-primary-600 dark:text-primary-400 mb-4"></p>
-
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-moon text-blue-400 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Imsak:</span>
                     <span id="imsak" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-pray text-blue-500 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Subuh:</span>
                     <span id="subuh" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-cloud-sun text-orange-500 mr-2"></i>
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
+                    <i class="fas fa-cloud-sun text-orange-400 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Terbit:</span>
                     <span id="terbit" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-sun text-yellow-600 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Dhuha:</span>
                     <span id="dhuha" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-sun text-yellow-400 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Dzuhur:</span>
                     <span id="dzuhur" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-cloud-sun text-orange-500 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Ashar:</span>
                     <span id="ashar" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-cloud-moon text-red-500 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Maghrib:</span>
                     <span id="maghrib" class="text-gray-900 dark:text-white"></span>
                 </div>
-                <div
-                    class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-moon text-indigo-500 mr-2"></i>
                     <span class="font-semibold text-gray-700 dark:text-gray-300">Isya:</span>
                     <span id="isya" class="text-gray-900 dark:text-white"></span>
                 </div>
             </div>
         </div>
+        
+
         <div id="errorMsg" class="mt-4 text-red-500 text-center hidden"></div>
     </div>
 
@@ -196,6 +181,8 @@
     <script src="/asset/js/jquery-3.6.0.min.js"></script>
     <script src="/asset/js/select2.min.js"></script>
     <script src="/asset/js/sholat2.js"></script>
+    
+
 </body>
 
 </html>
