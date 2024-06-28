@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Sholat</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        select, button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #schedule {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            display: none;
+        }
+        #errorMsg {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jadwal Sholat</h1>
+    
+    <select id="select-provinsi">
+        <option value="">- Pilih Provinsi -</option>
+    </select>
+    
+    <select id="select-kabupaten">
+        <option value="">- Pilih Kabupaten -</option>
+    </select>
+    
+    <button id="getSchedule">Tampilkan Jadwal</button>
+    
+    <div id="schedule">
+        <h2 id="location"></h2>
+        <p id="dates"></p>
+        <table>
+            <tr><td>Imsak</td><td id="imsak"></td></tr>
+            <tr><td>Subuh</td><td id="subuh"></td></tr>
+            <tr><td>Terbit</td><td id="terbit"></td></tr>
+            <tr><td>Dzuhur</td><td id="dzuhur"></td></tr>
+            <tr><td>Ashar</td><td id="ashar"></td></tr>
+            <tr><td>Maghrib</td><td id="maghrib"></td></tr>
+            <tr><td>Isya</td><td id="isya"></td></tr>
+        </table>
+    </div>
+    
+    <div id="errorMsg"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
+            var urlKabupaten = "https://ibnux.github.io/data-indonesia/kabupaten/";
+
+            // Load Provinsi
+            $.getJSON(urlProvinsi, function(data) {
+                var items = [{ id: '', text: '- Pilih Provinsi -' }];
+                $.each(data, function(key, val) {
+                    items.push({ id: val.id, text: val.nama });
+                });
+                $("#select-provinsi").select2({
+                    data: items
+                });
+            });
+
+            // Event handler untuk perubahan provinsi
+            $("#select-provinsi").change(function () {
+                var provinsiId = $(this).val();
+                if (provinsiId) {
+                    $.getJSON(urlKabupaten + provinsiId + ".json", function(data) {
+                        var items = [{ id: '', text: '- Pilih Kabupaten -' }];
+                        $.each(data, function(key, val) {
+                            items.push({ id: val.id, text: val.nama });
+                        });
+                        $("#select-kabupaten").empty().select2({
+                            data: items
+                        });
+                    });
+                } else {
+                    $("#select-kabupaten").empty().select2({
+                        data: [{ id: '', text: '- Pilih Kabupaten -' }]
+                    });
+                }
+            });
+
+            // Event handler untuk tombol "Tampilkan Jadwal"
+            $("#getSchedule").on("click", function () {
+                var provinsiId = $("#select-provinsi").val();
+                var kabupatenId = $("#select-kabupaten").val();
+                var city = $("#select-kabupaten").select2('data')[0].text;
+
+                if (provinsiId && kabupatenId && kabupatenId !== "- Pilih Kabupaten -") {
+                    $.ajax({
+                        url: "https://api.myquran.com/v1/sholat/jadwal/" + kabupatenId + "/" + new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate(),
+                        method: "GET",
+                        success: function (response) {
+                            if (response.status === true) {
+                                displaySchedule(city, response.data.jadwal);
+                            } else {
+                                $("#schedule").hide();
+                                $("#errorMsg").text("Data jadwal sholat tidak tersedia.").show();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#schedule").hide();
+                            $("#errorMsg").text("Terjadi kesalahan dalam mengambil data: " + error).show();
+                        },
+                    });
+                } else {
+                    $("#errorMsg").text("Pilih provinsi dan kota terlebih dahulu.").show();
+                }
+            });
+
+            function displaySchedule(city, data) {
+                var now = new Date();
+                var gregorianDate = now.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                $("#location").text(city);
+                $("#dates").text(gregorianDate);
+                $("#subuh").text(data.subuh);
+                $("#dzuhur").text(data.dzuhur);
+                $("#ashar").text(data.ashar);
+                $("#maghrib").text(data.maghrib);
+                $("#isya").text(data.isya);
+                $("#imsak").text(data.imsak);
+                $("#terbit").text(data.terbit);
+                
+                $("#schedule").show();
+                $("#errorMsg").hide();
+            }
+        });
+    </script>
+</body>
+</html>
