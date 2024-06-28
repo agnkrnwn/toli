@@ -143,7 +143,7 @@ $(document).ready(function () {
             var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            $("#countdown").html(`Waktu tersisa menuju ${nextPrayer.name}: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+            $("#countdown").html(`Waktu menuju ${nextPrayer.name}: -${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
         }
 
         updateCountdown();
