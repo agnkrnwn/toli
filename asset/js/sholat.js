@@ -1,10 +1,10 @@
 function updateClock() {
   var now = new Date();
-  var hours = now.getHours().toString().padStart(2, '0');
-  var minutes = now.getMinutes().toString().padStart(2, '0');
-  var seconds = now.getSeconds().toString().padStart(2, '0');
+  var hours = now.getHours().toString().padStart(2, "0");
+  var minutes = now.getMinutes().toString().padStart(2, "0");
+  var seconds = now.getSeconds().toString().padStart(2, "0");
   var timeString = `${hours}:${minutes}:${seconds}`;
-  $('#clock').text(timeString);
+  $("#clock").text(timeString);
 }
 
 // Update jam setiap detik
@@ -12,7 +12,6 @@ setInterval(updateClock, 1000);
 
 // Panggil updateClock sekali untuk menginisialisasi jam
 updateClock();
-
 
 $(document).ready(function () {
   var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
@@ -99,9 +98,7 @@ $(document).ready(function () {
     var hijriMonthEn = data.date.hijri.month.en;
 
     $("#location").text(`${city}, ${country}`);
-    $("#dates").html(
-        `${gregorianDate} / ${hijriDate} ${hijriMonthEn} `
-    );
+    $("#dates").html(`${gregorianDate} / ${hijriDate} ${hijriMonthEn} `);
     $("#fajr").text(times.Fajr);
     $("#dhuhr").text(times.Dhuhr);
     $("#asr").text(times.Asr);
@@ -113,144 +110,158 @@ $(document).ready(function () {
     $("#schedule").show();
     $("#errorMsg").hide();
 
-    console.log(city, country, data, times)
+    console.log(city, country, data, times);
 
     if (countdownInterval) {
-        clearInterval(countdownInterval);
+      clearInterval(countdownInterval);
     }
 
     updateCountdown(times);
-}
+  }
 
-function adjustTimes(times) {
+  function adjustTimes(times) {
     const adjustedTimes = {
-        Imsak: adjustTime(times.Imsak, 0),    // Adjust imsak time by subtracting 1 minute
-        Fajr: adjustTime(times.Fajr, 0),      // Adjust fajr time by subtracting 1 minute
-        Dhuhr: adjustTime(times.Dhuhr, 3),    // Adjust dhuhr time by subtracting 1 minute
-        Asr: adjustTime(times.Asr, 2),        // Adjust asr time by subtracting 1 minute
-        Maghrib: adjustTime(times.Maghrib, 2),// Adjust maghrib time by subtracting 1 minute
-        Isha: adjustTime(times.Isha, -13),      // Adjust isha time by subtracting 1 minute
-        Sunrise: adjustTime(times.Sunrise, -1),// Adjust sunrise time by subtracting 1 minute
+      Imsak: adjustTime(times.Imsak, 0), // Adjust imsak time by subtracting 1 minute
+      Fajr: adjustTime(times.Fajr, 0), // Adjust fajr time by subtracting 1 minute
+      Dhuhr: adjustTime(times.Dhuhr, 3), // Adjust dhuhr time by subtracting 1 minute
+      Asr: adjustTime(times.Asr, 2), // Adjust asr time by subtracting 1 minute
+      Maghrib: adjustTime(times.Maghrib, 2), // Adjust maghrib time by subtracting 1 minute
+      Isha: adjustTime(times.Isha, -13), // Adjust isha time by subtracting 1 minute
+      Sunrise: adjustTime(times.Sunrise, -1), // Adjust sunrise time by subtracting 1 minute
     };
     return adjustedTimes;
-}
+  }
 
-function adjustTime(time, adjustment) {
-    const timeParts = time.split(':');
+  function adjustTime(time, adjustment) {
+    const timeParts = time.split(":");
     let hours = parseInt(timeParts[0], 10);
     let minutes = parseInt(timeParts[1], 10) + adjustment;
 
     if (minutes < 0) {
-        minutes += 60;
-        hours -= 1;
+      minutes += 60;
+      hours -= 1;
     }
 
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-}
+    return `${hours
+      .toString()
+      .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  }
 
-function updateCountdown(times) {
+  function updateCountdown(times) {
     if (countdownInterval) {
-        clearInterval(countdownInterval);
+      clearInterval(countdownInterval);
     }
 
     var now = new Date();
     var upcomingTime = null;
     var upcomingName = "";
 
-    var relevantPrayers = ["Imsak", "Fajr", "Dhuhr", "Asr", "Maghrib", "Isha", "Sunrise"];
+    var relevantPrayers = [
+      "Imsak",
+      "Fajr",
+      "Dhuhr",
+      "Asr",
+      "Maghrib",
+      "Isha",
+      "Sunrise",
+    ];
 
     var sortedPrayers = relevantPrayers
-        .map((name) => ({
-            name: name,
-            time: new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                now.getDate(),
-                ...times[name].split(":")
-            ),
-        }))
-        .sort((a, b) => a.time - b.time);
+      .map((name) => ({
+        name: name,
+        time: new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          ...times[name].split(":")
+        ),
+      }))
+      .sort((a, b) => a.time - b.time);
 
     for (let prayer of sortedPrayers) {
-        if (prayer.time > now) {
-            upcomingTime = prayer.time;
-            upcomingName = prayer.name;
-            break;
-        }
+      if (prayer.time > now) {
+        upcomingTime = prayer.time;
+        upcomingName = prayer.name;
+        break;
+      }
     }
 
     if (!upcomingTime) {
-        upcomingTime = new Date(
-            sortedPrayers[0].time.getTime() + 24 * 60 * 60 * 1000
-        );
-        upcomingName = sortedPrayers[0].name;
+      upcomingTime = new Date(
+        sortedPrayers[0].time.getTime() + 24 * 60 * 60 * 1000
+      );
+      upcomingName = sortedPrayers[0].name;
     }
 
     function updateTimer() {
       var now = new Date();
       var diff = upcomingTime - now;
       var countdownElement = $("#countdown");
-  
+    
       if (diff <= 0) {
-          clearInterval(countdownInterval);
-          countdownElement.text(`${translatePrayerName(upcomingName)} !!!`);
-          countdownElement.addClass("blink");
+        // Jika waktu sudah habis
+        clearInterval(countdownInterval);
+        countdownElement.text(`${translatePrayerName(upcomingName)} !!!`);
+        countdownElement.addClass("blink");
+        countdownElement.css({
+          "color": "red",
+          "background": "white",
+          "font-weight": "bold"
+        });
+        setTimeout(() => {
+          countdownElement.removeClass("blink");
           countdownElement.css({
-              "color": "red",
-              "background": "white",
-              "font-weight": "bold"
+            "color": "",
+            "background": "",
+            "font-weight": ""
           });
-          setTimeout(() => {
-              countdownElement.removeClass("blink");
-              countdownElement.css({
-                  "color": "", // Reset color to default
-                  "background": "",
-                  "font-weight": ""
-              });
-              updateCountdown(times);
-          }, 30000); // Remove blink and reset styles after 30 seconds
+          updateCountdown(times);
+        }, 30000); // Hapus efek berkedip dan reset gaya setelah 30 detik
       } else {
-          var hours = Math.floor(diff / 1000 / 60 / 60);
-          var minutes = Math.floor((diff / 1000 / 60) % 60);
-          var seconds = Math.floor((diff / 1000) % 60);
-  
-          if (diff <= 10000) { // Jika tersisa kurang dari atau sama dengan 10 detik
-              countdownElement.addClass("blink");
-              countdownElement.css("color", "red");
-          } else {
-              countdownElement.removeClass("blink");
-              countdownElement.css({
-                  "color": "", // Reset color to default
-                  "background": "",
-                  "font-weight": ""
-              });
-          }
-  
-          countdownElement.html(`
-              <div><b>${translatePrayerName(upcomingName)} ${hours} : ${minutes} : ${seconds} Lagi </b></div>
-          `);
+        // Jika masih ada waktu tersisa
+        var hours = Math.floor(diff / 1000 / 60 / 60);
+        var minutes = Math.floor((diff / 1000 / 60) % 60);
+        var seconds = Math.floor((diff / 1000) % 60);
+    
+        // Format jam, menit, dan detik dengan padding nol
+        var formattedHours = hours.toString().padStart(2, '0');
+        var formattedMinutes = minutes.toString().padStart(2, '0');
+        var formattedSeconds = seconds.toString().padStart(2, '0');
+    
+        if (diff <= 10000) { // Jika tersisa 10 detik atau kurang
+          countdownElement.addClass("blink");
+          countdownElement.css("color", "red");
+        } else {
+          countdownElement.removeClass("blink");
+          countdownElement.css({
+            "color": "",
+            "background": "",
+            "font-weight": ""
+          });
+        }
+    
+        countdownElement.html(`
+          <div><b>${translatePrayerName(upcomingName)} -${formattedHours}:${formattedMinutes}:${formattedSeconds} Lagi </b></div>
+        `);
       }
+    }
+
+    updateTimer();
+    countdownInterval = setInterval(updateTimer, 1000);
   }
-  
-  
 
-  updateTimer();
-  countdownInterval = setInterval(updateTimer, 1000);
-}
-
-function translatePrayerName(englishName) {
+  function translatePrayerName(englishName) {
     const translations = {
-        Imsak: "Imsak",
-        Fajr: "Subuh",
-        Dhuhr: "Dzuhur",
-        Asr: "Ashar",
-        Maghrib: "Maghrib",
-        Isha: "Isya",
-        Sunrise: "Sunrise"
+      Imsak: "Imsak",
+      Fajr: "Subuh",
+      Dhuhr: "Dzuhur",
+      Asr: "Ashar",
+      Maghrib: "Maghrib",
+      Isha: "Isya",
+      Sunrise: "Sunrise",
     };
     return translations[englishName] || englishName;
-}
-
+  }
 
   $("#getSchedule").on("click", function () {
     var city = $("#select2-kabupaten").select2("data")[0].text;
