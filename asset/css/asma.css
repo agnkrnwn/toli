@@ -75,7 +75,7 @@ html {
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   transition: background-color 0.5s ease-in-out;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .quote-nomer {
@@ -127,18 +127,44 @@ html {
 .buttons-container {
   display: flex;
   flex-direction: column;
-  /* Stack groups vertically by default */
   align-items: center;
   gap: 15px;
-  /* Add spacing between groups */
-  margin-top: 10px;
+  padding: 10px;
+}
+
+.title {
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin: 0;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  height: 40px; /* Menetapkan tinggi yang konsisten */
+}
+
+.form-control {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 10px 0 0 10px;
+  font-size: 16px;
+  background-color: #2c2c2c;
+  color: white;
+  height: 100%; /* Mengisi tinggi parent */
+  box-sizing: border-box; /* Memastikan padding tidak menambah ukuran */
 }
 
 .button-group {
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  width: 100%;
 }
 
 .btn {
@@ -159,50 +185,23 @@ html {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-/* Color variations */
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-
-.btn .material-icons {
-  margin-right: 8px;
-}
+.btn-info { background-color: #17a2b8; color: white; }
+.btn-success { background-color: #28a745; color: white; }
+.btn-danger { background-color: #dc3545; color: white; }
+.btn-warning { background-color: #ffc107; color: #212529; }
+.btn-primary { background-color: #007bff; color: white; }
 
 .btn:hover {
-  background-color: #0056b3;
-  /* Darken primary color */
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
-.input-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.form-control {
-  padding: 8px;
-  border: 1px solid #ced4da;
-  /* Match Bootstrap input style */
-  border-radius: 10px;
-  height: auto;
+.input-group .btn {
+  border-radius: 0 10px 10px 0;
+  width: 40px; /* Menyamakan lebar dengan tombol lain */
+  height: 100%; /* Mengisi tinggi parent */
+  padding: 0; /* Menghapus padding */
+  font-size: 20px; /* Menyesuaikan ukuran ikon */
 }
 
 .dark-modal .modal-content {
@@ -220,12 +219,15 @@ html {
   color: #fff; /* Warna ikon close */
 }
 
-
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .buttons-container {
-    flex-direction: column;
-    /* Force vertical stacking on smaller screens */
+@media (max-width: 400px) {
+  .button-group {
+      flex-wrap: wrap;
+  }
+  
+  .btn {
+      width: calc(20%);
+      height: 40px;
+      border-radius: 10px;
   }
 }
+
