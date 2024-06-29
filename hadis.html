@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,42 +19,61 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"}
+                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a", "950": "#172554" }
                     }
                 }
             }
         }
     </script>
 </head>
+
 <body class="bg-gray-100 dark:bg-gray-900 font-sans transition-colors duration-300">
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">Hadith Quotes</h1>
         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
-            <select id="hadith-type" class="w-full sm:w-auto border-2 border-gray-300 bg-white dark:bg-gray-700 dark:text-white h-10 px-5 rounded-lg text-sm focus:outline-none">
+            <select id="hadith-type"
+                class="w-full sm:w-auto border-2 border-gray-300 bg-white dark:bg-gray-700 dark:text-white h-10 px-5 rounded-lg text-sm focus:outline-none">
                 <option value="arbain">Hadits Arbain</option>
                 <option value="bulughul">Bulughul Maram</option>
             </select>
-            <input type="number" id="hadith-number" min="1" class="w-full sm:w-auto border-2 border-gray-300 bg-white dark:bg-gray-700 dark:text-white h-10 px-5 rounded-lg text-sm focus:outline-none" placeholder="Enter hadith number">
-            <button id="fetch-hadith" class="w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg">
-                <i class="fas fa-search mr-2"></i>Get
+            <input type="number" id="hadith-number" min="1"
+                class="w-full sm:w-auto border-2 border-gray-300 bg-white dark:bg-gray-700 dark:text-white h-10 px-5 rounded-lg text-sm focus:outline-none"
+                placeholder="Enter hadith number">
+            <button id="fetch-hadith"
+                class="w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg">
+                <i class="fas fa-search mr-2"> </i>Search
             </button>
-            <button id="random-hadith" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
-                <i class="fas fa-random mr-2"></i>Random
+            <button id="random-hadith"
+                class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                <i class="fas fa-random mr-2"></i>Get
             </button>
-            <button id="toggle-dark-mode" class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg">
-                <i class="fas fa-moon mr-2"></i>Dark Mode
+            <button id="toggle-dark-mode"
+                class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg">
+                <i class="fas fa-moon mr-2"></i>Dark
             </button>
         </div>
         <div id="hadith-container" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-6"></div>
         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button id="copy-hadith" class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">
-                <i class="fas fa-copy mr-2"></i>Copy Hadith
-            </button>
-            <button id="download-image" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">
-                <i class="fas fa-download mr-2"></i>Download as Image
+            <select id="copy-options" class="w-full sm:w-auto border-2 border-gray-300 bg-white dark:bg-gray-700 dark:text-white h-12 px-5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all duration-300">
+                <option value="">-- Pilih opsi copy --</option>
+                <option value="all">Copy semua</option>
+                <option value="title">Copy judul</option>
+                <option value="arabic">Copy teks Arab</option>
+                <option value="translation">Copy terjemahan</option>
+                <option value="title-translation">Copy judul & terjemahan</option>
+                <option value="arabic-translation">Copy teks Arab & terjemahan</option>
+            </select>
+            <!-- <button id="copy-hadith"
+                class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">
+                <i class="fas fa-copy mr-2"></i>
+            </button> -->
+            <button id="download-image"
+                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">
+                <i class="fas fa-download mr-2"></i>Image
             </button>
         </div>
     </div>
     <script src="/asset/js/hadis.js"></script>
 </body>
+
 </html>
