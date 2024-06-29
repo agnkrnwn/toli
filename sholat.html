@@ -14,6 +14,7 @@
     <link href="/asset/css/select2.min.css" rel="stylesheet" />
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/asset/data/hadist/arbain.json">
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -118,17 +119,20 @@
             <i class="fas fa-calendar-alt mr-2"></i>Tampilkan Jadwal
         </button>
 
-        <div id="schedule" class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hidden">
-            <h2 id="location" class="text-2xl font-semibold mb-2 text-gray-900 dark:text-white"></h2>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                <div id="gregorian-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
-                <div id="hijri-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
-                <div id="javanese-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
+        <div class="mt-5 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <div class="flex items-center mb-4">
+                <h2 id="location" class="text-2xl font-semibold text-gray-900 dark:text-white"></h2>
+                <div id="weather-icon" class="ml-5 text-2xl font-semibold"></div>
             </div>
-            
+            <div class="mb-4">
+                <div id="full-date" class="font-semibold text-gray-600 dark:text-gray-400"></div>
+            </div>
             <p id="countdown" class="text-lg font-semibold text-primary-600 dark:text-primary-400 mb-4"></p>
-            
+        </div>
+        
+        
+
+        <div id="schedule" class="mt-5 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hidden">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md">
                     <i class="fas fa-moon text-blue-400 mr-2"></i>
@@ -176,11 +180,10 @@
 
         <div id="errorMsg" class="mt-4 text-red-500 text-center hidden"></div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <script src="/asset/js/jquery-3.6.0.min.js"></script>
+ <script src="/asset/js/jquery-3.6.0.min.js"></script>
     <script src="/asset/js/select2.min.js"></script>
     <script src="/asset/js/sholat2.js"></script>
+    <!-- <script src="/asset/js/weather.js"></script> -->
     
 
 </body>
