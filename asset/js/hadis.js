@@ -96,7 +96,7 @@ document.getElementById('copy-options').addEventListener('change', (event) => {
                 textToCopy = currentHadith.indo;
                 break;
             case 'title-translation':
-                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}`;
+                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}\n\n${currentHadith.number} `;
                 break;
             case 'arabic-translation':
                 textToCopy = `${currentHadith.arab}\n\n${currentHadith.indo}`;
