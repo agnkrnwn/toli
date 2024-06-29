@@ -122,7 +122,7 @@ document.getElementById('download-image').addEventListener('click', () => {
                 width: 1080px; 
                 height: 1920px; 
                 padding: 100px 60px; 
-                background-image: url('asset/icon/bg.jpg');
+                background-image: url('asset/icon/abgg.jpg');
                 background-size: cover;
                 background-position: center;
                 font-family: 'Arial', sans-serif; 
