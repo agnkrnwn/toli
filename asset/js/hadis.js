@@ -96,7 +96,7 @@ document.getElementById('copy-options').addEventListener('change', (event) => {
                 textToCopy = currentHadith.indo;
                 break;
             case 'title-translation':
-                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}`;
+                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}\n${currentHadith.number} `;
                 break;
             case 'arabic-translation':
                 textToCopy = `${currentHadith.arab}\n\n${currentHadith.indo}`;
@@ -114,11 +114,54 @@ document.getElementById('copy-options').addEventListener('change', (event) => {
 
 document.getElementById('download-image').addEventListener('click', () => {
     if (currentHadith) {
-        html2canvas(document.getElementById('hadith-content')).then(canvas => {
+        const includeArabic = document.getElementById('include-arabic').checked;
+        
+        const imageElement = document.createElement('div');
+        imageElement.innerHTML = `
+            <div id="hadith-image" style="
+                width: 1080px; 
+                height: 1920px; 
+                padding: 100px 60px; 
+                background-image: url('asset/icon/bg.jpg');
+                background-size: cover;
+                background-position: center;
+                font-family: 'Arial', sans-serif; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center;">
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.9); 
+                    border-radius: 20px; 
+                    padding: 40px; 
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                    max-height: 1620px; 
+                    overflow-y: auto;">
+                    <h2 style="font-size: 52px; font-weight: 700; color: #020202; margin-bottom: 40px; text-align: center;">${currentHadith.judul || 'Hadith'}</h2>
+                    ${includeArabic ? `<p style="font-size: 40px; color: #020202; margin-bottom: 40px; text-align: right; direction: rtl; line-height: 1.6;">${currentHadith.arab}</p>` : ''}
+                    <p style="font-size: 26px; color: #020202; margin-bottom: 40px; font-style: italic; line-height: 1.4;">${currentHadith.indo}</p>
+                    <p style="font-size: 22px; color: #6b7280; text-align: center;">${currentHadith.number}</p>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(imageElement);
+
+        html2canvas(document.getElementById('hadith-image'), {
+            scale: 2,
+            width: 1080,
+            height: 1920,
+            useCORS: true,
+            scrollY: -window.scrollY,
+            onclone: function(clonedDoc) {
+                clonedDoc.querySelector('#hadith-image > div').style.overflow = 'visible';
+            }
+        }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `hadith_${currentHadith.number}.png`;
+            link.download = `hadith_${currentHadith.number.replace(/\s+/g, '_')}_${includeArabic ? 'with' : 'without'}_arabic.png`;
             link.href = canvas.toDataURL();
             link.click();
+
+            document.body.removeChild(imageElement);
         });
     }
 });
