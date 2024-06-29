@@ -67,17 +67,42 @@
                 <option value="translation">Copy terjemahan</option>
                 <option value="arabic-translation">Copy teks Arab & terjemahan</option>
             </select>
-
+        
             <button id="download-image" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center justify-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
+                Download
             </button>
+        
             <div class="flex items-center">
                 <input type="checkbox" id="include-arabic" checked class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                 <label for="include-arabic" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Arabic?</label>
             </div>
+        
+            <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                <label class="flex items-center">
+                    <input type="radio" name="background" value="with-background" checked class="form-radio text-indigo-600">
+                    <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">With Background</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="background" value="without-background" class="form-radio text-indigo-600">
+                    <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Without Background</span>
+                </label>
+            </div>
+        
+            <div id="background-options" class="flex items-center space-x-2" style="display: none;">
+                <label class="flex items-center">
+                    <input type="radio" name="background-color" value="light" checked class="form-radio text-indigo-600">
+                    <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Light Background</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="radio" name="background-color" value="dark" class="form-radio text-indigo-600">
+                    <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dark Background</span>
+                </label>
+            </div>
         </div>
+        
     </div>
     <script src="/asset/js/hadis.js"></script>
 </body>

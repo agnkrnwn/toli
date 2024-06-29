@@ -96,7 +96,7 @@ document.getElementById('copy-options').addEventListener('change', (event) => {
                 textToCopy = currentHadith.indo;
                 break;
             case 'title-translation':
-                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}\n${currentHadith.number} `;
+                textToCopy = `${currentHadith.judul}\n\n${currentHadith.indo}`;
                 break;
             case 'arabic-translation':
                 textToCopy = `${currentHadith.arab}\n\n${currentHadith.indo}`;
@@ -112,17 +112,56 @@ document.getElementById('copy-options').addEventListener('change', (event) => {
     }
 });
 
+document.querySelectorAll('input[name="background"]').forEach((elem) => {
+    elem.addEventListener('change', function() {
+        const backgroundOptions = document.getElementById('background-options');
+        if (this.value === 'without-background') {
+            backgroundOptions.style.display = 'block';
+        } else {
+            backgroundOptions.style.display = 'none';
+        }
+    });
+});
+
 document.getElementById('download-image').addEventListener('click', () => {
     if (currentHadith) {
         const includeArabic = document.getElementById('include-arabic').checked;
+        const backgroundOption = document.querySelector('input[name="background"]:checked').value;
+        const backgroundColorOption = document.querySelector('input[name="background-color"]:checked').value;
         
+        let backgroundStyle = '';
+        let textColor = '#000';
+        let arabicTextColor = '#1f2937';
+        let headerColor = '#13203a';
+        let secondaryTextColor = '#4b5563';
+        let numberColor = '#6b7280';
+
+        if (backgroundOption === 'with-background') {
+            backgroundStyle = `
+                background-image: url('asset/icon/mosque-pattern.png');
+                background-color: #f5f5f5;
+            `;
+        } else {
+            backgroundStyle = backgroundColorOption === 'dark' ? 
+                'background-color: #333; color: #fff;' : 
+                'background-color: #fff; color: #000;';
+            
+            if (backgroundColorOption === 'dark') {
+                textColor = '#fff';
+                arabicTextColor = '#fff';
+                headerColor = '#fff';
+                secondaryTextColor = '#ccc';
+                numberColor = '#bbb';
+            }
+        }
+
         const imageElement = document.createElement('div');
         imageElement.innerHTML = `
             <div id="hadith-image" style="
                 width: 1080px; 
                 height: 1920px; 
                 padding: 100px 60px; 
-                background-image: url('asset/icon/abgg.jpg');
+                ${backgroundStyle}
                 background-size: cover;
                 background-position: center;
                 font-family: 'Arial', sans-serif; 
@@ -130,16 +169,16 @@ document.getElementById('download-image').addEventListener('click', () => {
                 flex-direction: column; 
                 justify-content: center;">
                 <div style="
-                    background-color: rgba(255, 255, 255, 0.9); 
+                    background-color: ${backgroundOption === 'with-background' ? 'rgba(255, 255, 255, 0.9)' : 'transparent'}; 
                     border-radius: 20px; 
                     padding: 40px; 
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                    box-shadow: ${backgroundOption === 'with-background' ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none'}; 
                     max-height: 1620px; 
                     overflow-y: auto;">
-                    <h2 style="font-size: 52px; font-weight: 700; color: #020202; margin-bottom: 40px; text-align: center;">${currentHadith.judul || 'Hadith'}</h2>
-                    ${includeArabic ? `<p style="font-size: 40px; color: #020202; margin-bottom: 40px; text-align: right; direction: rtl; line-height: 1.6;">${currentHadith.arab}</p>` : ''}
-                    <p style="font-size: 26px; color: #020202; margin-bottom: 40px; font-style: italic; line-height: 1.4;">${currentHadith.indo}</p>
-                    <p style="font-size: 22px; color: #6b7280; text-align: center;">${currentHadith.number}</p>
+                    <h2 style="font-size: 52px; font-weight: 700; color: ${headerColor}; margin-bottom: 40px; text-align: center;">${currentHadith.judul || 'Hadith'}</h2>
+                    ${includeArabic ? `<p style="font-size: 40px; color: ${arabicTextColor}; margin-bottom: 40px; text-align: right; direction: rtl; line-height: 1.6;">${currentHadith.arab}</p>` : ''}
+                    <p style="font-size: 26px; color: ${secondaryTextColor}; margin-bottom: 40px; font-style: italic; line-height: 1.4;">${currentHadith.indo}</p>
+                    <p style="font-size: 22px; color: ${numberColor}; text-align: center;">${currentHadith.number}</p>
                 </div>
             </div>
         `;
@@ -165,6 +204,7 @@ document.getElementById('download-image').addEventListener('click', () => {
         });
     }
 });
+
 
 // Fetch a random hadith on page load
 const initialType = document.getElementById('hadith-type').value;

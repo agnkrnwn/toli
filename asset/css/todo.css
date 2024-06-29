@@ -265,6 +265,7 @@ h1 {
         padding: 0 15px; /* Sesuaikan padding */
         /* background-color: rgba(255, 255, 255, 0.712);
         color: #000000"; */
+        
     }
 }
 
@@ -292,4 +293,30 @@ h1 {
                     <p style="font-size: 26px; color: #4b5563; margin-bottom: 40px; font-style: italic; line-height: 1.4;">${currentHadith.indo}</p>
                     <p style="font-size: 22px; color: #6b7280; text-align: center;">${currentHadith.number}</p>
                 </div>
-            </div> */
+            </div> 
+            
+            
+            <div id="hadith-image" style="
+                width: 1080px; 
+                height: 1920px; 
+                padding: 100px 60px; 
+                background-image: url('asset/icon/mosque-pattern.png');
+                background-size: cover;
+                background-position: center;
+                font-family: 'Arial', sans-serif; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center;">
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.9); 
+                    border-radius: 20px; 
+                    padding: 40px; 
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                    max-height: 1620px; 
+                    overflow-y: auto;">
+                    <h2 style="font-size: 52px; font-weight: 700; color: #2563eb; margin-bottom: 40px; text-align: center;">${currentHadith.judul || 'Hadith'}</h2>
+                    ${includeArabic ? `<p style="font-size: 40px; color: #1f2937; margin-bottom: 40px; text-align: right; direction: rtl; line-height: 1.6;">${currentHadith.arab}</p>` : ''}
+                    <p style="font-size: 26px; color: #4b5563; margin-bottom: 40px; font-style: italic; line-height: 1.4;">${currentHadith.indo}</p>
+                    <p style="font-size: 22px; color: #6b7280; text-align: center;">${currentHadith.number}</p>
+                </div>
+            </div>*/
