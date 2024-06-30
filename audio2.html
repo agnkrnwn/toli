@@ -48,26 +48,24 @@
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
     <div class="container max-w-md mx-auto bg-secondary rounded-xl shadow-lg overflow-hidden">
         <div class="p-6 space-y-4">
-            <div class="h-6 overflow-hidden">
-                <div id="surah-qari-title" class="marquee text-lg font-semibold text-primary"></div>
-            </div>
             <div class="aspect-w-1 aspect-h-1 w-full">
                 <img class="object-cover w-full h-full rounded-lg" src="/asset/data/quran.png" alt="Quran Cover">
             </div>
-            
-            <div id="waveform" class="w-full h-20"></div>
-
+            <div class="h-6 overflow-hidden">
+                <div id="surah-qari-title" class="marquee text-lg font-semibold text-primary"></div>
+            </div>
+            <div id="waveform" class="w-full h-10 mb-3"></div>
             <div class="space-y-3">
                 <select id="language-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
                 <select id="surah-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
                 <select id="reciter-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
             </div>
 
-            <div class="flex justify-center space-x-6">
+            <div class="flex justify-center space-x-6 mb-5 mt-5">
                 <button onclick="previousSurah()" class="text-gray-400 hover:text-primary transition-colors">
                     <i class="fas fa-step-backward fa-2x"></i>
                 </button>
-                <button onclick="togglePlay()" class="text-white bg-primary rounded-full p-4 hover:bg-green-600 transition-colors">
+                <button onclick="togglePlay()" class="text-white hover:text-primary transition-colors">
                     <i id="play-pause-icon" class="fas fa-play fa-2x"></i>
                 </button>
                 <button onclick="nextSurah()" class="text-gray-400 hover:text-primary transition-colors">
