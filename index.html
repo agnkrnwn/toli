@@ -1,158 +1,110 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web App</title>
-    <link rel="icon" href="asset/icon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/asset/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/asset/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/asset/icon/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="asset/css/all.min.css">
+    <title>Islamic App Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
     <style>
-        @font-face {
-            font-family: 'Poppins';
-            src: url('/asset/font/Poppins-Bold.ttf') format('truetype');
-            font-weight: 700;
-            font-style: normal;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1e1e2e;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #1e1e1e;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            max-width: 800px;
-            width: 90%;
-        }
-        h1 {
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .app-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .app-item {
-            background-color: #2c2c2c;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .app-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
-        .app-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-            color: #3498db;
-        }
-        .app-name {
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-        .app-link {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .app-link:hover {
-            background-color: #2980b9;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Aplikasi</h1>
-        <div class="app-list">
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-book-quran"></i></div>
-                <div class="app-name">Al-Qur'an</div>
-                <a href="quran.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-mosque"></i></div>
-                <div class="app-name">Hadist</div>
-                <a href="hadist.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-book"></i></div>
-                <div class="app-name">Hadist v2</div>
-                <a href="hadis.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-headphones-alt"></i></div>
-                <div class="app-name">Audio Quran</div>
-                <a href="audio.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-star-and-crescent"></i></div>
-                <div class="app-name">Asmaul Husna</div>
-                <a href="asmaul.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="app-name">Jadwal Sholat</div>
-                <a href="sholat.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-qrcode"></i></div>
-                <div class="app-name">QR code</div>
-                <a href="qr.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-calculator"></i></div>
-                <div class="app-name">Hitung Bahan</div>
-                <a href="bahan.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-list-alt"></i></div>
-                <div class="app-name">To Do List</div>
-                <a href="todo.html" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="app-name">Hitung Modal</div>
-                <a href="https://lusin.netlify.app/" class="app-link">Buka Aplikasi</a>
-            </div>
-            <div class="app-item">
-                <div class="app-icon"><i class="fas fa-tags"></i></div>
-                <div class="app-name">Label Generator</div>
-                <a href="https://label-izza.netlify.app" class="app-link">Buka Aplikasi</a>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <nav class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">Islamic App Hub</h1>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                <i class="fas fa-moon text-blue-300 hidden dark:inline"></i>
+            </button>
+        </nav>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- App items here -->
+        </div>
+    </div>
+
+    <div id="appModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-lg max-w-md w-full">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="mb-4"></p>
+            <div class="flex justify-end">
+                <a id="modalLink" href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 mr-2">Buka Aplikasi</a>
+                <button id="closeModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300">Tutup</button>
             </div>
         </div>
     </div>
+
     <script>
+        const apps = [
+            { name: "Al-Qur'an", icon: "fas fa-book-quran", color: "blue", link: "quran.html", description: "Baca Al-Qur'an dengan terjemahan dan tafsir" },
+            { name: "Al-Qur'an v2", icon: "fas fa-quran", color: "green", link: "quran2.html", description: "Versi terbaru aplikasi Al-Qur'an dengan fitur tambahan" },
+            { name: "Hadist", icon: "fas fa-mosque", color: "yellow", link: "hadist.html", description: "Kumpulan hadist sahih dengan penjelasan" },
+            { name: "Hadist v2", icon: "fas fa-book", color: "red", link: "hadis.html", description: "Versi terbaru aplikasi Hadist dengan pencarian lanjutan" },
+            { name: "Audio Quran", icon: "fas fa-headphones-alt", color: "purple", link: "audio.html", description: "Dengarkan bacaan Al-Qur'an dari qari terkenal" },
+            { name: "Audio Quran v2", icon: "fas fa-music", color: "teal", link: "audio2.html", description: "Dengarkan bacaan Al-Qur'an dari qari terkenal" },
+            { name: "Asmaul Husna", icon: "fas fa-star-and-crescent", color: "indigo", link: "asmaul.html", description: "Pelajari 99 nama Allah dengan maknanya" },
+            { name: "Jadwal Sholat", icon: "fas fa-calendar-alt", color: "pink", link: "sholat.html", description: "Jadwal sholat akurat untuk lokasi Anda" },
+            { name: "QR code", icon: "fas fa-qrcode", color: "gray", link: "qr.html", description: "Generate dan scan QR code untuk berbagai keperluan" },
+            { name: "Hitung Bahan", icon: "fas fa-calculator", color: "teal", link: "bahan.html", description: "Kalkulator khusus untuk menghitung bahan masakan" },
+            { name: "To Do List", icon: "fas fa-list-alt", color: "orange", link: "todo.html", description: "Kelola tugas dan kegiatan harian Anda" },
+            { name: "Hitung Modal", icon: "fas fa-chart-line", color: "cyan", link: "https://lusin.netlify.app/", description: "Alat untuk menghitung dan merencanakan modal usaha" },
+            { name: "Label Generator", icon: "fas fa-tags", color: "lime", link: "https://label-izza.netlify.app", description: "Buat label kustom untuk produk atau kemasan" },
+        ];
+
+        const appContainer = document.querySelector('.grid');
+        const modal = document.getElementById('appModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalLink = document.getElementById('modalLink');
+        const closeModal = document.getElementById('closeModal');
+
+        apps.forEach(app => {
+            const appElement = document.createElement('div');
+            appElement.className = `bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition duration-300 p-6 flex flex-col items-center cursor-pointer transform hover:-translate-y-1`;
+            appElement.innerHTML = `
+                <div class="text-4xl mb-4 text-${app.color}-500"><i class="${app.icon}"></i></div>
+                <h2 class="text-xl font-semibold mb-4">${app.name}</h2>
+            `;
+            appElement.addEventListener('click', () => openModal(app));
+            appContainer.appendChild(appElement);
+        });
+
+        function openModal(app) {
+            modalTitle.textContent = app.name;
+            modalDescription.textContent = app.description;
+            modalLink.href = app.link;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
-                .then(function (registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                })
-                .catch(function (error) {
-                    console.log('ServiceWorker registration failed: ', error);
-                });
+                .then(registration => console.log('ServiceWorker registration successful with scope: ', registration.scope))
+                .catch(error => console.log('ServiceWorker registration failed: ', error));
         }
     </script>
 </body>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#1F2937',
+                    }
+                }
+            },
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #4B5563;
+            border-radius: 20px;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="container max-w-md mx-auto bg-secondary rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6 space-y-4">
+            <div class="h-6 overflow-hidden">
+                <div id="surah-qari-title" class="marquee text-lg font-semibold text-primary"></div>
+            </div>
+            <div class="aspect-w-1 aspect-h-1 w-full">
+                <img class="object-cover w-full h-full rounded-lg" src="/asset/data/quran.png" alt="Quran Cover">
+            </div>
+            
+            <div id="waveform" class="w-full h-20"></div>
+
+            <div class="space-y-3">
+                <select id="language-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
+                <select id="surah-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
+                <select id="reciter-select" class="w-full bg-gray-700 text-white rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"></select>
+            </div>
+
+            <div class="flex justify-center space-x-6">
+                <button onclick="previousSurah()" class="text-gray-400 hover:text-primary transition-colors">
+                    <i class="fas fa-step-backward fa-2x"></i>
+                </button>
+                <button onclick="togglePlay()" class="text-white bg-primary rounded-full p-4 hover:bg-green-600 transition-colors">
+                    <i id="play-pause-icon" class="fas fa-play fa-2x"></i>
+                </button>
+                <button onclick="nextSurah()" class="text-gray-400 hover:text-primary transition-colors">
+                    <i class="fas fa-step-forward fa-2x"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <i id="volume-icon" class="fas fa-volume-up text-gray-400"></i>
+                <input type="range" id="volume-slider" class="w-full" min="0" max="1" step="0.1" value="1">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/asset/js/audio2.js"></script>
+</body>
+</html>
