@@ -15,12 +15,20 @@ document.addEventListener('DOMContentLoaded', function() {
         barWidth: 2,
         barRadius: 3,
         cursorWidth: 1,
-        height: 40,
+        height: 25,
         barGap: 3
     });
 
     wavesurfer.on('finish', function() {
         nextSurah();
+    });
+
+    wavesurfer.on('audioprocess', function() {
+        updateTimeDisplay();
+    });
+
+    wavesurfer.on('ready', function() {
+        updateTimeDisplay();
     });
 });
 
@@ -117,6 +125,7 @@ function playAudio(reciterId, surahId) {
                 wavesurfer.play();
                 isPlaying = true;
                 updatePlayPauseIcon();
+                updateTimeDisplay();
             });
         } else {
             alert(`The selected reciter (${reciter.name}) does not have Surah ${surah.name} available.`);
@@ -184,6 +193,21 @@ function updateVolumeIcon(volume) {
     } else {
         volumeIcon.classList.add('fa-volume-off');
     }
+}
+
+// New functions for time display
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimeDisplay() {
+    const currentTime = wavesurfer.getCurrentTime();
+    const duration = wavesurfer.getDuration();
+    
+    document.getElementById('current-time').textContent = formatTime(currentTime);
+    document.getElementById('duration').textContent = formatTime(duration);
 }
 
 // Add event listeners for surah and reciter selection changes
