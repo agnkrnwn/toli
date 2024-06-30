@@ -1,10 +1,10 @@
 {
-    "name": "My Project App",
-    "short_name": "WEB APP",
-    "start_url": "index.html",
+    "name": "Islamic App Hub",
+    "short_name": "I A H",
+    "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#1e1e1e",
-    "theme_color": "#000000",
+    "background_color": "#1f2937",
+    "theme_color": "#1f2937",
     "icons": [
       {
         "src": "/asset/android/android-launchericon-512-512.png",
