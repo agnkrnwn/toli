@@ -1,10 +1,12 @@
-const CACHE_NAME = "SUPERAPP-cache-v3.0";
+const CACHE_NAME = "islam-hub-app-cache-v1.0";
 const urlsToCache = [
   "/",
   "/asmaul.html",
 "/audio.html", 
+"/audio2.html",
 "/bahan.html", 
 "/hadist.html",
+"/hadis.html",
 "/index.html", 
 "/manifest.json",
 "/qr.html",
@@ -72,6 +74,7 @@ const urlsToCache = [
 "/asset/js/bootstrap.min.js",
 "/asset/js/FileSaver.min.js",
 "/asset/js/hadist.js",
+"/asset/js/hadis.js",
 "/asset/js/hadist2.js",
 "/asset/js/html2canvas.min.js",
 "/asset/js/jquery-3.6.0.min.js",
@@ -84,6 +87,7 @@ const urlsToCache = [
 "/asset/js/select-bootstrap.bundle.min.js",
 "/asset/js/select2.min.js",
 "/asset/js/sholat.js",
+"/asset/js/sholat2.js",
 "/asset/js/todo.js",
 "/asset/js/bahan.js",
 "/asset/js/hadis.js",
