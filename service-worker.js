@@ -1,4 +1,4 @@
-const CACHE_NAME = "final-app-iah-v1.2";
+const CACHE_NAME = "fisl-app-iah-v1-211";
 const urlsToCache = [
   "/",
   "/index.html",
@@ -17,7 +17,6 @@ const urlsToCache = [
   "/app/todo/index.html",
   "/app/yasin/index.html",
   "/asset/background/background1.jpg",
-  "/asset/background/background3.jpg",
   "/asset/background/background2.jpg",
   "/asset/background/background3.jpg",
   "/asset/background/background4.jpg",

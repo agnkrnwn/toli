@@ -81,18 +81,6 @@
         <div class="quote-latin" id="quote-latin"></div>
         <div class="quote-arti" id="quote-arti"></div>
     </div>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(function (registration) {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                })
-                .catch(function (error) {
-                    console.log('ServiceWorker registration failed: ', error);
-                });
-        }
-    </script>
     <script src="../../asset/js/asma.js"></script>
     <script src="../../asset/js/jquery.slim.min.js"></script>
     <script src="../../asset/js/bootstrap.min.js"></script>
