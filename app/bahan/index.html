@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Bahan Modern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="../../asset/css/bahan.css">
+    <style>
+        #svgContainer svg {
+            width: 100%;
+            height: auto;
+            transform-origin: 0 0;
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary-600 dark:text-primary-400">Kalkulator Bahan</h1>
+            <button id="themeToggle"
+                class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400">
+                <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <form id="hitungForm"
+            class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 transition-colors duration-300 ease-in-out">
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="lebarBahan">
+                    Lebar Bahan (cm)
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400"
+                    id="lebarBahan" type="number" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="lebarPola">
+                    Lebar Pola (cm)
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400"
+                    id="lebarPola" type="number" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="panjangPola">
+                    Panjang Pola (cm)
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400"
+                    id="panjangPola" type="number" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="jumlahLusin">
+                    Jumlah Lusin
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400"
+                    id="jumlahLusin" type="number" value="1" min="1" required>
+            </div>
+            <div class="flex items-center justify-center">
+                <button
+                    class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400 transition-colors duration-300 ease-in-out"
+                    type="button" onclick="hitungBahan()">
+                    Hitung Kebutuhan Bahan
+                </button>
+            </div>
+        </form>
+        <div id="hasil"
+            class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-8 py-6 mb-4 hidden transition-colors duration-300 ease-in-out">
+            <h2 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-4">Hasil Perhitungan</h2>
+            <div id="hasilContent" class="text-gray-700 dark:text-gray-300"></div>
+            <button id="tampilkanVisual"
+                class="mt-4 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-primary-400 transition-colors duration-300 ease-in-out">
+                Tampilkan Visual
+            </button>
+        </div>
+
+        <div id="visualisasi" class="bg-white dark:bg-gray-800 shadow-lg rounded-lg px-4 py-6 mb-4 hidden transition-colors duration-300 ease-in-out">
+            <h2 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-4">Visualisasi</h2>
+            <div class="flex space-x-2 mb-4">
+                <button id="zoomIn" class="bg-primary-600 text-white px-2 py-1 rounded">Zoom In</button>
+                <button id="zoomOut" class="bg-primary-600 text-white px-2 py-1 rounded">Zoom Out</button>
+            </div>
+            <div id="svgContainer" class="overflow-auto max-w-full" style="max-height: 70vh;"></div>
+        </div>
+    </div>
+    <script src="../../asset/js/bahan.js"></script>
+</body>
+
+</html>

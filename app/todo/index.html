@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Todolist & Notes Super Modern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="../../asset/css/todo.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen font-sans">
+    <div class="container mx-auto p-4 max-w-md">
+        <h1 class="text-4xl font-bold mb-6 text-center text-primary-600 dark:text-primary-400">Todolist & Notes</h1>
+        
+        <div class="mb-4 flex items-center justify-between">
+            <button id="toggleTheme" class="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline"></i>
+            </button>
+            <button id="clearCompleted" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+
+        <div class="mb-6">
+            <div class="flex border-b border-gray-200 dark:border-gray-700">
+                <button id="todoTab" class="py-2 px-4 text-sm font-medium text-center text-primary-600 border-b-2 border-primary-600 active" aria-current="page">Tugas</button>
+                <button id="noteTab" class="py-2 px-4 text-sm font-medium text-center text-gray-500 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Catatan</button>
+            </div>
+        </div>
+
+        <div id="todoSection">
+            <form id="todoForm" class="mb-6">
+                <div class="flex items-center bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <input id="todoInput" class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-gray-300 mr-3 py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Tambah tugas baru..." aria-label="Tugas baru">
+                    <button class="flex-shrink-0 bg-primary-500 hover:bg-primary-700 text-white py-3 px-4 transition duration-300 ease-in-out" type="submit">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div id="todoStats" class="mb-4 text-sm text-gray-600 dark:text-gray-400"></div>
+
+            <ul id="todoList" class="space-y-3">
+                <!-- Todo items will be added here dynamically -->
+            </ul>
+        </div>
+
+        <div id="noteSection" class="hidden">
+            <form id="noteForm" class="mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <input id="noteTitle" class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-gray-300 py-3 px-4 leading-tight focus:outline-none" type="text" placeholder="Judul catatan" aria-label="Judul catatan">
+                    <textarea id="noteContent" class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-gray-300 py-3 px-4 leading-tight focus:outline-none" rows="4" placeholder="Isi catatan..." aria-label="Isi catatan"></textarea>
+                    <button class="w-full bg-primary-500 hover:bg-primary-700 text-white py-3 px-4 transition duration-300 ease-in-out" type="submit">
+                        Simpan Catatan
+                    </button>
+                </div>
+            </form>
+
+            <ul id="noteList" class="space-y-3">
+                <!-- Note items will be added here dynamically -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Edit Todo Modal -->
+    <div id="editTodoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Edit Tugas</h3>
+                <div class="mt-2 px-7 py-3">
+                    <input id="editTodoInput" class="w-full px-3 py-2 text-gray-700 dark:text-gray-300 border rounded-lg focus:outline-none bg-transparent" type="text" />
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="saveTodoEdit" class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Note Modal -->
+    <div id="editNoteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Edit Catatan</h3>
+                <div class="mt-2 px-7 py-3">
+                    <input id="editNoteTitle" class="w-full px-3 py-2 text-gray-700 dark:text-gray-300 border rounded-lg focus:outline-none bg-transparent mb-3" type="text" placeholder="Judul" />
+                    <textarea id="editNoteContent" class="w-full px-3 py-2 text-gray-700 dark:text-gray-300 border rounded-lg focus:outline-none bg-transparent" rows="4" placeholder="Isi catatan"></textarea>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="saveNoteEdit" class="px-4 py-2 bg-primary-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const todoForm = document.getElementById('todoForm');
+        const todoInput = document.getElementById('todoInput');
+        const todoList = document.getElementById('todoList');
+        const toggleThemeButton = document.getElementById('toggleTheme');
+        const clearCompletedButton = document.getElementById('clearCompleted');
+        const todoStats = document.getElementById('todoStats');
+        const todoTab = document.getElementById('todoTab');
+        const noteTab = document.getElementById('noteTab');
+        const todoSection = document.getElementById('todoSection');
+        const noteSection = document.getElementById('noteSection');
+        const noteForm = document.getElementById('noteForm');
+        const noteTitle = document.getElementById('noteTitle');
+        const noteContent = document.getElementById('noteContent');
+        const noteList = document.getElementById('noteList');
+        const editTodoModal = document.getElementById('editTodoModal');
+        const editNoteModal = document.getElementById('editNoteModal');
+        const editTodoInput = document.getElementById('editTodoInput');
+        const editNoteTitle = document.getElementById('editNoteTitle');
+        const editNoteContent = document.getElementById('editNoteContent');
+        const saveTodoEdit = document.getElementById('saveTodoEdit');
+        const saveNoteEdit = document.getElementById('saveNoteEdit');
+
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        let currentEditIndex = -1;
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition transform hover:scale-102 hover:shadow-lg';
+                li.innerHTML = `
+                    <div class="flex items-center justify-between p-4">
+                        <div class="flex items-center space-x-3">
+                            <input id="todo${index}" type="checkbox" class="form-checkbox h-5 w-5 text-primary-600 transition duration-150 ease-in-out" ${todo.completed ? 'checked' : ''}>
+                            <label for="todo${index}" class="text-sm font-medium ${todo.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-700 dark:text-gray-200'}">
+                                ${todo.text}
+                            </label>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-yellow-500 hover:text-yellow-700 transition duration-300 ease-in-out" onclick="showEditTodoModal(${index})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-500 hover:text-red-700 transition duration-300 ease-in-out" onclick="deleteTodo(${index})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                todoList.appendChild(li);
+
+                const checkbox = li.querySelector(`#todo${index}`);
+                checkbox.addEventListener('change', () => toggleTodo(index));
+            });
+            updateStats();
+        }
+
+        function renderNotes() {
+            noteList.innerHTML = '';
+            notes.forEach((note, index) => {
+                const li = document.createElement('li');
+                li.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition transform hover:scale-102 hover:shadow-lg';
+                li.innerHTML = `
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">${note.title}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">${note.content}</p>
+                        <div class="flex justify-end space-x-2">
+                            <button class="text-yellow-500 hover:text-yellow-700 transition duration-300 ease-in-out" onclick="showEditNoteModal(${index})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-500 hover:text-red-700 transition duration-300 ease-in-out" onclick="deleteNote(${index})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                noteList.appendChild(li);
+            });
+        }
+
+        function addTodo(text) {
+            todos.push({ text, completed: false });
+            saveTodos();
+            renderTodos();
+        }
+
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            saveTodos();
+            renderTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            saveTodos();
+            renderTodos();
+        }
+
+        function showEditTodoModal(index) {
+            currentEditIndex = index;
+            editTodoInput.value = todos[index].text;
+            editTodoModal.classList.remove('hidden');
+        }
+
+        function addNote(title, content) {
+            notes.push({ title, content });
+            saveNotes();
+            renderNotes();
+        }
+
+        function showEditNoteModal(index) {
+            currentEditIndex = index;
+            editNoteTitle.value = notes[index].title;
+            editNoteContent.value = notes[index].content;
+            editNoteModal.classList.remove('hidden');
+        }
+
+        function deleteNote(index) {
+            notes.splice(index, 1);
+            saveNotes();
+            renderNotes();
+        }
+
+        function clearCompleted() {
+            todos = todos.filter(todo => !todo.completed);
+            saveTodos();
+            renderTodos();
+        }
+
+        function updateStats() {
+            const totalTasks = todos.length;
+            const completedTasks = todos.filter(todo => todo.completed).length;
+            const pendingTasks = totalTasks - completedTasks;
+            todoStats.textContent = `Total: ${totalTasks} | Selesai: ${completedTasks} | Belum: ${pendingTasks}`;
+        }
+
+        function saveTodos() {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        function saveNotes() {
+            localStorage.setItem('notes', JSON.stringify(notes));
+        }
+
+        todoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = todoInput.value.trim();
+            if (text) {
+                addTodo(text);
+                todoInput.value = '';
+            }
+        });
+
+        noteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = noteTitle.value.trim();
+            const content = noteContent.value.trim();
+            if (title && content) {
+                addNote(title, content);
+                noteTitle.value = '';
+                noteContent.value = '';
+            }
+        });
+
+        toggleThemeButton.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        clearCompletedButton.addEventListener('click', clearCompleted);
+
+        todoTab.addEventListener('click', () => {
+            todoTab.classList.add('text-primary-600', 'border-primary-600');
+            noteTab.classList.remove('text-primary-600', 'border-primary-600');
+            todoSection.classList.remove('hidden');
+            noteSection.classList.add('hidden');
+        });
+
+        noteTab.addEventListener('click', () => {
+            noteTab.classList.add('text-primary-600', 'border-primary-600');
+            todoTab.classList.remove('text-primary-600', 'border-primary-600');
+            noteSection.classList.remove('hidden');
+            todoSection.classList.add('hidden');
+        });
+
+        saveTodoEdit.addEventListener('click', () => {
+            if (currentEditIndex !== -1) {
+                todos[currentEditIndex].text = editTodoInput.value.trim();
+                saveTodos();
+                renderTodos();
+                editTodoModal.classList.add('hidden');
+            }
+        });
+
+        saveNoteEdit.addEventListener('click', () => {
+            if (currentEditIndex !== -1) {
+                notes[currentEditIndex].title = editNoteTitle.value.trim();
+                notes[currentEditIndex].content = editNoteContent.value.trim();
+                saveNotes();
+                renderNotes();
+                editNoteModal.classList.add('hidden');
+            }
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === editTodoModal) {
+                editTodoModal.classList.add('hidden');
+            }
+            if (e.target === editNoteModal) {
+                editNoteModal.classList.add('hidden');
+            }
+        });
+
+        renderTodos();
+        renderNotes();
+    </script>
+</body>
+</html>

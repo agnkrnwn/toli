@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Asmaul Husna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+
+    <link href="../../asset/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../asset/css/asma.css">
+</head>
+
+<body>
+    <div class="container my-2">
+        <div class="buttons-container">
+            <h2 style="color: white; font-size: 24px; text-align: center;">Asmaul Husna</h2>
+            <div class="input-group">
+                <input type="number" id="quote-number-input" class="form-control" placeholder="Nomor">
+                <button class="btn btn-info" onclick="generateQuoteByNumber()">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-success" onclick="generateQuote()">
+                    <i class="material-icons">shuffle</i>
+                </button>
+                <button class="btn btn-danger" onclick="downloadQuote()">
+                    <i class="material-icons">save_alt</i>
+                </button>
+                <a id="search-link" href="https://infoasmaulhusna.blogspot.com/search?q=" class="btn btn-warning" target="_blank">
+                    <i class="material-icons">link</i>
+                </a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quoteModal" onclick="showDetail()">
+                    <i class="material-icons">info</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade dark-modal" id="quoteModal" tabindex="-1" aria-labelledby="quoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quoteModalLabel"></h5>
+                    <h5 id="quote-judul"> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="material-icons">cancel</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="quote-content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" onclick="copyDetail()">
+                        <i class="material-icons">content_copy</i>salin </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="quote-box " id="quote-box" style="background-image: url('../../asset/background/background2.jpg');">
+        <div class="quote-title" id="quote-title">أسماء الله الحسنى</div>
+        <div class="quote-arab" id="quote-nomer"></div>
+        <div class="quote-arab" id="quote-arab"></div>
+        <div class="quote-latin" id="quote-latin"></div>
+        <div class="quote-arti" id="quote-arti"></div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function (registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                })
+                .catch(function (error) {
+                    console.log('ServiceWorker registration failed: ', error);
+                });
+        }
+    </script>
+    <script src="../../asset/js/asma.js"></script>
+    <script src="../../asset/js/jquery.slim.min.js"></script>
+    <script src="../../asset/js/bootstrap.min.js"></script>
+    <script src="../../asset/js/html2canvas.min.js"></script>
+    <script src="../../asset/js/FileSaver.min.js"></script>
+    <script src="../../asset/js/popper.min.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quran Quote Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+  <!-- Bootstrap CSS -->
+  <link href="../../asset/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../asset/css/quran.css">
+  
+</head>
+
+<body>
+  <div class="container my-2">
+    <div class="buttons">
+      <div class="row mb-2 center">
+        <h2 style="color: white; font-size: 24px; text-align: center; margin-top: 20px; margin-bottom: 15px;">QURAN QUOTE APP</h2>
+      </div>
+      <select id="qari-dropdown" class="form-select">
+        <!-- Options will be populated by JavaScript -->
+      </select>
+      <div class="audio-section">
+        <div class="audio-wrapper">
+          <!-- <p class=" text-center" id="qari-title">not found</p> -->
+          <div id="audio-title" class="audio-title">No audio playing</div>
+          <audio id="audioPlayer" class="w-100" controls>
+            Your browser does not support the audio element.s
+          </audio>
+          <div class="input-group mb-3 mt-3 ">
+            <input type="number" id="surah-number" class="form-control" placeholder="Surah">
+            <input type="number" id="ayah-number" class="form-control" placeholder="Ayah">
+          </div>
+          <div class="mt-3 d-flex justify-content-between">
+            <button id="generate-quote" class="btn btn-primary w-32">
+              <i class="material-icons">shuffle</i>
+            </button>
+            <button id="generate-by-number" class="btn btn-info w-32">
+              <i class="material-icons">search</i>
+            </button>
+            <button id="save-screenshot" class="btn btn-danger w-32">
+              <i class="material-icons">download</i>
+            </button>
+            <button id="toggle-random-bg" class="btn btn-success w-32">
+              <i class="material-icons">autorenew</i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <button id="installButton" class="btn btn-warning">Install App</button> -->
+    </div>
+
+
+    <div class="potrait-container">
+      <div class="potrait" style="background-image: url('../../asset/background/background12.jpg');">
+        <div id="quote" class="quote-box">
+          <div id="quote-arabic" class="quote-arabic">
+            <!-- Arabic text will be inserted here -->
+          </div>
+          <div id="quote-transliteration" class="quote-transliteration">
+
+          </div>
+          <div id="quote-translation" class="quote-translation">
+            <!-- Translation text will be inserted here -->
+          </div>
+          <div id="quote-details" class="quote-details">
+            <!-- Surah details will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </script>
+  <script src="../../asset/js/jquery.min.js"></script>
+  <script src="../../asset/js/bootstrap.min.js"></script>
+  <script src="../../asset/js/html2canvas.min.js"></script>
+  <script src="../../asset/js/FileSaver.min.js"></script>
+  <script src="../../asset/js/quran.js"></script>
+</body>
+
+</html>

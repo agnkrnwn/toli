@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
+
 <head>
     <meta charset="UTF-8">
+    <title>App Hub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamic App Hub</title>
-    <link rel="icon" href="asset/icon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/asset/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/asset/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/asset/icon/favicon-16x16.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="./asset/icon/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./asset/icon/icon-512x512.png">
+    <link rel="apple-touch-icon" href="../asset/icon/icon-192x192.png">
+    <meta property="og:image" content="./asset/icon/icon-512x512.png">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="description" content="Aplikasi Untuk Konten Juga Untuk Mengaji">
+    <meta property="og:title" content="My Project App Hub">
+    <meta property="og:description" content="Kumpulan Aplikasi">
+
+
+
+    <link rel="manifest" href="./manifest.json">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                    },
-                },
-            },
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("./service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-    </style>
+    <link href="./asset/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./asset/css/indexx.css">
 </head>
-<body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+
+<body
+    class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
     <div class="container mx-auto px-4 py-8">
         <nav class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">Islamic App Hub</h1>
-            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+                Islamic App Hub</h1>
+            <button id="themeToggle"
+                class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
                 <i class="fas fa-moon text-blue-300 hidden dark:inline"></i>
             </button>
         </nav>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        <div class="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- App items here -->
         </div>
     </div>
@@ -47,27 +54,30 @@
             <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
             <p id="modalDescription" class="mb-4"></p>
             <div class="flex justify-end">
-                <a id="modalLink" href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 mr-2">Buka Aplikasi</a>
-                <button id="closeModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300">Tutup</button>
+                <a id="modalLink" href="#"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 mr-2">Buka
+                    Aplikasi</a>
+                <button id="closeModal"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full transition duration-300">Tutup</button>
             </div>
         </div>
     </div>
 
     <script>
         const apps = [
-            { name: "Al-Qur'an", icon: "fas fa-book-quran", color: "blue", link: "quran.html", description: "Baca Al-Qur'an dengan terjemahan dan tafsir" },
-            { name: "Al-Qur'an v2", icon: "fas fa-quran", color: "green", link: "quran2.html", description: "Versi terbaru aplikasi Al-Qur'an dengan fitur tambahan" },
-            { name: "Hadist", icon: "fas fa-mosque", color: "yellow", link: "hadist.html", description: "Kumpulan hadist sahih dengan penjelasan" },
-            { name: "Hadist v2", icon: "fas fa-book", color: "red", link: "hadis.html", description: "Versi terbaru aplikasi Hadist dengan pencarian lanjutan" },
-            { name: "Audio Quran", icon: "fas fa-headphones-alt", color: "purple", link: "audio.html", description: "Dengarkan bacaan Al-Qur'an dari qari terkenal" },
-            { name: "Audio Quran v2", icon: "fas fa-music", color: "teal", link: "audio2.html", description: "Dengarkan bacaan Al-Qur'an dari qari terkenal" },
-            { name: "Asmaul Husna", icon: "fas fa-star-and-crescent", color: "indigo", link: "asmaul.html", description: "Pelajari 99 nama Allah dengan maknanya" },
-            { name: "Jadwal Sholat", icon: "fas fa-calendar-alt", color: "pink", link: "sholat.html", description: "Jadwal sholat akurat untuk lokasi Anda" },
-            { name: "QR code", icon: "fas fa-qrcode", color: "gray", link: "qr.html", description: "Generate dan scan QR code untuk berbagai keperluan" },
-            { name: "Hitung Bahan", icon: "fas fa-calculator", color: "teal", link: "bahan.html", description: "Kalkulator khusus untuk menghitung bahan masakan" },
-            { name: "To Do List", icon: "fas fa-list-alt", color: "orange", link: "todo.html", description: "Kelola tugas dan kegiatan harian Anda" },
-            { name: "Hitung Modal", icon: "fas fa-chart-line", color: "cyan", link: "https://lusin.netlify.app/", description: "Alat untuk menghitung dan merencanakan modal usaha" },
-            { name: "Label Generator", icon: "fas fa-tags", color: "lime", link: "https://label-izza.netlify.app", description: "Buat label kustom untuk produk atau kemasan" },
+            { name: "Qur'an", icon: "fas fa-book-quran", color: "blue", link: "./app/quran/", description: "Baca Al-Qur'an dengan terjemahan dan tafsir" },
+            { name: "Qur'an v2", icon: "fas fa-quran", color: "green", link: "./app/qurann/", description: "Versi terbaru aplikasi Al-Qur'an dengan fitur tambahan" },
+            { name: "Hadist", icon: "fas fa-mosque", color: "orange", link: "./app/hadist/", description: "Kumpulan hadist sahih dengan penjelasan" },
+            { name: "Hadist v2", icon: "fas fa-book", color: "lime", link: "./app/hadis/", description: "Versi terbaru aplikasi Hadist dengan pencarian lanjutan" },
+            { name: "Al-Qur'an", icon: "fas fa-headphones-alt", color: "purple", link: "./app/audio/", description: "Dengarkan bacaan Al-Qur'an dari qari terkenal" },
+            { name: "Yasin", icon: "fas fa-book-reader", color: "cyan", link: "./app/yasin/", description: "Mau Baca Yasin Dan surat Pendek" },
+            { name: "Asmaul", icon: "fas fa-star-and-crescent", color: "indigo", link: "./app/asma/", description: "Pelajari 99 nama Allah dengan maknanya" },
+            { name: "Sholat", icon: "fas fa-calendar-alt", color: "pink", link: "./app/sholat/", description: "Jadwal sholat akurat untuk lokasi Anda" },
+            { name: "QR code", icon: "fas fa-qrcode", color: "green", link: "./app/qr/", description: "Generate dan scan QR code untuk berbagai keperluan" },
+            { name: "To Do List", icon: "fas fa-list-alt", color: "orange", link: "./app/todo/", description: "Kelola tugas dan kegiatan harian Anda" },
+            { name: "Bahan", icon: "fas fa-calculator", color: "teal", link: "./app/bahan/", description: "Kalkulator khusus untuk menghitung bahan masakan" },
+            { name: "Modal", icon: "fas fa-chart-line", color: "cyan", link: "https://lusin.netlify.app/", description: "Alat untuk menghitung dan merencanakan modal usaha" },
+            { name: "Label", icon: "fas fa-tags", color: "lime", link: "https://label-izza.netlify.app", description: "Buat label kustom untuk produk atau kemasan" },
         ];
 
         const appContainer = document.querySelector('.grid');
@@ -106,11 +116,10 @@
             document.documentElement.classList.toggle('dark');
         });
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(registration => console.log('ServiceWorker registration successful with scope: ', registration.scope))
-                .catch(error => console.log('ServiceWorker registration failed: ', error));
-        }
+        console.log(new Date());
+        console.log('les goooooooooooooooooooooooooooo');
+
     </script>
 </body>
+
 </html>

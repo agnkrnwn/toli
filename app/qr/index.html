@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Generator QR Code Modern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+    <link rel="stylesheet" href="../../asset/css/qr.css">
+    
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 space-y-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">Generator QR Code</h1>
+            <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <input type="text" id="input" placeholder="Masukkan teks atau URL" class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary">
+            <button onclick="generateQRCode()" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">Generate QR Code</button>
+        </div>
+        <div class="output space-y-4">
+            <div id="qrcode" class="flex justify-center"></div>
+            <button onclick="showDownloadPopup()" class="w-full bg-secondary hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">Download QR Code</button>
+        </div>
+    </div>
+
+    <div id="popup-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+            <h2 class="text-xl font-bold mb-4 text-primary">Download QR Code</h2>
+            <input type="text" id="filename" placeholder="Masukkan nama file" class="w-full px-4 py-2 mb-4 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary">
+            <div class="flex justify-between">
+                <button onclick="downloadQRCode()" class="bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">Download</button>
+                <button onclick="closePopup()" class="bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../asset/js/qrcode.min.js"></script>
+    <script>
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        function generateQRCode() {
+            const input = document.getElementById('input').value;
+            
+            // Generate QR Code
+            const qr = qrcode(0, 'M');
+            qr.addData(input);
+            qr.make();
+            document.getElementById('qrcode').innerHTML = qr.createImgTag(5);
+        }
+
+        function showDownloadPopup() {
+            document.getElementById('popup-overlay').classList.remove('hidden');
+            document.getElementById('filename').value = 'qrcode';
+        }
+
+        function closePopup() {
+            document.getElementById('popup-overlay').classList.add('hidden');
+        }
+
+        function downloadQRCode() {
+            const qrImage = document.querySelector("#qrcode img");
+            const fileName = document.getElementById('filename').value;
+            if (qrImage && fileName) {
+                const link = document.createElement('a');
+                link.href = qrImage.src;
+                link.download = fileName.endsWith('.png') ? fileName : `${fileName}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                closePopup();
+            }
+        }
+    </script>
+</body>
+</html>

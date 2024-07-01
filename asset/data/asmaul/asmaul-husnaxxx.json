@@ -1,0 +1,906 @@
+[
+  {
+      "urutan": 1,
+      "latin": "Ar Rahman",
+      "arab": "الرحمن",
+      "arti": "Yang Maha Pengasih",
+      "artilengkap": "Yang Maha Pengasih, yaitu pemberi kenikmatan yang agung-agung dan pengasih di dunia.",
+      "quran": "Al-Faatihah: 3",
+      "fadillah": "Barang siapa membaca Ya Rahmaan sebanyak 100 kali tiap selesai mengerjakan sholat fardhu, maka dengan izin Allah akan hilanglah sifat lalai dan lupa dalam dirinya."
+  },
+  {
+      "urutan": 2,
+      "latin": "Ar Rahiim",
+      "arab": "الرحيم",
+      "arti": "Yang Maha Penyayang",
+      "artilengkap": "Yang Maha Penyayang, yaitu pemberi kenikmatan yang di luar jangkaan dan penyayang di akhirat.",
+      "quran": "Al-Faatihah: 3",
+      "fadillah": "Barang siapa takut terjerumus kepada perbuatan yang tidak disukainya, maka hendaklah ia berdzikir dengan membaca Ya Rahmaan Ya Rahiim sebanyak 100 kali setiap selesai mengerjakan sholat fardhu."
+  },
+  {
+      "urutan": 3,
+      "latin": "Al Malik",
+      "arab": "الملك",
+      "arti": "Yang Maha Merajai / Memerintah",
+      "artilengkap": "Yang Maha Merajai/ Menguasai /Pemerintah, yaitu mengatur kerajaanNya sesuai dengan kehendakNya sendiri",
+      "quran": "Al-Mu'minuun: 116",
+      "fadillah": "Barang siapa membaca ism ini dengan rutin tiap hari pada waktu matahari tergelincir sebanyak 100 kali niscaya hatinya akan menjadi bersih, dan lenyaplah segala kekotorannya.\n\n\nBarang siapa membacanya sesudah terbit fajar sebanyak 120 kali, maka Allah akan memberinya kekayaan dan karunia-Nya, baik dengan sebab – sebab maupun dengan pintu yang dibukakan Allah SWT atasnya.\n\n\nMenurut Hadis, Nabi Khaidir a.s mengajarkan doa berikut ini untuk dibacakan kepada orang sakit sebanyak 100 kali : “Allaahhumma anta al – Malik al – Haqq al-ladzii laa ilaaha illaa anta. Yaa Allaah, yaa Salaam, ya Syaafi’ ” dan 3 kali : “yaa Syifaa’ al-quluub” (“Ya Allah, Engkau adalah Raja yang sebenarnya, tidak ada Tuhan selain Engkau. Ya Allah, wahai Sumber Kedamaian , wahai Yang Maha Penyembuh; wahai Penyembuh Hati!”). Insya Allah orang itu akan sembuh."
+  },
+  {
+      "urutan": 4,
+      "latin": "Al Quddus",
+      "arab": "القدوس",
+      "arti": "Yang Maha Suci",
+      "artilengkap": "Yang Maha Suci, yaitu tersuci dan bersih dari segala cela dan kekurangan.",
+      "quran": "Al-Jumu'ah: 1",
+      "fadillah": "Jika seseorang yang memiliki hati yang bersih membaca yaa Qudduus sebanyak 100 kali setiap hari, hatinya akan terbebas dari semua pikiran dan perhatian yang menimbulkan kesulitan, kekhawatiran, dan penderitaan bagi diri kita sendiri."
+  },
+  {
+      "urutan": 5,
+      "latin": "As Salaam",
+      "arab": "السلام",
+      "arti": "Yang Maha Memberi Kesejahteraan",
+      "artilengkap": "Yang Maha Memberi Kesejahteraan, Maha Penyelamat yaitu pemberi keselamatan dan kesejahteraan kepada seluruh makhlukNya.",
+      "quran": "Al-Hasyr: 23",
+      "fadillah": "Ism ini berfungsi mengusir bencana dan penyakit, sehingga jika dibacakan atas orang yang sedang menderita sakit sebanyak 120 kali, dengan karunia Allah penyakitnya akan sembuh selama ajalnya belum tiba."
+  },
+  {
+      "urutan": 6,
+      "latin": "Al Mu 'min",
+      "arab": "المؤمن",
+      "arti": "Yang Maha Memberi Keamanan",
+      "artilengkap": "Yang Maha Memberi Keamanan, Maha Pengaman / Pemelihara keamanan, iaitu siapa yang bersalah dan makhlukNya itu benar-benar akan diberi seksa, sedang kepada yang taat akan benar-benar dipenuhi janjiNya dengan pahala yang baik.",
+      "quran": "Al-Hasyr: 23",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini sebanyak 630 kali pada saat mengalami ketakutan, Allah akan melindunginya dari semua bencana, kecelakaan dan kerugian."
+  
+  },
+  {
+      "urutan": 7,
+      "latin": "Al Muhaimin",
+      "arab": "المهيمن",
+      "arti": "Yang Maha Pemelihara",
+      "artilengkap": "Yang Maha Mengatur, Maha Pelindung/Penjaga / Maha Pengawal serta Pengawas, iaitu memerintah dan melindungi segala sesuatu.",
+      "quran": "Al-Hasyr: 23",
+      "fadillah": "Barang siapa membaca Asma Allah ini sebanyak 100 sesudah mandi dan sholat dua rakaat ditempat yang sunyi dengan memusatkan perhatian kepada Allah SWT, niscaya Allah akan menyucikan lahir dan batinnya."
+  },
+  {
+      "urutan": 8,
+      "latin": "Al 'Aziiz",
+      "arab": "العزيز",
+      "arti": "Yang Maha Perkasa",
+      "artilengkap": "Yang Maha Perkasa, Maha Mulia / Maha Berkuasa yaitu kuasaNya mampu untuk berbuat sekehendakNya",
+      "quran": "Ali 'Imran: 62",
+      "fadillah": "Barang siapa yang berdzikir dengan Asma Allah ini selama 40 hari, tiap harinya sebanyak 40 kali, niscaya Allah akan menolongnya dan memuliakannya, sehingga ia tidak lagi membutuhkan bantuan seorang makhluk pun."
+  },
+  {
+      "urutan": 9,
+      "latin": "Al Jabbar",
+      "arab": "الجبار",
+      "arti": "Yang Memiliki Mutlak Kegagahan",
+      "artilengkap": "Yang Memiliki Mutlak Kegagahan, Maha Perkasa / Maha Kuat / Yang Menundukkan Segalanya, iaitu mencukupi segala keperluan, melangsungkan segala perintahNya serta memperbaiki keadaan seluruh hambaNya.",
+      "quran": "Al-Hasyr: 23",
+      "fadillah": "Barang siapa dengan sungguh-sungguh beriman kepada kekuatan Allah yang tak terkalahkan itu dan mengharapkan kekuatan dapat membaca yaa Jabbaar sebanyak 21 kali di pagi dan sore hari, Insya Allah dia akan terhindar dari ancaman orang-orang yang zalim."
+  },
+  {
+      "urutan": 10,
+      "latin": "Al Mutakabbir",
+      "arab": "المتكبر",
+      "arti": "Yang Maha Megah, Yang Memiliki Kebesaran",
+      "artilengkap": "Yang Maha Megah, Yang Memiliki Kebesaran / Maha Pelengkap Kebesaran yaitu yang melengkapi segala kebesaranNya, menyendiri dengan sifat keagungan dan kemegahanNya.",
+      "quran": "Al-Hasyr: 23",
+      "fadillah": "Jika seseorang membaca yaa Mutakabbir sebanyak 10 kali sebelum bersebadan dengan istrinya, niscaya mereka akan mendapatkan anak yang sholeh."
+  },
+  {
+      "urutan": 11,
+      "latin": "Al Khaliq",
+      "arab": "الخالق",
+      "arti": "Yang Maha Pencipta",
+      "artilengkap": "Yang Maha Pencipta, iaitu mengadakan seluruh makhluk tanpa asal, juga yang menakdirkan adanya semua itu.",
+      "quran": "Ar-Ra'd: 16",
+      "fadillah": "Jika Asma Allah ini dibaca ditengah malam dan memahami maknanya di dalam hatinya, niscaya Allah akan secara khusus akan menciptakan untuknya seorang malaikat yang akan mendoakannya hingga akhir zaman. Juga berguna untuk menerangi hati dan wajah."
+  },
+  {
+      "urutan": 12,
+      "latin": "Al Baari '",
+      "arab": "البارئ",
+      "arti": "Yang Maha Melepaskan(Membuat, Membentuk, Menyeimbangkan)",
+      "artilengkap": "Yang Maha Melepaskan, Maha Pembuat / Maha Perancang / Maha Menjadikan, iaitu mengadakan sesuatu yang bernyawa yang ada asal mulanya.",
+      "quran": "Al-Hasyr: 24",
+      "fadillah": "Jika Seorang wanita yang mandul berpuasa selama 7 hari dan setiap hari setelah berbuka dengan air kemudian membaca Yaa Baari'uu yaa Mushawwiru sebanyak 21 kali, Allah SWT akan mengaruniakan kepadanya seorang anak lelaki, Insya Allah."
+  
+  },
+  {
+      "urutan": 13,
+      "latin": "Al Mushawwir",
+      "arab": "المصور",
+      "arti": "Yang Maha Membentuk Rupa(makhluknya)",
+      "artilengkap": "Yang Maha Membentuk Rupa(makhluknya), Maha Pembentuk / Maha Menjadikan Rupa Bentuk, memberikan gambaran atau bentuk pada sesuatu yang berbeza dengan lainnya.\n\n\n\n\nAl-Khaaliq adalah mengadakan sesuatu yang belum ada asal mulanya atau yang menakdirkan adanya itu. Al-Baari' ialah mengeluarkannya dari yang sudah ada asalnya, sementara Al-Mushawwir ialah yang memberinya bentuk yang sesuai dengan keadaan dan keperluannya.",
+      "quran": "Al-Hasyr: 24",
+      "fadillah": "Jika seorang wanita yang tidak dapat memiliki anak dan percaya bahwa hanya Allah-lah Yang Maha Pencipta, kemudian dia berpuasa selama 7 hari dan setiap berbuka puasa membaca yaa Khaaliq yaa Baarii' yaa Mushawwir sebanyak 21 kali diatas segelas air dan berbuka puasa dengan meminum air ini, Insya Allah dia akan memiliki anak."
+  },
+  {
+      "urutan": 14,
+      "latin": "Al Ghaffaar",
+      "arab": "الغفار",
+      "arti": "Yang Maha Pengampun",
+      "artilengkap": "Yang Maha Pengampun, banyak pemberian maafNya dan menutupi dosa-dosa dan kesalahan.",
+      "quran": "Al-Baqarah: 235",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini sebanyak 100 kali setelah sholat Jumat, maka segala dosa-dosanya akan diampuni pada minggu sebelumnya."
+  },
+  {
+      "urutan": 15,
+      "latin": "Al Qahhaar",
+      "arab": "القهار",
+      "arti": "Yang Maha Memaksa",
+      "artilengkap": "Yang Maha Memaksa, Maha Pemaksa, menggenggam segala sesuatu dalam kekuasaanNya serta memaksa segala makhluk menurut kehendakNya.",
+      "quran": "Ar-Ra'd: 16",
+      "fadillah": "Jika seseorang yang memiliki niat ikhlas di dalam hatinya untuk membebaskan diri dari kekuasaan hawa nafsu dan dari hasrat duniawi itu mengingat dan membaca yaa Qahhaar sesering mungkin, niscaya dia akan dapat mengendalikan hawa nafsunya."
+  },
+  {
+      "urutan": 16,
+      "latin": "Al Wahhaab",
+      "arab": "الوهاب",
+      "arti": "Yang Maha Pemberi Karunia",
+      "artilengkap": "Yang Maha Pemberi Karunia, Maha Pemberi / Maha Menganugerah yaitu memberi banyak kenikmatan dan selalu memberi kurnia.",
+      "quran": "Aali 'Imran: 8",
+      "fadillah": "Orang yang ditimpa kemiskinan hendaknya selalu membaca Asma Allah ini atau menuliskannya untuk dikenakan sebagai ta'wiz. Atau membacanya sebanyak 40 kali dalam sujud terakhir dalam sholat Dhuha. Insya Allah, ia akan terbebas dari kemiskinan melalui jalan yang tidak disangka-sangka."
+  },
+  {
+      "urutan": 17,
+      "latin": "Ar Razzaaq",
+      "arab": "الرزاق",
+      "arti": "Yang Maha Pemberi Rezeki",
+      "artilengkap": "Yang Maha Pemberi Rezeki, Maha Pengrezeki / Maha Pemberi Rezeki yaitu memberi berbagai rezeki serta membuat juga sebab-sebab diperolehnya.",
+      "quran": "Adz-Dzaariyaat: 58",
+      "fadillah": "Jika seseorang benar-benar percaya bahwa rezeki kita berasal dari Allah dan bahwa rumah tangganya membutuhkan rezeki tersebut, maka setiap selesai melaksanakan sholat subuh dia dapat membacayaa Razzaaq sebanyak 10 kali di keempat sudut rumahnya, dimulai dari sudut kanan dan menghadap kiblat. Allah akan menambahkan rezeki keluarganya."
+  },
+  {
+      "urutan": 18,
+      "latin": "Al Fattaah",
+      "arab": "الفتاح",
+      "arti": "Yang Maha Pembuka Rahmat",
+      "artilengkap": "Yang Maha Pembuka Rahmat, Maha Membukakan,  yaitu membuka penyimpanan rahmatNya untuk seluruh hambaNya.",
+      "quran": "Sabaa': 26",
+      "fadillah": "Barang siapa yang meletakkan tangan kanannya didada setelah sholat subuh dan membaca Asma Allah ini sebanyak 70 kali, Insya Allah hatinya akan bersih dari khayalan, kejahatan, egoisme, amarah dan kekotoran yang lainnya. Menerangi jiwanya dan memudahkan urusannya."
+  },
+  {
+      "urutan": 19,
+      "latin": "Al 'Aliim",
+      "arab": "العليم",
+      "arti": "Yang Maha Mengetahui(Memiliki Ilmu)",
+      "artilengkap": "Yang Maha Mengetahui, yaitu mengetahui segala yang maujud dan tidak ada satu benda pun yang tertutup oleh penglihatanNya.",
+      "quran": "Al-Baqarah: 29",
+      "fadillah": "Barang siapa membaca Asma Allah ini sebanyak 100 kali secara rutin setiap selesai sholat fardhu, maka ia akan memperoleh kemampuan untuk melihat hal-hal tertentu yang luput dari perhatian orang dan memiliki iman yang kuat. Di samping itu, hatinya akan dipenuhi dengan ma'rifatullahi (mengenal Allah)."
+  },
+  {
+      "urutan": 20,
+      "latin": "Al Qaabidh",
+      "arab": "القابض",
+      "arti": "Yang Maha Menyempitkan(makhluknya)",
+      "artilengkap": "Yang Maha Menyempitkan (makhluknya), Maha Pencabut / Maha Penyempit Hidup / Maha Pengekang, iaitu mengambil nyawa atau menyempitkan rezeki bagi siapa yang dikehendaki olehNya.",
+      "quran": "Al-Baqarah: 245",
+      "fadillah": "Yaa Qaabidh adalah dzikir malaikat maut, Izrail. Barang siapa dizalimi disarankan membaca yaa Qaabidh sebanyak 903 kali, maka si zalim maupun kezaliman itu akhirnya akan hancur atau orang itu dilindungi dari keduanya."
+  },
+  {
+      "urutan": 21,
+      "latin": "Al Baasith",
+      "arab": "الباسط",
+      "arti": "Yang Maha Melapangkan(makhluknya)",
+      "artilengkap": "Yang Maha Melapangkan (makhluknya), Maha Meluaskan / Maha Pelapang Hidup / Maha Melimpah Nikmat, yaitu memudahkan terkumpulnya rezeki bagi siapa yang diinginkan olehNya.",
+      "quran": "Ar-Ra'd: 26",
+      "fadillah": "Yaa Baasith adalah dzikir malaikat peniup sangkakala, Israfil. Barang siapa terbiasa membaca Asma Allah ini niscaya ia akan beroleh kedamaian di dalam hatinya, terbebas dari stress dan berbagai persoalan, penghasilannya bertambah, dicintai dan dihargai dan dapat memberikan kebahagiaan kepada orang lain."
+  },
+  {
+      "urutan": 22,
+      "latin": "Al Khaafidh",
+      "arab": "الخافض",
+      "arti": "Yang Maha Merendahkan(makhluknya)",
+      "artilengkap": "Yang Maha Merendahkan (makhluknya), Maha Menjatuhkan / Maha Menghinakan / Maha Perendah / Pengurang, yaitu terhadap orang yang selayaknya dijatuhkan akibat kelakuannya sendiri dengan memberinya kehinaan, kerendahan dan seksaan.",
+      "quran": "Hadits at-Tirmizi",
+      "fadillah": "Barang siapa membaca yaa Khaafidh sebanyak 500 kali, maka semua hajatnya akan dipenuhi Allah dan menghilangkan semua kesulitannya, Insya Allah."
+  },
+  {
+      "urutan": 23,
+      "latin": "Ar Raafi' ",
+      "arab": "الرافع",
+      "arti": "Yang Maha Meninggikan(makhluknya)",
+      "artilengkap": "Yang Maha Meninggikan (makhluknya), Maha Mengangkat / Maha Peninggi yaitu terhadap orang yang selayaknya diangkat kedudukannya kerana usahanya yang giat, iaitu termasuk golongan kaum yang bertaqwa.",
+      "quran": "Al-An'aam: 83",
+      "fadillah": "Jika orang yang berkeinginan untuk menjadi tinggi di kalangan manusia, hanya untuk menolong dan membimbing mereka ke jalan yang benar, membaca yaa Raafi' 100 kali siang dan malam, niscaya kedudukan yang tinggi dan kekuatan akan diperolehnya."
+  
+  },
+  {
+      "urutan": 24,
+      "latin": "Al Mu'izz",
+      "arab": "المعز",
+      "arti": "Yang Maha Memuliakan(makhluknya)",
+      "artilengkap": "Yang Maha Memuliakan (makhluknya), Maha Menghormati / Memuliakan / Maha Pemberi Kemuliaan/Kemenangan, yaitu kepada orang yang berpegang teguh pada agamaNya dengan memberinya pentolongan dan kemenangan.",
+      "quran": "Aali 'Imran: 26",
+      "fadillah": "Jika seseorang yang merasa kaya tanpa berharta, yang menjadi kuat tanpa senjata dan otot dan mampu mengesampingkan egonya dalam usahanya untuk membantu orang lain, harus berhadapan dengan musuh yang kuat dan teraniaya, maka dia dapat membaca Yaa Mu'izzu sesudah sholat malam pada hari minggu dan kamis, ia akan terhindar dari rasa takut dan terlihat perkasa di mata musuh-musuhnya."
+  },
+  {
+      "urutan": 25,
+      "latin": "Al Mudzil",
+      "arab": "المذل",
+      "arti": "Yang Maha Menghinakan(makhluknya)",
+      "artilengkap": "Yang Maha Menghinakan (makhluknya), Maha Menghina / Pemberi kehinaan yaitu kepada musuh-musuhNya dan musuh ummat Islam seluruhnya.",
+      "quran": "Aali 'Imran: 26",
+      "fadillah": "Barang siapa membaca ism Yaa Mudzillu sebanyak 75 kali kemudian ia berdoa di dalam sujudnya dan berkata, “Ya Allah, lindungilah aku dari kejahatan si Fulan”, niscaya ia akan bebas dari dalam penjaranya dan akan selamat dari gangguan orang-orang yang dengki dan aniaya."
+  },
+  {
+      "urutan": 26,
+      "latin": "Al Samii' ",
+      "arab": "السميع",
+      "arti": "Yang Maha Mendengar",
+      "artilengkap": "Yang Maha Mendengar",
+      "quran": "Al-Israa': 1",
+      "fadillah": "Barang siapa membaca Yaa Samii' pada hari kamis sesudah sholat Dhuha sebanyak 50 kali atau 500 kali, maka ia akan menjadi seorang yang makbul doanya."
+  
+  },
+  {
+      "urutan": 27,
+      "latin": "Al Bashiir",
+      "arab": "البصير",
+      "arti": "Yang Maha Melihat",
+      "artilengkap": "Yang Maha Melihat.",
+      "quran": "Al-Hadiid: 4",
+      "fadillah": "Orang yang membaca Yaa Bashiir sebanyak 100 kali setelah sholat jumat secara istiqamah, Allah WT akan mengaruniakan kepadanya penglihatan (mata) yang tajam dan cahaya dalam hatinya. Insya Allah."
+  },
+  {
+      "urutan": 28,
+      "latin": "Al Hakam",
+      "arab": "الحكم",
+      "arti": "Yang Maha Menetapkan",
+      "artilengkap": "Yang Maha Menetapkan, Maha Menghukum / Maha Mengadili, yaitu sebagai hakim yang menetapkan / memutuskan yang tidak seorang pun dapat menolak keputusanNya, juga tidak seorang pun yang berkuasa merintangi kelangsungan hukumNya itu.",
+      "quran": "Al-Mu'min: 48",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah ini sebanyak 99 kali pada akhir malam dalam keadaan wudhu dan mengkonsenterasikan pikiran maka Allah akan menjadikan batinnya sebagai tempat rahasia-rahasia ketuhanan dan hatinya akan dipenuhi dengan cahaya."
+  },
+  {
+      "urutan": 29,
+      "latin": "Al 'Adl",
+      "arab": "العدل",
+      "arti": "Yang Maha Adil",
+      "artilengkap": "Yang Maha Adil, serta sangat sempurna dalam keadilanNya itu.",
+      "quran": "Al-An'aam: 115",
+      "fadillah": "Barang siapa menulis (dengan za'faran atau dengan isyarat jari) Asma Allah ini di atas 20 potong roti pada malam atau siang hari jumat, kemudian memakannya, maka Allah SWT akan menjadikan seluruh makhluk tunduk kepadanya, Insya Allah."
+  },
+  {
+      "urutan": 30,
+      "latin": "Al Lathiif",
+      "arab": "اللطيف",
+      "arti": "Yang Maha Lembut",
+      "artilengkap": "Yang Maha Lembut / Yang Maha Menghalusi / Yang Maha Teliti / Yang Maha Lembut serta Halus, yaitu mengetahui segala sesuatu yang samar-samar, pelik-pelik dan kecil-kecil.",
+      "quran": "Al-Mulk: 14",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini sebanyak 133 kali setiap hari, Allah SWT akan mengaruniakan kepadanya rezeki yang berlimpah."
+  },
+  {
+      "urutan": 31,
+      "latin": "Al Khabiir",
+      "arab": "الخبير",
+      "arti": "Yang Maha Mengenal",
+      "artilengkap": "Yang Maha Mengenal / Yang Maha Waspada / Yang Maha Mengetahui.",
+      "quran": "Al-An'aam: 18",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah ini selama 7 hari maka akan datang kepadanya ruhaniah (sebangsa malaikat) yang akan memberitahukan kepadanya berita-berita tentang kejadian yang berlansung pada tahun itu, atau berita tentang raja-raja atau berita tentang hati dan lain-lain."
+  },
+  {
+      "urutan": 32,
+      "latin": "Al Haliim",
+      "arab": "الحليم",
+      "arti": "Yang Maha Penyantun",
+      "artilengkap": "yaitu yang tidak tergesa-gesa melakukan kemarahan dan memberikan siksaan.",
+      "quran": "Al-Baqarah: 235",
+      "fadillah": "Jika Asma Allah ini ditulis di kertas kemudian dituangkan air, lalu air tersebut dipercikkan atau diusapkan pada alat tukangnya, maka akan dapat menambah keberkahannya, jika disapukan pada sebuah kapal, maka kapal tersebut akan terhindar dari bahaya tenggelam dan dari segala marabahaya."
+  },
+  {
+      "urutan": 33,
+      "latin": "Al 'Azhiim",
+      "arab": "العظيم",
+      "arti": "Yang Maha Agung",
+      "artilengkap": "Yang Maha Agung, yaitu mencapai puncak tertinggi dan di mercu keagungan kerana bersifat dengan segala macam sifat kebesaran dan kesempunnaan.",
+      "quran": "Asy-Syuura: 4",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah ini sebanyak 12 kali, niscaya ia akan selamat dari segala sesuatu."
+  },
+  {
+      "urutan": 34,
+      "latin": "Al Ghafuur",
+      "arab": "الغفور",
+      "arti": "Yang Maha Pengampun",
+      "artilengkap": "Yang Maha Memberi Pengampunan, Maha Pengampun, banyak pengampunanNya kepada hamba-hambaNya.",
+      "quran": "Aali 'Imran: 89",
+      "fadillah": "Jika Seseorang merasa berdosa dan oleh karenanya merasa berat di dalam hatinya, dengan membaca yaa Ghafuur sebanyak 100 kali setelah sholat jumat, penderitaannya akan hilang dan jika Allah menghendaki, Dia akan mengampuni dosa itu."
+  },
+  {
+      "urutan": 35,
+      "latin": "As Syakuur",
+      "arab": "الشكور",
+      "arti": "Yang Maha Pembalas Budi(Menghargai)",
+      "artilengkap": "Yang Maha Pembalas Budi (Menghargai), Maha Pembalas / Maha Bersyukur, iaitu memberikan balasan yang banyak sekali atas amalan yang kecil.",
+      "quran": "Faathir: 30",
+      "fadillah": "Barang siapa menuliskannya bagi orang yang menderita sesak napas atau merasa letih badannya atau merasa berat tubuhnya, kemudian tulisan itu dihapus"
+  },
+  {
+      "urutan": 36,
+      "latin": "Al 'Aliy",
+      "arab": "العلى",
+      "arti": "Yang Maha Tinggi",
+      "artilengkap": "Yang Maha Tinggi Martabat-Nya / Yang Maha Tinggi serta Mulia, yaitu mencapai tingkat yang setinggi-tingginya yang tidak mungkin digambarkan oleh akal fikiran siapapun dan tidak dapat difahami oleh otak yang bagaimanapun pandainya.",
+      "quran": "An-Nisaa': 34",
+      "fadillah": "Seseorang yang membaca Asma Allah ini setiap hari secara istiqamah dan membawa serta tulisan tersebut dalam badannya, maka derajatnya akan ditinggikan dan dikaruniai kemakmuran, dan semua hajatnya akan terpenuhi, Insya Allah."
+  },
+  {
+      "urutan": 37,
+      "latin": "Al Kabiir",
+      "arab": "الكبير",
+      "arti": "Yang Maha Besar",
+      "artilengkap": "Yang Maha Besar, yang kebesaranNya tidak dapat dicapai oleh pancaindera ataupun akal manusia.",
+      "quran": "Ar-Ra'd: 9",
+      "fadillah": "Jika seseorang dipecat dari jabatannya, hendaknya ia berpuasa selama tujuh hari dan setiap hari membaca yaa kabiir anta al-ladzii laa tahdi 'uquul li washfi 'azamatih (“Wahai Yang Maha Besaar Yang tak dapat dilukiskan akal”) sebanyak 1.000 kali, maka jabatannya tersebut akan kembali kepadanya, disamping itu ia akan memperoleh kemuliaan dan kehormatan, Insya Allah."
+  },
+  {
+      "urutan": 38,
+      "latin": "Al Hafizh",
+      "arab": "الحفيظ",
+      "arti": "Yang Maha Memelihara",
+      "artilengkap": "Yang Maha Memelihara, Maha Pemelihara Maha Pelindung / Maha Memelihara, iaitu menjaga segala sesuatu jangan sampai rosak dan goyah. Juga menjaga segala amal perbuatan hamba-hambaNya, sehingga tidak akan disia-siakan sedikit pun untuk memberikan balasanNya.",
+      "quran": "Huud: 57",
+      "fadillah": "Barang siapa yang berdzikir dengan Asma Allah ini dengan istiqamah atau menuliskannya dan membawanya di tempat yang menakutkan, maka ia akan selamat, sekalipun ia tidur di tempat binatang buas."
+  },
+  {
+      "urutan": 39,
+      "latin": "Al Muqiit",
+      "arab": "المقيت",
+      "arti": "Yang Maha Pemberi Kecukupan",
+      "artilengkap": "Yang Maha Pemberi kecukupan/ Maha Pemberi Keperluan, baik yang berupa makanan tubuh ataupun makanan rohani.",
+      "quran": "An-Nisaa': 85",
+      "fadillah": "Barang siapa menuliskan Asma Allah ini atau membacakannya ke atas tanah, lalu tanah itu dibasahinya dan kemudian diciumnya, niscaya Allah akan menguatkannya dalam menahan rasa lapar."
+  },
+  {
+      "urutan": 40,
+      "latin": "Al Hasiib",
+      "arab": "الحسيب",
+      "arti": "Yang Maha Membuat Perhitungan",
+      "artilengkap": "Yang Maha Membuat Perhitungan, Maha Penjamin / Maha Mencukupi / Maha Penghitung yaitu memberikan jaminan kecukupan kepada seluruh bamba-hambaNya pada hari Qiamat.",
+      "quran": "An-Nisaa': 6",
+      "fadillah": "Barang siapa takut dikalahkan oleh temannya, menghadapi tetangga yang licik, orang yang iri hati, atau untuk menjaga rumah seseorang dari kerusakan maka ia harus membaca yaa Hasiib setiap hari sebelum matahari terbit dan sesudah matahari tenggelam sebanyak 70 kali. Maka sebelum satu minggu, Allah sudah menyelamatkannya dari rasa takutnya itu. Membaca Asma Allah ini hendaklah dimulai dari hari Kamis."
+  },
+  {
+      "urutan": 41,
+      "latin": "Al Jaliil",
+      "arab": "الجليل",
+      "arti": "Yang Maha Mulia",
+      "artilengkap": "Yang Maha Luhur yaitu yang memiliki sifat-sifat keluhuran kerana kesempurnaan sifat-sifatNya.",
+      "quran": "Ar-Rahmaan: 27",
+      "fadillah": "Barang siapa membaca atau menuliskan Asma Allah ini pada sehelai kertas dengan tinta misik dan za'faran, lalu dibawanya, maka Allah akan memberikan kewibawaan dan kebesaran kepada-Nya."
+  },
+  {
+      "urutan": 42,
+      "latin": "Al Kariim",
+      "arab": "الكريم",
+      "arti": "Yang Maha Mulia",
+      "artilengkap": "Yang Maha Pemurah yaitu mulia tanpa had dan memberi siapa pun tanpa diminta atau sebagai penggantian dan sesuatu pemberian.",
+      "quran": "An-Naml: 40",
+      "fadillah": "Barang siapa memperbanyak dzikir dengan Asma Allah ini ketika hendak tidur dan dilakukan secara rutin, maka Allah akan menanamkan sifat Karim kedalam hati orang-orang arif."
+  },
+  {
+      "urutan": 43,
+      "latin": "Ar Raqiib",
+      "arab": "الرقيب",
+      "arti": "Yang Maha Mengawasi",
+      "artilengkap": "Yang Maha Mengawasi, Maha Peneliti / Maha Pengawas Maha Waspada yaitu yang mengamat-amati gerak-geri segala sesuatu dan mengawasinya.",
+      "quran": "Al-Ahzaab: 52",
+      "fadillah": "Orang yang beriman yang telah diberikan karunia ihsaan, dikaruniai keyakinan yang kuat bahwa Allah melihat mereka setiap saat, membaca Asma Allah ini ditempat yang tersembunyi, maka mata hatinya akan melihat rahasia yang tidak dapat dilihat oleh orang lain. Dia bahkan dapat memahami bahasa binatang, tumbuh-tumbuhan dan benda-benda mati."
+  },
+  {
+      "urutan": 44,
+      "latin": "Al Mujiib",
+      "arab": "المجيب",
+      "arti": "Yang Maha Mengabulkan",
+      "artilengkap": "Yang Maha Mengabulkan yaitu yang memenuhi permohonan siapa saja yang berdoa padaNya.",
+      "quran": "Huud: 61",
+      "fadillah": "Orang yang senantiasa berdzikir membaca yaa Mujiib, maka doa-doanya akan dikabulkan."
+  },
+  {
+      "urutan": 45,
+      "latin": "Al Waasi '",
+      "arab": "الواسع",
+      "arti": "Yang Maha Luas",
+      "artilengkap": "Yang Maha Luas (Pemberian-Nya) yaitu kerahmatanNya merata kepada segala yang maujud dan luas pula ilmuNya terhadap segala sesuatu.",
+      "quran": "Al-Baqarah: 268",
+      "fadillah": "Berkhasiat mendatangkan kelapangan dan kedudukan, lapang dada dan terhindarnya ia dari sifat dendam dan tamak, serta mendatangkan sifat qanaa'ah bagi orang yang berdzikir dengannya."
+  
+
+  },
+  {
+      "urutan": 46,
+      "latin": "Al Hakiim",
+      "arab": "الحكيم",
+      "arti": "Yang Maha Maka Bijaksana",
+      "artilengkap": "Yang Maha Bijaksana yaitu memiliki kebijaksanaan yang tertinggi kesempurnaan ilmuNya serta kerapiannya dalam membuat segala sesuatu.",
+      "quran": "Al-An'aam: 18",
+      "fadillah": "Jika Seseorang merasa bahwa dirinya tidak mampu melaksanakan tugas yang diembannya, atau jika semua usaha yang ditempuhnya mengalami kegagalan, kemudian dia tetap membaca Asma Allah ini, niscaya segalanya akan berubah menjadi lebih baik."
+  },
+  {
+      "urutan": 47,
+      "latin": "Al Waduud",
+      "arab": "الودود",
+      "arti": "Yang Maha Mengasihi",
+      "artilengkap": "Yang Maha Mengasihi, Maha Pencinta / Maha Menyayangi, iaitu yang menginginkan segala kebaikan untuk seluruh hambaNya dan juga berbuat baik pada mereka itu dalam segala hal dan keadaan.",
+      "quran": "Al-Buruuj: 14",
+      "fadillah": "Barang siapa membaca Asma Allah sebanyak 1.000 kali kemudian meniupkannya pada makanan, lalu makanan tersebut ia makan bersama-sama istrinya, maka perselisihan dan perbedaan di antara mereka segera teratasi. Cinta dan kasih sayang juga akan tertanam di hati mereka, Insya Allah."
+  },
+  {
+      "urutan": 48,
+      "latin": "Al Majiid",
+      "arab": "المجيد",
+      "arti": "Yang Maha Mulia",
+      "artilengkap": "Yang Maha Mulia yaitu yang mencapai tingkat teratas dalam hal kemuliaan dan keutamaan.",
+      "quran": "Al-Buruuj: 15",
+      "fadillah": "Jika seorang beriman yang memiliki sifat yang baik, yang terkena penyakit kulit, berpuasa pada tanggal 13 14 dan 15 bulan Qamariyah dan ketika berbuka membaca yaa Majiid sebanyak 100 kali, maka penyakitnya itu dapat tertolong. Cara ini juga menolong dalam kasus penyakit hati dan depresi."
+  },
+  {
+      "urutan": 49,
+      "latin": "Al Baa'its",
+      "arab": "الباعث",
+      "arti": "Yang Maha Membangkitkan",
+      "artilengkap": "Yang Maha Membangkitkan yaitu membangkitkan semangat dan kemahuan, juga membangkitkan para Rasul dan orang-orang yang telah mati dari kubur masing-masing nanti setelah tibanya hari Qiamat.",
+      "quran": "Yaasiin: 52",
+      "fadillah": "Jika seseorang mampu mengakui bahwa ia lalai dan gagal dalam menjalani hidup menurut ketentuan-ketentuan Allah, dan mengetahui bahwa dia tidak takut kepada azab Allah, tetapi masih menderita karena keadaan ini dan ingin mengubahnya, dia harus sering membaca Asma Allah ini, maka dia akan merasa takut, cinta dan berharap kasih sayang Allah dan mengubah jalan hidupnya."
+  },
+  {
+      "urutan": 50,
+      "latin": "As Syahiid",
+      "arab": "الشهيد",
+      "arti": "Yang Maha Menyaksikan",
+      "artilengkap": "Yang Maha Menyaksikan / Maha Mengetahui keadaan semua makhluk.",
+      "quran": "Al-Maaidah: 117",
+      "fadillah": "Berkhasiat menjadikan orang yang berdzikir dengan Asma Allah ini kembali kepada kebenaran dari kebathilan."
+  },
+  {
+      "urutan": 51,
+      "latin": "Al Haqq",
+      "arab": "الحق",
+      "arti": "Yang Maha Benar",
+      "artilengkap": "Yang Maha Haq / Yang Maha Benar yang kekal dan tidak akan berubah sedikit pun.",
+      "quran": "Thaahaa: 114",
+      "fadillah": "Jika membaca laa ilaaha illaa Allaah al-Malik al-Haqq al-Mubiin (“Tidak ada Tuhan selain Allah, Maha Raja, Kebenaran Yang Nyata) sebanyak 100 kali setiap hari, niscaya dia akan mendapat rezeki yang tidak diduga-duga."
+  },
+  {
+      "urutan": 52,
+      "latin": "Al Wakiil",
+      "arab": "الوكيل",
+      "arti": "Yang Maha Memelihara",
+      "artilengkap": "Yang Maha Memelihara, Maha Pentadbir / Maha Berserah / Maha Memelihara penyerahan, yakni memelihara semua urusan hamba-hambaNya dan apa-apa yang menjadi keperluan mereka itu.",
+      "quran": "Al-An'aam: 102",
+      "fadillah": "Barang siapa memperbanyak dzikir dengan Asma Allah ini, niscaya Allah akan membukakan baginya pintu-pintu kebaikan dan rezeki."
+  },
+  {
+      "urutan": 53,
+      "latin": "Al Qawiyyu",
+      "arab": "القوى",
+      "arti": "Yang Maha Kuat",
+      "artilengkap": "Yang Maha Kuat / Maha Memiliki Kekuatan yaitu yang memiliki kekuasaan yang sesempurnanya.",
+      "quran": "Al-Anfaal: 52",
+      "fadillah": "Orang yang dizalimi hendaknya membaca Asma Allah ini sebanyak-banyaknya untuk menghentikan kezalimannya. Maka Allah akan memberikan perlindungan kepadanya. Insya Allah."
+  },
+  {
+      "urutan": 54,
+      "latin": "Al Matiin",
+      "arab": "المتين",
+      "arti": "Yang Maha Kokoh",
+      "artilengkap": "Yang Maha Kokoh, Maha Teguh / Maha Kukuh atau Perkasa / Maha Sempurna Kekuatan-Nya , iaitu memiliki keperkasaan yang sudah sampai di puncaknya.",
+      "quran": "Adz-Dzaariyaat: 58",
+      "fadillah": "Jika seorang yang beriman menydari bahwa dirinya sendiri merupakan seorang yang zalim lagi berperangai buruk, dan ingin meninggalkan sifat buruk itu, maka hendaknya dia membiasakan membaca Asma Allah ini sebanyak 500 kali setiap hari, niscaya akan membantunya untuk menjadi orang yang lebih baik."
+  },
+  {
+      "urutan": 55,
+      "latin": "Al Waliyy",
+      "arab": "الولى",
+      "arti": "Yang Maha Melindungi",
+      "artilengkap": "Yang Maha Melindungi yaitu melindungi serta mengaturkan semua kepentingan makhlukNya kerana kecintaanNya yang amat sangat dan pemberian pertolonganNya yang tidak terbatas pada keperluan mereka.",
+      "quran": "An-Nisaa': 45",
+      "fadillah": "Jika seorang beriman membaca Asma Allah ini sebanyak 700 kali pada malam jumat, maka semua rintangan material dan spiritual akan hilang. Mudah-mudahan orang seperti itu melihat hakikat yang sebenarnya dan makna segala sesuatu."
+  },
+  {
+      "urutan": 56,
+      "latin": "Al Hamiid",
+      "arab": "الحميد",
+      "arti": "Yang Maha Terpuji",
+      "artilengkap": "Yang Maha Terpuji, yang memang sudah selayaknya untuk memperoleh pujian dan sanjungan.",
+      "quran": "An-Nisaa': 131",
+      "fadillah": "Jika seseorang yang membaca yaa Hamiid dalam keadaan menyendiri sebanyak 93 kali selama 45 hari, maka kebiasaaan dan sifat-sifatnya yang buruk akan berubah menjadi baik. Insya Allah."
+  },
+  {
+      "urutan": 57,
+      "latin": "Al Muhshii",
+      "arab": "المحصى",
+      "arti": "Yang Maha Mengalkulasi(Menghitung Segala Sesuatu)",
+      "artilengkap": "Yang Maha Mengalkulasi (Menghitung Segala Sesuatu), Maha Menghitung / Maha Penghitung, iaitu yang tiada satu pun tertutup dari pandanganNya dan semua amalan diperhitungkan sebagaimana wajarnya.",
+      "quran": "Maryam: 94",
+      "fadillah": "Orang yang membaca Asma Allah ini sebanyak 20 kali setiap hari kemudian meniupkan di 20 potong roti kemudian dimakan, Allah akan menjadikan seluruh makhluk tunduk kepadanya, Insya Allah."
+  },
+  {
+      "urutan": 58,
+      "latin": "Al Mubdi '",
+      "arab": "المبدئ",
+      "arti": "Yang Maha Memulai",
+      "artilengkap": "Yang Maha Memulai/Pemula / Maha Pencipta dari Asal, iaitu yang melahirkan sesuatu yang asalnya tidak ada dan belum maujud.",
+      "quran": "Al-Buruuj: 13",
+      "fadillah": "Jika seseorang ragu-ragu dalam menetapkan keputusan yang akan diambilnya, maka dengan membaca Asma Allah ini sebanyak 1.000 kali dia akan dapat memutuskan dengan cepat."
+  
+  },
+  {
+      "urutan": 59,
+      "latin": "Al Mu'iid",
+      "arab": "المعيد",
+      "arti": "Yang Maha Mengembalikan Kehidupan",
+      "artilengkap": "Yang Maha Mengembalikan Kehidupan, Maha Mengulangi / Maha Mengembalikan dan Memulihkan, iaitu menumbuhkan kembali setelah lenyapnya atau setelah rosaknya.",
+      "quran": "Ar-Ruum: 27",
+      "fadillah": "Jika ada seseorang yang hilang, hendaknya Asma Allah ini dibaca 70 kali disetiap sudut rumahnya pada malam hari ketika semua orang telah tidur. Maka ia akan kembali setelah 7 hari atau diketahui keberadaannya dalam waktu tersebut. Insya Allah"
+  },
+  {
+      "urutan": 60,
+      "latin": "Al Muhyii",
+      "arab": "المحيى",
+      "arti": "Yang Maha Menghidupkan",
+      "artilengkap": "Yang Maha Menghidupkan yaitu memberikan daya kehidupan pada setiap sesuatu yang berhak hidup.",
+      "quran": "Ar-Ruum: 50",
+      "fadillah": "Barang siapa yang berdzikir dengan Asma Allah ini keatas badannya, maka ia akan terhindar dari penjara dan tenggelam."
+  },
+  {
+      "urutan": 61,
+      "latin": "Al Mumiitu",
+      "arab": "المميت",
+      "arti": "Yang Maha Mematikan",
+      "artilengkap": "Yang Maha Mematikan yaitu mengambil kehidupan (roh) dari apa-apa yang hidup.",
+      "quran": "Al-Mu'min: 68",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah ini, maka jiwanya akan patuh melakukan amal kebaikan."
+  },
+  {
+      "urutan": 62,
+      "latin": "Al Hayyu",
+      "arab": "الحي",
+      "arti": "Yang Maha Hidup",
+      "artilengkap": "Yang Maha Hidup yaitu sentiasa kekal hidupNya itu.",
+      "quran": "Thaahaa: 111",
+      "fadillah": "Orang yang ingin memperoleh kesehatan hendaknya membaca Asma Allah ini sebanyak 3.000 kali setiap hari."
+  },
+  {
+      "urutan": 63,
+      "latin": "Al Qayyuum",
+      "arab": "القيوم",
+      "arti": "Yang Maha Mandiri",
+      "artilengkap": "Yang Maha Mandiri, Maha Berdiri Dengan Sendiri-Nya yaitu baik ZatNya, SifatNya, Af'alNya. Juga membuat berdirinya apa-apa yang selain Dia. DenganNya pula berdirinya langit dan bumi ini.",
+      "quran": "Thaahaa: 11",
+      "fadillah": "Barang siapa yang membaca yaa Hayyu yaa Qayyuum sejak terbit sampai naiknya matahari, maka ia akan mendapatkan rasa senang dalam dirinya yang tak terhingga."
+  },
+  {
+      "urutan": 64,
+      "latin": "Al Waajid",
+      "arab": "الواجد",
+      "arti": "Yang Maha Penemu",
+      "artilengkap": "Yang Maha Penemu / Maha Menemukan yaitu dapat menemukan apa saja yang diinginkan olehNya, maka tidak berkehendakkan pada suatu apa pun kerana sifat kayaNya yang secara mutlak.",
+      "quran": "Adh-Dhuhaa: 6-8",
+      "fadillah": "Barang siapa membaca Asma Allah ini pada setiap suap makanannya, niscaya hatinya diberikan kekuatan dan cahaya oleh Allah."
+  },
+  {
+      "urutan": 65,
+      "latin": "Al Maajid",
+      "arab": "الماجد",
+      "arti": "Yang Maha Mulia",
+      "artilengkap": "Yang Maha Mulia",
+      "quran": "Huud: 73",
+      "fadillah": "Barang siapa yang berdzikir dengan Asma Allah ini dengan khusyuk, niscaya Allah akan memberikan cahaya dalam hatinya"
+  },
+  {
+      "urutan": 66,
+      "latin": "Al Wahiid",
+      "arab": "الواحد",
+      "arti": "Yang Maha Tunggal",
+      "artilengkap": "Yang Maha Tunggal, Yang Maha Esa.",
+      "quran": "Al-Baqarah: 133",
+      "fadillah": "Barang siapa menginginkan agar perasaan ketergantungan terhadap makhluk keluar dari hatinya, hendaknya membaca Asma Allah ini sebanyak 1.000 kali setiap hari dan dilenyapkan Allah rasa takutnya yang merupakan asal semua bencana di dunia dan di akhirat."
+  
+  },
+  {
+      "urutan": 67,
+      "latin": "Al Ahad",
+      "arab": "الاحد",
+      "arti": "Yang Maha Esa",
+      "artilengkap": "Yang Maha Esa, Yang Maha Tunggal.",
+      "quran": "Al-Ikhlaas: 1",
+      "fadillah": "Barang siapa membaca Asma Allah ini dalam keadaan memiliki wudhu sebanyak 19 kali setelah sholat subuh, maka semua doanya akan dikabulkan, Insya Allah."
+  },
+  {
+      "urutan": 68,
+      "latin": "As Shamad",
+      "arab": "الصمد",
+      "arti": "Yang Maha Dibutuhkan, Tempat Meminta",
+      "artilengkap": "Yang Maha Dibutuhkan, Tempat Meminta, Maha Diperlukan / Maha Diminta / Yang Menjadi Tumpuan, yaitu selalu menjadi tujuan dan harapan orang di waktu ada hajat keperluan.",
+      "quran": "Al-Ikhlaas: 2",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah sebanyak 125 kali setelah sholat subuh dan sebelum matahari terbit dalam keadaan sujud, akan tampaklah bekas-bekas kebenaran padanya, akan dilindungi dari berbohong, perilaku haram maupun dari permusuhan orang lain dan akan membaik sifat dan imannya."
+  },
+  {
+      "urutan": 69,
+      "latin": "Al Qaadir",
+      "arab": "القادر",
+      "arti": "Yang Maha Menentukan, Maha Menyeimbangkan",
+      "artilengkap": "Yang Maha Menentukan, Maha Menyeimbangkan, Maha Berkuasa/ Maha Kuasa / Maha Berupaya.",
+      "quran": "Al-Baqarah: 20",
+      "fadillah": "Barang siapa yang setelah mengerjakan sholat dua rakaat membaca Asma Allah ini sebanyak 100 kali, Allah akan merendahkan dan menghinakan musuh-musuhnya."
+  },
+  {
+      "urutan": 70,
+      "latin": "Al Muqtadir",
+      "arab": "المقتدر",
+      "arti": "Yang Maha Berkuasa",
+      "artilengkap": "Yang Maha Berkuasa, Maha Menentukan.",
+      "quran": "Al-Qamar: 42",
+      "fadillah": "Barang siapa yang terus menerus membaca Asma Allah ini sebanyak 744 kali setelah bangun tidur, Allah akan mengatur urusannya sebagaimana yang ia kehendaki, sehingga ia tidak perlu lagi mengatur dirinya."
+  },
+  {
+      "urutan": 71,
+      "latin": "Al Muqaddim",
+      "arab": "المقدم",
+      "arti": "Yang Maha Mendahulukan",
+      "artilengkap": "Yang Maha Mendahulukan / Maha Menyegera, yaitu mendahulukan sebahagian benda dari yang lainnya dalam mewujudnya, atau dalam kemuliaannya, selisih waktu atau tempatnya.",
+      "quran": "Qaaf: 28",
+      "fadillah": "Orang yang membacanya secara terus menerus akan menjadi tunduk dan patuh kepada Allah SWT."
+  },
+  {
+      "urutan": 72,
+      "latin": "Al Mu 'akkhir",
+      "arab": "المؤخر",
+      "arti": "Yang Maha Mengakhirkan",
+      "artilengkap": "Yang Maha Mengakhirkan (Menangguhkan / Membelakangkan / Melambat-lambatkan), yaitu melewatkan sebahagian sesuatu dari yang lainnya.",
+      "quran": "Ibraahiim: 42",
+      "fadillah": "Orang beriman yang membiasakan membaca Asma Allah ini sebanyak 100 kali sehari menjadi mampu melihat kesalahan mereka dan bertobat."
+  
+  },
+  {
+      "urutan": 73,
+      "latin": "Al Awwal",
+      "arab": "الأول",
+      "arti": "Yang Maha Awal",
+      "artilengkap": "Yang Maha Awal (Pemulaan / Pertama), yaitu terdahulu sekali dari semua yang maujud.",
+      "quran": "Al-Hadiid: 3",
+      "fadillah": "Barang siapa yang menginginkan anak laki-laki hendaknya membaca Asma Allah ini sebanyak 40 kali setiap hari selama 40 hari."
+  },
+  {
+      "urutan": 74,
+      "latin": "Al Aakhir",
+      "arab": "الأخر",
+      "arti": "Yang Maha Akhir",
+      "artilengkap": "Yang Maha Akhir (Penghabisan), yaitu kekal terus setelah habisnya segala sesuatu yang maujud.",
+      "quran": "Al-Hadiid: 3",
+      "fadillah": "Kaum beriman yang membaca Asma Allah ini sebanyak 100 kali sehari akan berhenti membodohi diri mereka sendiri dan melihat kebenaran."
+  },
+  {
+      "urutan": 75,
+      "latin": "Az Zhaahir",
+      "arab": "الظاهر",
+      "arti": "Yang Maha Nyata",
+      "artilengkap": "Yang Maha Nyata (Zahir / Menyatakan), yaitu menyatakan dan menampakkan kewujudanNya itu dengan bukti-bukti dan tanda-tanda ciptaanNya",
+      "quran": "Al-Hadiid: 3",
+      "fadillah": "Jika Seorang beriman memiliki niat baik dan berupaya keras untuk mewujudkannya, maka hendaklah dia melakukan sholat sunat dua rakaat kemudian membaca Huwa al-Awwal wa al-Aakhir wa al-Zhahir wa al Baathin wa huwa bi kull syay' 'Aliim (\"Dialah Yang Pertama dan Yang Akhir, Yang Tampak dan Yang Tersembunyi dan Dia Maha Mengetahui atas segala sesuatu\") sebanyak 145 kali. Dia akan mendapat kesempatan yang lebih baik untuk memperoleh apa yang diinginkannya."
+  },
+  {
+      "urutan": 76,
+      "latin": "Al Baathin",
+      "arab": "الباطن",
+      "arti": "Yang Maha Ghaib",
+      "artilengkap": "Yang Maha Ghaib (Tersembunyi), yaitu tidak dapat dimaklumi ZatNya, sehingga tidak seorang pun dapat mengenal ZatNya itu.",
+      "quran": "Al-Hadiid: 3",
+      "fadillah": "Jika kaum beriman membiasakan diri membaca Asma Allah sebanyak 33 kali dalam sehari maka alam batin mereka akan menjadi terang, mata hati mereka akan terbuka, mereka akan mulai melihat Hakikat yang sebenarnya dan memahami makna segala sesuatu, atas izin Allah. Mereka akan memperoleh kedamaian, ucapan mereka akan menjadi manis dan bermanfaat. Mereka akan dicintai dan dihormati oleh orang lain."
+  },
+  {
+      "urutan": 77,
+      "latin": "Al Waali",
+      "arab": "الوالي",
+      "arti": "Yang Maha Memerintah",
+      "artilengkap": "Yang Maha Memerintah (Menguasai / Menguasai Urusan), yaitu menggenggam segala sesuatu dalam kekuasaanNya dan menjadi milikNya.",
+      "quran": "Ar-Ra'd: 11",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini berulang-ulang, ia akan diselamatkan dari bencana yang tidak diinginkan."
+  },
+  {
+      "urutan": 78,
+      "latin": "Al Muta'aalii",
+      "arab": "المتعالي",
+      "arti": "Yang Maha Tinggi",
+      "artilengkap": "Yang Maha Tinggi (Suci), yaitu terpelihara dari segala kekurangan dan kerendahan.",
+      "quran": "Ar-Ra'd: 9",
+      "fadillah": "Jika seorang beriman yang diturunkan dari jabatannya padahal dia tidak bersalah, kemudian membaca Asma Allah ini sebanyak 540 kali, maka dia akan memperoleh kembali jabatannya itu atau dinaikan jabatannya yang lebih dari orang lain dengan kualifikasi yang sama."
+  },
+  {
+      "urutan": 79,
+      "latin": "Al Barru",
+      "arab": "البر",
+      "arti": "Yang Maha Penderma(Maha Pemberi Kebajikan)",
+      "artilengkap": "Yang Maha Penderma (Pemberi Kebajikan / Dermawan / banyak membuat kebajikan), yaitu banyak kebaikanNya dan besar kenikmatan yang dilimpahkanNya.",
+      "quran": "Ath-Thuur: 28",
+      "fadillah": "Barang siapa yang kecanduan minuman keras, berzina atau perbuatan maksiat lainnya, hendaknya membaca Asma Allah ini 700 kali setiap hari, Insya Allah ia akan mendapatkan hidayah dari Allah."
+  },
+  {
+      "urutan": 80,
+      "latin": "At Tawwaab",
+      "arab": "التواب",
+      "arti": "Yang Maha Penerima Tobat",
+      "artilengkap": "Yang Maha Penerima Taubat, yaitu memberikan pertolongan kepada orang-orang yang melakukan maksiat untuk bertaubat lalu Allah akan menerimanya.",
+      "quran": "An-Nisaa': 16",
+      "fadillah": "Barang siapa yang menginginkan agar Allah memberikan taufik kepadanya untuk bertaubat, hendaknya membaca Asma Allah ini 360 kali setiap hari setelah sholat Dhuha."
+  },
+  {
+      "urutan": 81,
+      "latin": "Al Muntaqim",
+      "arab": "المنتقم",
+      "arti": "Yang Maha Pemberi Balasan",
+      "artilengkap": "Yang Maha Pemberi Balasan (Penyiksa / Menghukum), kepada mereka yang bersalah dan orang yang berhak untuk memperoleh siksaNya.",
+      "quran": "As-Sajdah: 22",
+      "fadillah": "Jika seorang beriman dizalimi oleh musuh Allah yang layak dijatuhi hukuman, maka dengan membaca yaa Muntaqim yaa Qahhaarsebanyak 1.000 kali selama satu hari, maka kekuatan si zalim itu akan musnah."
+  },
+  {
+      "urutan": 82,
+      "latin": "Al Afuww",
+      "arab": "العفو",
+      "arti": "Yang Maha Pemaaf",
+      "artilengkap": "Yang Maha Pemaaf (Pengampun), menghapuskan kesalahan orang yang suka kembali untuk meminta maaf padaNya.",
+      "quran": "An-Nisaa': 99",
+      "fadillah": "Barang siapa memperbanyak dzikir dengan Asma Allah ini, niscaya Allah akan membukakan baginya pintu maaf dan ampunan-Nya."
+  },
+  {
+      "urutan": 83,
+      "latin": "Ar Ra 'uuf",
+      "arab": "الرؤوف",
+      "arti": "Yang Maha Pengasuh",
+      "artilengkap": "Yang Maha Pengasuh (Pengasih / Mengasihi), banyak kerahmatan dan kasih sayangNya.",
+      "quran": "Al-Baqarah: 207",
+      "fadillah": "Orang beriman yang membaca Asma Allah ini sebanyak 286 kali sehari akan memiliki hati yang penuh dengan kemurahan dan kepedulian terhadap orang lain, dan perasaan ini akan bersifat timbal balik. Orang tersebut juga akan diberi jalan untuk menolong orang yang sedang membutuhkan pertolongan."
+  
+  },
+  {
+      "urutan": 84,
+      "latin": "Malikul Mulk",
+      "arab": "مالك الملك",
+      "arti": "Yang Maha Penguasa Kerajaan(Semesta)",
+      "artilengkap": "Yang Maha Penguasa Kerajaan (Semesta) (Pemilik Kekuasaan / Menguasai kerajaan / Pemilik Kedaulatan Yang Kekal), maka segala perkara yang berlaku di alam semesta, langit, bumi dan sekitarnya serta yang di alam semesta itu semuanya sesuai dengan kehendak dan iradatNya.",
+      "quran": "Aali 'Imran: 26",
+      "fadillah": "Orang beriman yang membaca Asma Allah ini sebanyak 212 kali setiap hari akan memperoleh rezeki yang banyak dengan cara yang tak terduga. Keraguan yang mungkin ada dalam pikiran mereka akan berubah menjadi keyakinan. Rakyat yang mereka perintah akan menghormati dan mematuhi mereka dengan ikhlas."
+  },
+  {
+      "urutan": 85,
+      "latin": "Dzul Jalaali Wal Ikraam",
+      "arab": "ذو الجلال و الإكرام",
+      "arti": "Yang Maha Pemilik Kebesaran dan Kemuliaan",
+      "artilengkap": "Yang Maha Pemilik Kebesaran dan Kemuliaan (Pemilik Keagungan dan Kemuliaan / Memiliki Kebesaran dan Kemuliaan). Juga Zat yang mempunyai keutamaan dan kesempurnaan, pemberi kurnia dan kenikmatan yang amat banyak dan melimpah ruah.",
+      "quran": "Ar-Rahmaan: 27",
+      "fadillah": "Berkhasiat mendatangkan kemuliaan, kehormatan dan kebesaran bagi orang yang berdzikir dengan Asma Allah ini."
+  
+  },
+  {
+      "urutan": 86,
+      "latin": "Al Muqsith",
+      "arab": "المقسط",
+      "arti": "Yang Maha Pemberi Keadilan",
+      "artilengkap": "Yang Maha Pemberi Keadilan (Mengadili / Saksama), yaitu memberikan kemenangan pada orang-orang yang teraniaya dari tindakan orang-orang yang menganiaya dengan keadilanNya.",
+      "quran": "An-Nuur: 47",
+      "fadillah": "Barang siapa berdzikir dengan Asma Allah ini secara rutin, maka Allah akan mencegah waswas darinya dan melindunginya dari keragu-raguan yang dihembuskan oleh setan."
+  },
+  {
+      "urutan": 87,
+      "latin": "Al Jamii'",
+      "arab": "الجامع",
+      "arti": "Yang Maha Mengumpulkan",
+      "artilengkap": "Yang Maha Mengumpulkan (Pengumpul), yaitu mengumpulkan berbagai hakikat yang telah bercerai-berai dan juga mengumpulkan seluruh umat manusia pada hari pembalasan.",
+      "quran": "Sabaa': 26",
+      "fadillah": "Jika keluarrga atau sanak keluarga seseorang saling terpisah, hendaknya ia mandi pada saat dhuha, kemudian menengadahkan pandangan ke arah langit dan membaca Asma Allah ini 10 kali. Tetapi menghitungnya hendaknya dengan jari sedemikian rupa sehingga dalam setiap bacaan, jarinya tetap tertutup hingga hitungan yang kesepuluh. Setelah itu hendaknya tangannya diusapkan ke wajah. Insya Allah keluarga yang saling terpisah akan berkumpul."
+  },
+  {
+      "urutan": 88,
+      "latin": "Al Ghaniyy",
+      "arab": "الغنى",
+      "arti": "Yang Maha Kaya",
+      "artilengkap": "Yang Maha Kaya Raya, yaitu tidak berkehendakkan apa juapun dari yang selain ZatNya sendiri, tetapi yang selainNya itu amat mengharapkan padaNya.",
+      "quran": "Al-Baqarah: 267",
+      "fadillah": "Jika dibacakan atas sesuatu yang sakit di tubuhnya atau tubuh orang lain, niscaya akan dilenyapkan Allah SWT sakitnya itu."
+  },
+  {
+      "urutan": 89,
+      "latin": "Al Mughnii",
+      "arab": "المغنى",
+      "arti": "Yang Maha Pemberi Kekayaan",
+      "artilengkap": "Yang Maha Pemberi Kekayaan (Mengkayakan dan Memakmurkan), yaitu memberikan kelebihan yang berupa kekayaan yang berlimpah-ruah kepada siapa saja yang dikehendaki dari golongan hamba-hambaNya.",
+      "quran": "An-Najm: 48",
+      "fadillah": "Orang yang berdzikir dengan Asma Allah ini sebanyak 1.000 kali tiap hari, niscaya Allah akan menjadikannya kaya-raya."
+  },
+  {
+      "urutan": 90,
+      "latin": "Al Maani",
+      "arab": "المانع",
+      "arti": "Yang Maha Mencegah",
+      "artilengkap": "Yang Maha Mencegah (Pencegah / Membela atau Maha Menolak), yaitu membela hamba-hambaNya yang soleh dan menolak sebab-sebab yang menyebabkan kerosakan.",
+      "quran": "Hadits at-Tirmizi",
+      "fadillah": "Barang siapa memperbanyak dzikir dengan Asma Allah ini, niscaya segala permintaannya akan dikabulkan oleh Allah dan ditolak-Nya kejahatan darinya."
+  },
+  {
+      "urutan": 91,
+      "latin": "Ad Dhaar",
+      "arab": "الضار",
+      "arti": "Yang Maha Penimpa Kemudharatan",
+      "artilengkap": "Yang Maha Penimpa Kemudharatan (Mendatangkan Mudharat / Pembuat Bahaya / Pemberi Bahaya), yaitu dengan menurunkan siksa-Nya kepada musuh-musuh-Nya.",
+      "quran": "Al-An'aam: 17",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini 100 kali pada malam jumat, ia akan diselamatkan bencana jasmani dan ruhani. Disamping itu juga akan mendekatkan orang yang membacanya kepada Allah."
+  },
+  {
+      "urutan": 92,
+      "latin": "An Nafii '",
+      "arab": "النافع",
+      "arti": "Yang Maha Memberi Manfaat",
+      "artilengkap": "Yang Maha Pemberi Manfaat , yaitu meluaslah kebaikan yang dikurniakanNya itu kepada semua hamba, masyarakat dan negeri.",
+      "quran": "Al-Fath: 11",
+      "fadillah": "Barang siapa yang menaiki kapal atau menaikan barangnya di kapal, hendaknya membaca Asma Allah ini sebanyak-banyaknya. Insya Allah ia akan diselamatkan dari semua bahaya."
+  
+  },
+  {
+      "urutan": 93,
+      "latin": "An Nuur",
+      "arab": "النور",
+      "arti": "Yang Maha Bercahaya(Menerangi, Memberi Cahaya)",
+      "artilengkap": "Yang Maha Bercahaya (Menerangi/ Memberi Cahaya/ Pemberi Cahaya), yaitu menunjukkan ZatNya sendiri dan menampakkan untuk yang selainNya dengan menunjukkan tanda-tanda kekuasaanNya.",
+      "quran": "An-Nuur: 35",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini 1.001 kali setelah membaca Surat An-Nur, hatinya akan disinari dengan nur dan cahaya Allah."
+  },
+  {
+      "urutan": 94,
+      "latin": "Al Haadii",
+      "arab": "الهادئ",
+      "arti": "Yang Maha Pemberi Petunjuk",
+      "artilengkap": "Yang Maha Pemberi Petunjuk (Memimpin dan Memberi Pertunjuk), yaitu memberikan jalan yang benar kepada segala sesuatu agar berterusan adanya dan terjaga kehidupannya.",
+      "quran": "Al-Hajj: 54",
+      "fadillah": "Barang siapa yang mengangkat kedua tangannya (sebagaimana ketika berdoa) sambil memandang ke langit dan membaca Asma Allah ini beberapa kali kemudian menyapukan kedua tangannya di wajah (sebagaimana selesai berdoa), Allah akan mengaruniakan kepadanya hidayah yang sempurna, dan akan memasukkannya dalam golongan orang-orang yang taat dan shalih."
+  },
+  {
+      "urutan": 95,
+      "latin": "Al Badii'",
+      "arab": "البديع",
+      "arti": "Yang Maha Pencipta Yang Tiada Bandingannya",
+      "artilengkap": "sehingga tidak ada contoh dan yang menyamai sebelum keluarnya ciptaanNya itu.",
+      "quran": "Al-Baqarah: 117",
+      "fadillah": "Jika seseorang sedang mengalami duka cita, hendaknya ia membaca Asma Allah ini 1.000 kali, maka Allah akan mengeluarkannya dari penderitaan tersebut."
+  
+  },
+  {
+      "urutan": 96,
+      "latin": "Al Baaqii",
+      "arab": "الباقي",
+      "arti": "Yang Maha Kekal",
+      "artilengkap": "yaitu kekal hidupNya untuk selama-lamanya",
+      "quran": "Thaahaa: 73",
+      "fadillah": "Allah akan mengaruniakan perlindungan dan menerima semua amal shalih orang yang membaca Asma Allah ini 1.000 kali pada malam jumat."
+  },
+  {
+      "urutan": 97,
+      "latin": "Al Waarits",
+      "arab": "الوارث",
+      "arti": "Yang Maha Pewaris",
+      "artilengkap": "yaitu kekal setelah musnahnya seluruh makhluk.",
+      "quran": "Al-Hijr: 23",
+      "fadillah": "Jika Asma Allah ini dibaca 100 kali pada saat matahari terbit, maka ia akan diselamatkan dari duka cita, kesulitan dan bencana. Di samping itu orang yang membacanya akan meninggal dalam keadaan beriman. Insya Allah."
+  },
+  {
+      "urutan": 98,
+      "latin": "Ar Rasyiid",
+      "arab": "الرشيد",
+      "arti": "Yang Maha Pandai",
+      "artilengkap": "yaitu yang memimpin kepada kebenaran, yaitu memberi penerangan dan panduan pada seluruh hambaNya dan segala peraturanNya itu berjalan mengikut ketentuan yang digariskan oleh kebijaksanaan dan kecendekiawanNya.",
+      "quran": "Al-Jin: 10",
+      "fadillah": "Orang yang tidak memiliki pengetahuan tentang seluk beluk suatu tugas atau tidak dapat bekerja atau merencanakan suatu tugas, hendaknya membaca Asma Allah ini 1.000 kali antara Maghrib dan Isya, maka tugas dan rencana tersebut akan dapat dimengerti baik melalui mimpi atau ilham."
+  },
+  {
+      "urutan": 99,
+      "latin": "As Shabuur",
+      "arab": "الصبور",
+      "arti": "Yang Maha Sabar",
+      "artilengkap": "Yang Maha Penyabar, yang tidak tergesa-gesa memberikan siksaan dan tidak juga cepat melaksanakan sesuatu sebelum masanya.",
+      "quran": "",
+      "fadillah": "Barang siapa yang membaca Asma Allah ini 100 kali sebelum matahari terbit akan diselamatkan dari bencana sepanjang hari itu. Disamping itu Allah akan menjadikan musuh–musuhnya tidak mampu mengucapkan sepatah kata pun dihadapannya."
+  }
+]

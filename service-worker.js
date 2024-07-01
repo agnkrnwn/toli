@@ -1,29 +1,23 @@
-const CACHE_NAME = "islam-hubap-cac";
+const CACHE_NAME = "final-app-iah-v1.2";
 const urlsToCache = [
   "/",
-  "/asmaul.html",
-  "/audio.html",
-  "/audio2.html",
-  "/bahan.html",
-  "/hadist.html",
-  "/hadis.html",
   "/index.html",
   "/manifest.json",
-  "/qr.html",
-  "/quran.html",
-  "/readme.md",
-  "/scan.py",
   "/service-worker.js",
-  "/sholat.html",
-  "/todo.html",
-  "/hadis.html",
-  "/asset/android/android-launchericon-144-144.png",
-  "/asset/android/android-launchericon-192-192.png",
-  "/asset/android/android-launchericon-48-48.png",
-  "/asset/android/android-launchericon-512-512.png",
-  "/asset/android/android-launchericon-72-72.png",
-  "/asset/android/android-launchericon-96-96.png",
+  "/app/index.html",
+  "/app/asma/index.html",
+  "/app/audio/index.html",
+  "/app/bahan/index.html",
+  "/app/hadis/index.html",
+  "/app/hadist/index.html",
+  "/app/qr/index.html",
+  "/app/quran/index.html",
+  "/app/qurann/index.html",
+  "/app/sholat/index.html",
+  "/app/todo/index.html",
+  "/app/yasin/index.html",
   "/asset/background/background1.jpg",
+  "/asset/background/background3.jpg",
   "/asset/background/background2.jpg",
   "/asset/background/background3.jpg",
   "/asset/background/background4.jpg",
@@ -36,20 +30,29 @@ const urlsToCache = [
   "/asset/css/all.min.css",
   "/asset/css/asma.css",
   "/asset/css/audio.css",
+  "/asset/css/bahan.css",
   "/asset/css/bootstrap-select.min.css",
   "/asset/css/bootstrap.min.css",
+  "/asset/css/hadis.css",
   "/asset/css/hadist.css",
+  "/asset/css/index.css",
+  "/asset/css/indexdantodo.css",
+  "/asset/css/indexx.css",
+  "/asset/css/qr.css",
   "/asset/css/quran.css",
+  "/asset/css/quran2.css",
   "/asset/css/select2.min.css",
   "/asset/css/sholat.css",
   "/asset/css/todo.css",
-  "/asset/data/asmaul-husna.json",
-  "/asset/data/asmaul-husnaxxx.json",
-  "/asset/data/asmaul-lengkap.json",
+  "/asset/css/yasin.css",
   "/asset/data/audio.json",
   "/asset/data/quran.png",
+  "/asset/data/asmaul/asmaul-husna.json",
+  "/asset/data/asmaul/asmaul-husnaxxx.json",
+  "/asset/data/asmaul/asmaul-lengkap.json",
   "/asset/data/hadist/abu-dawud.json",
   "/asset/data/hadist/ahmad.json",
+  "/asset/data/hadist/arbain.json",
   "/asset/data/hadist/bukhari.json",
   "/asset/data/hadist/darimi.json",
   "/asset/data/hadist/ibnu-majah.json",
@@ -57,23 +60,55 @@ const urlsToCache = [
   "/asset/data/hadist/muslim.json",
   "/asset/data/hadist/nasai.json",
   "/asset/data/hadist/tirmidzi.json",
+  "/asset/data/surah/data/ad_dhuha_data.json",
+  "/asset/data/surah/data/al_adiyat_data.json",
+  "/asset/data/surah/data/al_alaq_data.json",
+  "/asset/data/surah/data/al_asr_data.json",
+  "/asset/data/surah/data/al_a_la_data.json",
+  "/asset/data/surah/data/al_balad_data.json",
+  "/asset/data/surah/data/al_bayyinah_data.json",
+  "/asset/data/surah/data/al_fajr_data.json",
+  "/asset/data/surah/data/al_falaq_data.json",
+  "/asset/data/surah/data/al_fatihah_data.json",
+  "/asset/data/surah/data/al_fiil_data.json",
+  "/asset/data/surah/data/al_ghasyiyah_data.json",
+  "/asset/data/surah/data/al_humazah_data.json",
+  "/asset/data/surah/data/al_ikhlas_data.json",
+  "/asset/data/surah/data/al_infitar_data.json",
+  "/asset/data/surah/data/al_insyirah_data.json",
+  "/asset/data/surah/data/al_kafirun_data.json",
+  "/asset/data/surah/data/al_kautsar_data.json",
+  "/asset/data/surah/data/al_lahab_data.json",
+  "/asset/data/surah/data/al_maun_data.json",
+  "/asset/data/surah/data/al_qadr_data.json",
+  "/asset/data/surah/data/al_qari_ah_data.json",
+  "/asset/data/surah/data/al_quraisy_data.json",
+  "/asset/data/surah/data/al_zalzalah_data.json",
+  "/asset/data/surah/data/an_nasr_data.json",
+  "/asset/data/surah/data/an_nas_data.json",
+  "/asset/data/surah/data/asy_syams_data.json",
+  "/asset/data/surah/data/ath_thariq_data.json",
+  "/asset/data/surah/data/at_takatsur_data.json",
+  "/asset/data/surah/data/at_tin_data.json",
+  "/asset/data/surah/data/yasin_data.json",
   "/asset/font/material.woff2",
   "/asset/font/Poppins-Bold.ttf",
   "/asset/font/Poppins-Regular.ttf",
   "/asset/font/readex-arabic.woff2",
-  "/asset/icon/android-chrome-192x192.png",
-  "/asset/icon/android-chrome-512x512.png",
   "/asset/icon/apple-touch-icon.png",
+  "/asset/icon/bg.jpg",
   "/asset/icon/favicon-16x16.png",
   "/asset/icon/favicon-32x32.png",
   "/asset/icon/favicon.ico",
+  "/asset/icon/icon-192x192.png",
+  "/asset/icon/icon-512x512.png",
+  "/asset/icon/quran.png",
   "/asset/js/asma.js",
   "/asset/js/audio.js",
+  "/asset/js/bahan.js",
   "/asset/js/bootstrap-select.min.js",
-  "/asset/js/bootstrap.bundle.min.js",
   "/asset/js/bootstrap.min.js",
   "/asset/js/FileSaver.min.js",
-  "/asset/js/hadist.js",
   "/asset/js/hadis.js",
   "/asset/js/hadist2.js",
   "/asset/js/html2canvas.min.js",
@@ -86,64 +121,27 @@ const urlsToCache = [
   "/asset/js/quran2.js",
   "/asset/js/select-bootstrap.bundle.min.js",
   "/asset/js/select2.min.js",
-  "/asset/js/sholat.js",
   "/asset/js/sholat2.js",
-  "/asset/js/todo.js",
-  "/asset/js/bahan.js",
-  "/asset/js/hadis.js",
+  "/asset/js/yasin.js",
   "/asset/webfonts/fa-solid-900.ttf",
   "/asset/webfonts/fa-solid-900.woff2",
   "/asset/webfonts/Poppins-Bold.ttf",
   "/asset/webfonts/Poppins-Regular.ttf",
 ];
 
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache
-        .addAll(urlsToCache.map((url) => new Request(url, { mode: "no-cors" })))
-        .then(function () {
-          console.log("All resources have been fetched and cached.");
-        })
-        .catch(function (error) {
-          console.error("Failed to cache:", error);
-        });
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
 });
 
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(function (response) {
-      // Cache hit - return response
+    caches.match(event.request).then((response) => {
       if (response) {
         return response;
       }
-
-      // Fetch and cache new resources from network
-      return fetch(event.request)
-        .then(function (response) {
-          // Check if we received a valid response
-          if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
-          ) {
-            return response;
-          }
-
-          // Clone the response because it's a Stream and can only be consumed once.
-          let responseToCache = response.clone();
-
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(event.request, responseToCache);
-          });
-
-          return response;
-        })
-        .catch(function (error) {
-          console.error("Error fetching data:", error);
-        });
+      return fetch(event.request);
     })
   );
 });
