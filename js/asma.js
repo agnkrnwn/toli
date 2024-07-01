@@ -54,7 +54,7 @@ function generateQuoteByNumber() {
     document.getElementById('quote-arti').innerText = quote.arti;
 
     const randomBackgroundIndex = Math.floor(Math.random() * backgroundCount) + 1;
-    document.getElementById('quote-box').style.backgroundImage = `url('asset/background/background${randomBackgroundIndex}.jpg')`;
+    document.getElementById('quote-box').style.backgroundImage = `url('../../asset/background/background${randomBackgroundIndex}.jpg')`;
 
     updateSearchLink(quote.url);
     hideDetail(); // Sembunyikan detail jika ada yang ditampilkan
