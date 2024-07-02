@@ -34,6 +34,13 @@
             </button>
         </div>
         <div class="space-y-4">
+            <select id="qr-type" class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary">
+                <option value="text">Text</option>
+                <option value="url">URL</option>
+                <option value="wifi">WiFi</option>
+                <option value="vcard">vCard</option>
+                <option value="email">Email</option>
+            </select>
             <input type="text" id="input" placeholder="Masukkan teks atau URL" class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary">
             <button onclick="generateQRCode()" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">Generate QR Code</button>
         </div>
@@ -56,7 +63,6 @@
 
     <script src="../../asset/js/qrcode.min.js"></script>
     <script>
-
         // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
@@ -64,11 +70,36 @@
         });
 
         function generateQRCode() {
-            const input = document.getElementById('input').value;
-            
+            const type = document.getElementById('qr-type').value;
+            let input = document.getElementById('input').value;
+            let data;
+
+            switch(type) {
+                case 'url':
+                    data = input.startsWith('http') ? input : `https://${input}`;
+                    break;
+                case 'wifi':
+                    const ssid = prompt('Enter WiFi SSID:');
+                    const password = prompt('Enter WiFi Password:');
+                    data = `WIFI:S:${ssid};T:WPA;P:${password};;`;
+                    break;
+                case 'vcard':
+                    const name = prompt('Enter Name:');
+                    const phone = prompt('Enter Phone:');
+                    data = `BEGIN:VCARD\nVERSION:3.0\nN:${name}\nTEL:${phone}\nEND:VCARD`;
+                    break;
+                case 'email':
+                    const email = prompt('Enter Email:');
+                    const subject = prompt('Enter Subject:');
+                    data = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+                    break;
+                default:
+                    data = input;
+            }
+
             // Generate QR Code
             const qr = qrcode(0, 'M');
-            qr.addData(input);
+            qr.addData(data);
             qr.make();
             document.getElementById('qrcode').innerHTML = qr.createImgTag(5);
         }
