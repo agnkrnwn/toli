@@ -103,6 +103,7 @@ const urlsToCache = [
   "/asset/icon/icon-512x512.png",
   "/asset/icon/quran.png",
   "/asset/js/asma.js",
+  "/asset/js/asma2.js",
   "/asset/js/audio.js",
   "/asset/js/bahan.js",
   "/asset/js/bootstrap-select.min.js",
