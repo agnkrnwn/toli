@@ -6,7 +6,7 @@ $(document).ready(function () {
   let selectedQari = "ar.alafasy"; // Default qari
   let showArabic = true;
   let showTransliteration = true;
-  let bookmarks = JSON.parse(localStorage.getItem("quranBookmarks-v1")) || [];
+  let bookmarks = JSON.parse(localStorage.getItem("quranBookmarks-v12")) || [];
 
   const backgrounds = [];
   for (let i = 1; i <= 95; i++) {
@@ -48,7 +48,7 @@ $(document).ready(function () {
     } else {
       bookmarks.push(currentAyah);
     }
-    localStorage.setItem("quranBookmarks-v1", JSON.stringify(bookmarks));
+    localStorage.setItem("quranBookmarks-v12", JSON.stringify(bookmarks));
     updateBookmarkButton();
   }
 
@@ -263,7 +263,7 @@ $(document).ready(function () {
 
   $("#hapus-bookmark-btn").click(function () {
     if (confirm("Are you sure you want to delete all bookmarks?")) {
-      localStorage.removeItem("quranBookmarks-v1");
+      localStorage.removeItem("quranBookmarks-v12");
       bookmarks = [];
       showBookmarks();
       updateBookmarkButton();
@@ -283,7 +283,7 @@ $(document).ready(function () {
     e.preventDefault();
     const bookmarkToDelete = $(this).data("ayah");
     bookmarks = bookmarks.filter((bookmark) => bookmark !== bookmarkToDelete);
-    localStorage.setItem("quranBookmarks-v1", JSON.stringify(bookmarks));
+    localStorage.setItem("quranBookmarks-v12", JSON.stringify(bookmarks));
     showBookmarks();
     updateBookmarkButton();
   });
