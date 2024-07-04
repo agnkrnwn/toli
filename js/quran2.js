@@ -6,6 +6,7 @@ $(document).ready(function () {
   let selectedQari = "ar.alafasy"; // Default qari
   let showArabic = true;
   let showTransliteration = true;
+  let bookmarks = JSON.parse(localStorage.getItem("quranBookmarks-v1")) || [];
 
   const backgrounds = [];
   for (let i = 1; i <= 95; i++) {
@@ -24,12 +25,32 @@ $(document).ready(function () {
     } else {
       $("#quoteContainer").css("background-image", "none");
     }
-    console.log(
-      "Background set:",
-      $("#quoteContainer").css("background-image")
-    );
   }
 
+  function updateBookmarkButton() {
+    const currentAyah = `${surahNumber}:${ayahNumber}`;
+    if (bookmarks.includes(currentAyah)) {
+      $("#toggle-bookmark")
+        .addClass("text-yellow-500")
+        .removeClass("text-gray-500");
+    } else {
+      $("#toggle-bookmark")
+        .addClass("text-gray-500")
+        .removeClass("text-yellow-500");
+    }
+  }
+
+  function toggleBookmark() {
+    const currentAyah = `${surahNumber}:${ayahNumber}`;
+    const index = bookmarks.indexOf(currentAyah);
+    if (index > -1) {
+      bookmarks.splice(index, 1);
+    } else {
+      bookmarks.push(currentAyah);
+    }
+    localStorage.setItem("quranBookmarks-v1", JSON.stringify(bookmarks));
+    updateBookmarkButton();
+  }
 
   function generateQuote(apiUrl) {
     setRandomBackground();
@@ -41,38 +62,240 @@ $(document).ready(function () {
       const surahNameArabic = data.data[0].surah.name;
       surahNameLatin = data.data[0].surah.englishName;
       surahNumber = data.data[0].surah.number;
-      const ayahInSurah = data.data[0].numberInSurah;
+      ayahNumber = data.data[0].numberInSurah;
 
       $("#quote-details").html(
-        `Surah <strong>${surahNameArabic}</strong> (<em>${surahNameLatin}</em>) - ${surahNumber}:${ayahInSurah}`
+        `Surah <strong>${surahNameArabic}</strong> (<em>${surahNameLatin}</em>) - ${surahNumber}:${ayahNumber}`
       );
       $("#quote-arabic").text(arabicText);
       $("#quote-transliteration").text(transliterationText);
       $("#quote-translation").text(translationText);
 
+      updateBookmarkButton();
       updateQuoteVisibility();
       adjustFontSizes();
 
       const audioPlayer = document.getElementById("audioPlayer");
-      const audioUrl = `https://cdn.islamic.network/quran/audio/128/${selectedQari}/${data.data[0].number}.mp3`;
+      const audioFileName = `${data.data[0].number}.mp3`;
+      const audioUrl = `https://cdn.islamic.network/quran/audio/128/${selectedQari}/${audioFileName}`;
 
       audioPlayer.src = audioUrl;
       audioPlayer.load();
       audioPlayer.play();
 
-      const audioTitle = `${selectedQari} : ${surahNameLatin} (${surahNumber}:${ayahInSurah})`;
+      // const audioTitle = `${selectedQari} : ${surahNameLatin} (${surahNumber}:${ayahNumber}) - ${audioFileName}`;
+      const audioTitle = `${surahNameLatin} (${surahNumber}:${ayahNumber}) - ${audioFileName}`;
       $("#audio-title").text(audioTitle);
-
-      console.log("Audio loaded and playing:", audioUrl);
 
       audioPlayer.onerror = function () {
         alert("Audio not available for this reciter. Please try another.");
       };
+      // Set the download URL and file name for the download button
+      $("#download-button")
+        .attr("href", audioUrl)
+        .attr("download", audioFileName);
     }).fail(function (error) {
       alert("Failed to retrieve ayah. Please try again later.");
       console.error(error);
     });
   }
+
+  // Assuming you have a button with id="download-button" in your HTML
+  document
+    .getElementById("download-button")
+    .addEventListener("click", function () {
+      const audioPlayer = document.getElementById("audioPlayer");
+      window.open(audioPlayer.src, "_blank");
+    });
+
+  const surahNames = [
+    "Al-Fatihah",
+    "Al-Baqarah",
+    "Ali 'Imran",
+    "An-Nisa",
+    "Al-Ma'idah",
+    "Al-An'am",
+    "Al-A'raf",
+    "Al-Anfal",
+    "At-Tawbah",
+    "Yunus",
+    "Hud",
+    "Yusuf",
+    "Ar-Ra'd",
+    "Ibrahim",
+    "Al-Hijr",
+    "An-Nahl",
+    "Al-Isra",
+    "Al-Kahf",
+    "Maryam",
+    "Taha",
+    "Al-Anbya",
+    "Al-Hajj",
+    "Al-Mu'minun",
+    "An-Nur",
+    "Al-Furqan",
+    "Ash-Shu'ara",
+    "An-Naml",
+    "Al-Qasas",
+    "Al-'Ankabut",
+    "Ar-Rum",
+    "Luqman",
+    "As-Sajdah",
+    "Al-Ahzab",
+    "Saba",
+    "Fatir",
+    "Ya-Sin",
+    "As-Saffat",
+    "Sad",
+    "Az-Zumar",
+    "Ghafir",
+    "Fussilat",
+    "Ash-Shura",
+    "Az-Zukhruf",
+    "Ad-Dukhan",
+    "Al-Jathiyah",
+    "Al-Ahqaf",
+    "Muhammad",
+    "Al-Fath",
+    "Al-Hujurat",
+    "Qaf",
+    "Adh-Dhariyat",
+    "At-Tur",
+    "An-Najm",
+    "Al-Qamar",
+    "Ar-Rahman",
+    "Al-Waqi'ah",
+    "Al-Hadid",
+    "Al-Mujadilah",
+    "Al-Hashr",
+    "Al-Mumtahanah",
+    "As-Saff",
+    "Al-Jumu'ah",
+    "Al-Munafiqun",
+    "At-Taghabun",
+    "At-Talaq",
+    "At-Tahrim",
+    "Al-Mulk",
+    "Al-Qalam",
+    "Al-Haqqah",
+    "Al-Ma'arij",
+    "Nuh",
+    "Al-Jinn",
+    "Al-Muzzammil",
+    "Al-Muddaththir",
+    "Al-Qiyamah",
+    "Al-Insan",
+    "Al-Mursalat",
+    "An-Naba",
+    "An-Nazi'at",
+    "'Abasa",
+    "At-Takwir",
+    "Al-Infitar",
+    "Al-Mutaffifin",
+    "Al-Inshiqaq",
+    "Al-Buruj",
+    "At-Tariq",
+    "Al-A'la",
+    "Al-Ghashiyah",
+    "Al-Fajr",
+    "Al-Balad",
+    "Ash-Shams",
+    "Al-Layl",
+    "Ad-Duha",
+    "Ash-Sharh",
+    "At-Tin",
+    "Al-'Alaq",
+    "Al-Qadr",
+    "Al-Bayyinah",
+    "Az-Zalzalah",
+    "Al-'Adiyat",
+    "Al-Qari'ah",
+    "At-Takathur",
+    "Al-'Asr",
+    "Al-Humazah",
+    "Al-Fil",
+    "Quraysh",
+    "Al-Ma'un",
+    "Al-Kawthar",
+    "Al-Kafirun",
+    "An-Nasr",
+    "Al-Masad",
+    "Al-Ikhlas",
+    "Al-Falaq",
+    "An-Nas",
+  ];
+
+  function showBookmarks() {
+    let bookmarkList = '<div class="space-y-2">';
+    if (bookmarks.length === 0) {
+      bookmarkList +=
+        '<p class="text-center text-gray-500">No bookmarks available.</p>';
+    } else {
+      bookmarks.forEach((bookmark) => {
+        const [surah, ayah] = bookmark.split(":");
+        const surahName = surahNames[parseInt(surah) - 1];
+        bookmarkList += `
+              <div class="flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-2 rounded-md">
+                  <div class="flex-grow">
+                      <a href="#" class="load-bookmark text-blue-500 hover:text-blue-700" data-ayah="${bookmark}">
+                          <i class="fas fa-bookmark mr-2"></i>${surahName} (${bookmark})
+                      </a>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 ml-6">Surah ${surah}, Ayah ${ayah}</p>
+                  </div>
+                  <button class="delete-bookmark text-red-500 hover:text-red-700" data-ayah="${bookmark}">
+                      <i class="fas fa-trash-alt"></i>
+                  </button>
+              </div>
+          `;
+      });
+    }
+    bookmarkList += "</div>";
+
+    $("#bookmarkList").html(bookmarkList);
+    $("#bookmarkModal").removeClass("hidden");
+  }
+
+  $("#show-bookmarks").click(showBookmarks);
+
+  $("#closeBookmarkModal").click(function () {
+    $("#bookmarkModal").addClass("hidden");
+  });
+
+  $("#hapus-bookmark-btn").click(function () {
+    if (confirm("Are you sure you want to delete all bookmarks?")) {
+      localStorage.removeItem("quranBookmarks-v1");
+      bookmarks = [];
+      showBookmarks();
+      updateBookmarkButton();
+    }
+  });
+
+  $(document).on("click", ".load-bookmark", function (e) {
+    e.preventDefault();
+    const [surah, ayah] = $(this).data("ayah").split(":");
+    $("#surah-number").val(surah);
+    $("#ayah-number").val(ayah);
+    $("#generate-by-number").click();
+    $("#bookmarkModal").addClass("hidden");
+  });
+
+  $(document).on("click", ".delete-bookmark", function (e) {
+    e.preventDefault();
+    const bookmarkToDelete = $(this).data("ayah");
+    bookmarks = bookmarks.filter((bookmark) => bookmark !== bookmarkToDelete);
+    localStorage.setItem("quranBookmarks-v1", JSON.stringify(bookmarks));
+    showBookmarks();
+    updateBookmarkButton();
+  });
+
+  $(document).on("click", ".load-bookmark", function (e) {
+    e.preventDefault();
+    const [surah, ayah] = $(this).data("ayah").split(":");
+    $("#surah-number").val(surah);
+    $("#ayah-number").val(ayah);
+    $("#generate-by-number").click();
+    $("#bookmarkModal").addClass("hidden");
+  });
 
   function adjustFontSizes() {
     const container = document.querySelector("#quoteContainer");
@@ -94,10 +317,15 @@ $(document).ready(function () {
     });
   }
 
+  function updateQuoteVisibility() {
+    $("#quote-arabic").toggle(showArabic);
+    $("#quote-transliteration").toggle(showTransliteration);
+  }
+
   $("#generate-quote").click(function () {
     const totalAyahs = 6236;
-    ayahNumber = Math.floor(Math.random() * totalAyahs) + 1;
-    const apiUrl = `https://api.alquran.cloud/v1/ayah/${ayahNumber}/editions/quran-uthmani,id.indonesian,en.transliteration`;
+    const randomAyah = Math.floor(Math.random() * totalAyahs) + 1;
+    const apiUrl = `https://api.alquran.cloud/v1/ayah/${randomAyah}/editions/quran-uthmani,id.indonesian,en.transliteration`;
     generateQuote(apiUrl);
   });
 
@@ -121,23 +349,19 @@ $(document).ready(function () {
 
   $("#save-screenshot").click(function () {
     const quoteContainer = document.querySelector("#quoteContainer");
-
-    // Simpan ukuran asli
     const originalStyle = quoteContainer.getAttribute("style");
 
-    // Set ukuran tetap untuk capture
     quoteContainer.style.width = "1080px";
     quoteContainer.style.height = "1920px";
     quoteContainer.style.overflow = "hidden";
-    quoteContainer.style.padding = "20% 15%"; // Tambahkan padding yang lebih besar
+    quoteContainer.style.padding = "20% 15%";
 
-    // Sesuaikan ukuran font
     const elements = quoteContainer.querySelectorAll(
       "#quote-arabic, #quote-transliteration, #quote-translation, #quote-details"
     );
     elements.forEach((el) => {
       const currentSize = window.getComputedStyle(el).fontSize;
-      el.style.fontSize = `${parseFloat(currentSize) * 2}px`; // Sesuaikan faktor perbesaran
+      el.style.fontSize = `${parseFloat(currentSize) * 2}px`;
       el.style.lineHeight = "1.8";
       el.style.letterSpacing = "normal";
       el.style.wordSpacing = "normal";
@@ -158,7 +382,6 @@ $(document).ready(function () {
         },
       })
         .then((canvas) => {
-          // Kembalikan ukuran dan style ke semula
           quoteContainer.setAttribute("style", originalStyle);
           elements.forEach((el) => {
             el.style.fontSize = "";
@@ -187,6 +410,7 @@ $(document).ready(function () {
         });
     }, 500);
   });
+
   function populateQariDropdown() {
     const qariDropdown = $("#qari-dropdown");
     $.getJSON(
@@ -207,34 +431,38 @@ $(document).ready(function () {
     selectedQari = $(this).val();
   });
 
-  // Fungsi baru untuk mengupdate visibilitas quote
-  function updateQuoteVisibility() {
-    $("#quote-arabic").toggle(showArabic);
-    $("#quote-transliteration").toggle(showTransliteration);
-  }
-
   $("#toggle-random-bg").click(function () {
     randomBgEnabled = !randomBgEnabled;
     setRandomBackground();
     $(this).toggleClass("text-purple-500 text-red-500");
-    $(this).find('i').toggleClass("fa-image fa-ban");
-});
+    $(this).find("i").toggleClass("fa-image fa-ban");
+  });
 
-// Toggle untuk Arabic text
-$("#toggle-arabic").click(function () {
+  $("#toggle-arabic").click(function () {
     showArabic = !showArabic;
     updateQuoteVisibility();
     $(this).toggleClass("text-blue-500 text-red-500");
-    $(this).find('i').toggleClass("fa-language fa-ban");
-});
+    $(this).find("i").toggleClass("fa-language fa-ban");
+  });
 
-// Toggle untuk Transliteration
-$("#toggle-transliteration").click(function () {
+  $("#toggle-transliteration").click(function () {
     showTransliteration = !showTransliteration;
     updateQuoteVisibility();
     $(this).toggleClass("text-green-500 text-red-500");
-    $(this).find('i').toggleClass("fa-spell-check fa-ban");
-});
+    $(this).find("i").toggleClass("fa-spell-check fa-ban");
+  });
+
+  $("#toggle-bookmark").click(toggleBookmark);
+
+  $("#show-bookmarks").click(showBookmarks);
+
+  $(document).on("click", ".load-bookmark", function (e) {
+    e.preventDefault();
+    const [surah, ayah] = $(this).data("ayah").split(":");
+    $("#surah-number").val(surah);
+    $("#ayah-number").val(ayah);
+    $("#generate-by-number").click();
+  });
 
   populateQariDropdown();
   setRandomBackground();

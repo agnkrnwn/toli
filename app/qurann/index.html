@@ -2,31 +2,116 @@
 <html lang="id" class="dark">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Modern Quran Quote Generator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#1f2937">
-    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
-    <link rel="manifest" href="../../manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1f2937" />
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png" />
+    <link rel="manifest" href="../../manifest.json" />
+    <link rel="stylesheet" href="../../asset/css/all.min.css" />
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
                 navigator.serviceWorker
                     .register("../../service-worker.js")
                     .then((reg) => console.log("Service worker registered.", reg))
-                    .catch((err) => console.log("Service worker registration failed:", err));
+                    .catch((err) =>
+                        console.log("Service worker registration failed:", err)
+                    );
             });
         }
     </script>
-    <link rel="stylesheet" href="../../asset/css/quran2.css">
-    <link rel="stylesheet" href="../../asset/css/all.min.css">
+    <link rel="stylesheet" href="../../asset/css/quran3.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+        };
+    </script>
+    
+    
+    <style>
+        @font-face {
+            font-family: "KFGQPCUthmanic";
+            src: url("../../asset/font/KFGQPCUthmanic.otf") format("opentype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "hurufa";
+            src: url("../../asset/font/a.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "hurufb";
+            src: url("../../asset/font/b.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .font-arabic {
+            font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
+            /* tambahkan serif sebagai fallback */
+        }
+
+        #quoteContainer {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: 50%;
+            padding: 0;
+            /* Menghapus padding di CSS untuk menghindari konflik */
+            box-sizing: border-box;
+        }
+
+        .quote-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #quote-arabic {
+            font-size: 1.5rem;
+            font-feature-settings: "kern" 1, "liga" 1;
+            font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        #quote-translation,
+        #quote-transliteration {
+            font-size: 1rem;
+        }
+
+        #quote-details {
+            font-size: 0.875rem;
+        }
+
+        #quote-arabic,
+        #quote-details,
+        #quote-translation,
+        #quote-transliteration {
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-rendering: optimizeLegibility;
+        }
+    </style> -->
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-200">
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8 pb-16">
+        <!-- Added padding bottom for navbar -->
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-3xl font-bold text-center flex-grow">Quran Quote</h1>
             <button id="toggle-dark-mode" class="ml-4 p-2">
@@ -43,46 +128,39 @@
         </div>
 
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 mb-6">
-            <div id="audio-title" class="text-lg font-semibold mb-4 text-center">No audio playing</div>
+            <div id="audio-title" class="text-lg font-semibold mb-4 text-center">
+                No audio playing
+            </div>
             <audio id="audioPlayer" class="w-full mb-4" controls></audio>
 
             <div class="flex space-x-4 mb-4">
                 <input type="number" id="surah-number" class="w-1/2 p-2 rounded-lg bg-gray-100 dark:bg-gray-700"
-                    placeholder="Surah">
+                    placeholder="Surah" />
                 <input type="number" id="ayah-number" class="w-1/2 p-2 rounded-lg bg-gray-100 dark:bg-gray-700"
-                    placeholder="Ayah">
+                    placeholder="Ayah" />
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-wrap gap-4 mb-4">
                 <button id="generate-quote"
-                    class="btn bg-primary text-white p-2 rounded-lg hover:bg-blue-600 transition-colors">
-                    <i class="fas fa-random mr-2"></i> Random Quote
+                    class="flex-grow bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-random mr-2"></i> Random
                 </button>
                 <button id="generate-by-number"
-                    class="btn bg-secondary text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
+                    class="flex-grow bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
                     <i class="fas fa-search mr-2"></i> Search
                 </button>
-            </div>
-            
-            <div class="flex justify-between bg-gray-200 dark:bg-gray-700 rounded-lg p-2">
-                <button id="save-screenshot" class="text-red-500 hover:text-red-600 transition-colors">
-                    <i class="fas fa-download"></i>
-                </button>
-                <button id="toggle-random-bg" class="text-purple-500 hover:text-purple-600 transition-colors">
-                    <i class="fas fa-image"></i>
-                </button>
-                <button id="toggle-arabic" class="text-blue-500 hover:text-blue-600 transition-colors">
-                    <i class="fas fa-language"></i>
-                </button>
-                <button id="toggle-transliteration" class="text-green-500 hover:text-green-600 transition-colors">
-                    <i class="fas fa-spell-check"></i>
+                <button id="download-button" type="button"
+                    class="flex-grow bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition-colors">
+                    <i class="fas fa-file-audio mr-2"></i>
                 </button>
             </div>
+
         </div>
+
         <div id="quoteContainer" class="relative bg-gray-900 rounded-lg shadow-lg overflow-hidden w-full h-full">
             <div class="absolute inset-0 bg-gradient-to-br from-black to-gray-800 opacity-70"></div>
             <div
-                class="quote-content relative text-white w-full h-full flex flex-col justify-center items-center space-y-6">
+                class="quote-content relative text-white w-full h-full flex flex-col justify-center items-center space-y-6 p-8">
                 <div id="quote-arabic" class="mb-4 text-right font-arabic text-4xl leading-relaxed tracking-wide"
                     dir="rtl"></div>
                 <div id="quote-transliteration" class="mb-4 italic text-lg text-gray-300 tracking-wider" dir="ltr">
@@ -90,15 +168,63 @@
                 <div id="quote-translation" class="mb-4 text-lg tracking-wide" dir="ltr"></div>
                 <div id="quote-details" class="text-sm text-gray-400 italic tracking-widest"></div>
             </div>
+            <button id="toggle-bookmark"
+                class="absolute top-4 right-4 text-gray-500 hover:text-yellow-500 transition-colors">
+                <i class="fas fa-bookmark"></i>
+            </button>
         </div>
-
-
     </div>
 
+    <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <button id="save-screenshot" class="text-red-500 hover:text-red-600 transition-colors">
+                    <i class="fas fa-download text-xl"></i>
+                </button>
+                <button id="toggle-random-bg" class="text-purple-500 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-image text-xl"></i>
+                </button>
+                <button id="toggle-arabic" class="text-blue-500 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-language text-xl"></i>
+                </button>
+                <button id="toggle-transliteration" class="text-green-500 hover:text-green-600 transition-colors">
+                    <i class="fas fa-spell-check text-xl"></i>
+                </button>
+                <button id="show-bookmarks" class="text-yellow-500 hover:text-yellow-600 transition-colors">
+                    <i class="fas fa-list text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="bookmarkModal"
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center">
+        <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 m-4 max-w-sm w-full">
+            <div class="mt-3">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white text-center mb-4">
+                    Bookmarks
+                </h3>
+                <div id="bookmarkList" class="mt-2 max-h-60 overflow-y-auto">
+                    <!-- Bookmark list will be populated here -->
+                </div>
+                <div class="mt-4 flex justify-between space-x-3">
+                    <button id="closeBookmarkModal"
+                        class="flex-1 px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                        <i class="fas fa-times mr-2"></i> Close
+                    </button>
+                    <button id="hapus-bookmark-btn"
+                        class="flex-1 px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                        <i class="fas fa-trash-alt mr-2"></i> Delete All
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        document.getElementById('toggle-dark-mode').addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-        });
+        document
+            .getElementById("toggle-dark-mode")
+            .addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+            });
     </script>
     <script src="../../asset/js/jquery-3.6.0.min.js"></script>
     <script src="../../asset/js/html2canvas.min.js"></script>
