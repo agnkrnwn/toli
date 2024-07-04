@@ -7,11 +7,96 @@ $(document).ready(function () {
   let showArabic = true;
   let showTransliteration = true;
   let bookmarks = JSON.parse(localStorage.getItem("quranBookmarks-v1")) || [];
+  let selectedArabicFont = "hurufb";
+  let backgroundSetting = "random";
 
   const backgrounds = [];
   for (let i = 1; i <= 95; i++) {
     backgrounds.push(`../../asset/background/background${i}.jpg`);
   }
+
+  function setBackground() {
+    const quoteContainer = $("#quoteContainer");
+    const quoteContent = $(".quote-content");
+
+    switch (backgroundSetting) {
+      case "random":
+        // Jika Anda masih ingin opsi random
+        const randomIndex = Math.floor(Math.random() * backgrounds.length);
+        quoteContainer.css({
+          "background-image": `url('${backgrounds[randomIndex]}')`,
+          "background-size": "cover",
+          "background-position": "center",
+        });
+        quoteContent.removeClass("text-gray-900").addClass("text-white");
+        break;
+      case "specific":
+        // Menggunakan gambar spesifik
+        quoteContainer.css({
+          "background-image": "url('../../asset/background/background20.jpg')",
+          "background-size": "cover",
+          "background-position": "center",
+        });
+        quoteContent.removeClass("text-gray-900").addClass("text-white");
+        break;
+      case "solid-dark":
+        quoteContainer.css({
+          "background-image": "none",
+          "background-color": "#1f2937",
+        });
+        quoteContent.removeClass("text-gray-900").addClass("text-white");
+        break;
+      case "solid-light":
+        quoteContainer.css({
+          "background-image": "none",
+          "background-color": "#f3f4f6",
+        });
+        quoteContent.removeClass("text-white").addClass("text-gray-900");
+        break;
+    }
+  }
+  // Fungsi untuk memperbarui pengaturan
+  function updateSettings() {
+    // Background
+    backgroundSetting = $("#background-setting").val();
+    setBackground();
+
+    randomBgEnabled = $("#background-setting").val() === "random";
+    setRandomBackground();
+
+    // Arabic text
+    showArabic = $("#show-arabic-setting").prop("checked");
+
+    // Transliteration
+    showTransliteration = $("#show-transliteration-setting").prop("checked");
+
+    // Arabic font
+    selectedArabicFont = $("#arabic-font-setting").val();
+
+    updateQuoteVisibility();
+    updateArabicFont();
+  }
+
+  $("#arabic-font-setting").change(function () {
+    updateFontPreview();
+  });
+
+  // Fungsi untuk menampilkan modal pengaturan
+  function showSettingsModal() {
+    $("#background-setting").val(backgroundSetting);
+    $("#show-arabic-setting").prop("checked", showArabic);
+    $("#show-transliteration-setting").prop("checked", showTransliteration);
+    $("#arabic-font-setting").val(selectedArabicFont);
+    updateFontPreview();
+    $("#settingsModal").removeClass("hidden");
+  }
+
+  // Event listeners
+  $("#show-settings").click(showSettingsModal);
+  $("#close-settings").click(function () {
+    $("#settingsModal").addClass("hidden");
+    updateSettings();
+  });
 
   function setRandomBackground() {
     if (randomBgEnabled) {
@@ -24,6 +109,7 @@ $(document).ready(function () {
       $("#quoteContainer").css("background-position", "center");
     } else {
       $("#quoteContainer").css("background-image", "none");
+      $("#quoteContainer").css("background-color", "#1f2937"); // atau warna solid lain yang Anda inginkan
     }
   }
 
@@ -52,6 +138,14 @@ $(document).ready(function () {
     updateBookmarkButton();
   }
 
+  function updateFontPreview() {
+    const selectedFont = $("#arabic-font-setting").val();
+    $("#font-preview").css(
+      "font-family",
+      `${selectedFont}, KFGQPCUthmanic, hurufa, amiri, serif`
+    );
+  }
+
   function generateQuote(apiUrl) {
     setRandomBackground();
 
@@ -74,6 +168,9 @@ $(document).ready(function () {
       updateBookmarkButton();
       updateQuoteVisibility();
       adjustFontSizes();
+      updateArabicFont();
+      setRandomBackground();
+      setBackground();
 
       const audioPlayer = document.getElementById("audioPlayer");
       const audioFileName = `${data.data[0].number}.mp3`;
@@ -322,6 +419,13 @@ $(document).ready(function () {
     $("#quote-transliteration").toggle(showTransliteration);
   }
 
+  function updateArabicFont() {
+    $("#quote-arabic").css(
+      "font-family",
+      `${selectedArabicFont}, KFGQPCUthmanic, hurufa, amiri, serif`
+    );
+  }
+
   $("#generate-quote").click(function () {
     const totalAyahs = 6236;
     const randomAyah = Math.floor(Math.random() * totalAyahs) + 1;
@@ -464,6 +568,7 @@ $(document).ready(function () {
     $("#generate-by-number").click();
   });
 
+  updateSettings();
   populateQariDropdown();
   setRandomBackground();
 });

@@ -25,88 +25,24 @@
         }
     </script>
     <link rel="stylesheet" href="../../asset/css/quran3.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-        };
-    </script>
-    
-    
+
     <style>
-        @font-face {
-            font-family: "KFGQPCUthmanic";
-            src: url("../../asset/font/KFGQPCUthmanic.otf") format("opentype");
-            font-weight: normal;
-            font-style: normal;
+        .quote-content {
+            transition: color 0.3s ease;
         }
 
-        @font-face {
-            font-family: "hurufa";
-            src: url("../../asset/font/a.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
+        .quote-content.text-white {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        @font-face {
-            font-family: "hurufb";
-            src: url("../../asset/font/b.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        .font-arabic {
-            font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
-            /* tambahkan serif sebagai fallback */
+        .quote-content.text-gray-900 {
+            text-shadow: none;
         }
 
         #quoteContainer {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background-size: cover;
-            background-position: 50%;
-            padding: 0;
-            /* Menghapus padding di CSS untuk menghindari konflik */
-            box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
-
-        .quote-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #quote-arabic {
-            font-size: 1.5rem;
-            font-feature-settings: "kern" 1, "liga" 1;
-            font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
-            font-weight: 400;
-            line-height: 1.8;
-        }
-
-        #quote-translation,
-        #quote-transliteration {
-            font-size: 1rem;
-        }
-
-        #quote-details {
-            font-size: 0.875rem;
-        }
-
-        #quote-arabic,
-        #quote-details,
-        #quote-translation,
-        #quote-transliteration {
-            letter-spacing: normal;
-            word-spacing: normal;
-            text-rendering: optimizeLegibility;
-        }
-    </style> -->
+    </style>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-200">
@@ -181,14 +117,8 @@
                 <button id="save-screenshot" class="text-red-500 hover:text-red-600 transition-colors">
                     <i class="fas fa-download text-xl"></i>
                 </button>
-                <button id="toggle-random-bg" class="text-purple-500 hover:text-purple-600 transition-colors">
-                    <i class="fas fa-image text-xl"></i>
-                </button>
-                <button id="toggle-arabic" class="text-blue-500 hover:text-blue-600 transition-colors">
-                    <i class="fas fa-language text-xl"></i>
-                </button>
-                <button id="toggle-transliteration" class="text-green-500 hover:text-green-600 transition-colors">
-                    <i class="fas fa-spell-check text-xl"></i>
+                <button id="show-settings" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fas fa-cog text-xl"></i>
                 </button>
                 <button id="show-bookmarks" class="text-yellow-500 hover:text-yellow-600 transition-colors">
                     <i class="fas fa-list text-xl"></i>
@@ -216,6 +146,74 @@
                         <i class="fas fa-trash-alt mr-2"></i> Delete All
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="settingsModal"
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center">
+        <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 m-4 max-w-sm w-full">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white text-center mb-4">
+                Settings
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Background</label>
+                    <select id="background-setting"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <option value="random">Random Image</option>
+                        <option value="specific">Specific Image</option>
+                        <option value="solid-dark">Solid Dark</option>
+                        <option value="solid-light">Solid Light</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Arabic Text</label>
+                    <div class="mt-2 space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" id="show-arabic-setting"
+                                class="form-checkbox h-5 w-5 text-indigo-600 dark:text-indigo-400" checked>
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Show</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Transliteration</label>
+                    <div class="mt-2 space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" id="show-transliteration-setting"
+                                class="form-checkbox h-5 w-5 text-indigo-600 dark:text-indigo-400" checked>
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Show</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Arabic Font</label>
+                    <select id="arabic-font-setting"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <option value="hurufb">Default (Huruf B)</option>
+                        <option value="KFGQPCUthmanic">KFGQPCUthmanic</option>
+                        <option value="hurufa">Huruf A</option>
+                        <option value="'Noto Naskh Arabic', serif">Noto Naskh Arabic</option>
+                        <option value="'Scheherazade New', serif">Scheherazade New</option>
+                        <option value="Amiri, serif">Amiri</option>
+                        <option value="Lateef, serif">Lateef</option>
+                        <option value="Almarai, sans-serif">Almarai</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Font Preview</label>
+                    <div id="font-preview"
+                        class="mt-2 p-3 bg-gray-700 dark:bg-gray-600 rounded-md text-right font-arabic text-2xl"
+                        dir="rtl">
+                        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 sm:mt-6">
+                <button id="close-settings"
+                    class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                    Close
+                </button>
             </div>
         </div>
     </div>
