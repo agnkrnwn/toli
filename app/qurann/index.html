@@ -22,6 +22,7 @@
         }
     </script>
     <link rel="stylesheet" href="../../asset/css/quran2.css">
+    <link rel="stylesheet" href="../../asset/css/all.min.css">
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-200">
@@ -41,7 +42,7 @@
             </select>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 mb-6">
             <div id="audio-title" class="text-lg font-semibold mb-4 text-center">No audio playing</div>
             <audio id="audioPlayer" class="w-full mb-4" controls></audio>
 
@@ -52,7 +53,7 @@
                     placeholder="Ayah">
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 mb-4">
                 <button id="generate-quote"
                     class="btn bg-primary text-white p-2 rounded-lg hover:bg-blue-600 transition-colors">
                     <i class="fas fa-random mr-2"></i> Random Quote
@@ -61,21 +62,20 @@
                     class="btn bg-secondary text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
                     <i class="fas fa-search mr-2"></i> Search
                 </button>
-                <button id="save-screenshot"
-                    class="btn bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition-colors">
-                    <i class="fas fa-download mr-2"></i> Download
+            </div>
+            
+            <div class="flex justify-between bg-gray-200 dark:bg-gray-700 rounded-lg p-2">
+                <button id="save-screenshot" class="text-red-500 hover:text-red-600 transition-colors">
+                    <i class="fas fa-download"></i>
                 </button>
-                <button id="toggle-random-bg"
-                    class="btn bg-purple-500 text-white p-2 rounded-lg hover:bg-purple-600 transition-colors">
-                    <i class="fas fa-image mr-2"></i> Toggle Background
+                <button id="toggle-random-bg" class="text-purple-500 hover:text-purple-600 transition-colors">
+                    <i class="fas fa-image"></i>
                 </button>
-                <button id="toggle-arabic"
-                    class="btn bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors">
-                    <i class="fas fa-language mr-2"></i> Hide Arabic
+                <button id="toggle-arabic" class="text-blue-500 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-language"></i>
                 </button>
-                <button id="toggle-transliteration"
-                    class="btn bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
-                    <i class="fas fa-spell-check mr-2"></i> Hide Transliteration
+                <button id="toggle-transliteration" class="text-green-500 hover:text-green-600 transition-colors">
+                    <i class="fas fa-spell-check"></i>
                 </button>
             </div>
         </div>

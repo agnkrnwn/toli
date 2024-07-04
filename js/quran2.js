@@ -30,16 +30,6 @@ $(document).ready(function () {
     );
   }
 
-  $("#toggle-random-bg").click(function () {
-    randomBgEnabled = !randomBgEnabled;
-    setRandomBackground();
-    $(this).toggleClass("bg-purple-500 bg-red-500");
-    $(this).html(
-      randomBgEnabled
-        ? '<i class="fas fa-image mr-2"></i> Disable BG'
-        : '<i class="fas fa-image mr-2"></i> Enable BG'
-    );
-  });
 
   function generateQuote(apiUrl) {
     setRandomBackground();
@@ -223,29 +213,28 @@ $(document).ready(function () {
     $("#quote-transliteration").toggle(showTransliteration);
   }
 
-  // Toggle untuk Arabic text
-  $("#toggle-arabic").click(function () {
+  $("#toggle-random-bg").click(function () {
+    randomBgEnabled = !randomBgEnabled;
+    setRandomBackground();
+    $(this).toggleClass("text-purple-500 text-red-500");
+    $(this).find('i').toggleClass("fa-image fa-ban");
+});
+
+// Toggle untuk Arabic text
+$("#toggle-arabic").click(function () {
     showArabic = !showArabic;
     updateQuoteVisibility();
-    $(this).toggleClass("bg-blue-500 bg-red-500");
-    $(this).html(
-      showArabic
-        ? '<i class="fas fa-language mr-2"></i> Hide Arabic'
-        : '<i class="fas fa-language mr-2"></i> Show Arabic'
-    );
-  });
+    $(this).toggleClass("text-blue-500 text-red-500");
+    $(this).find('i').toggleClass("fa-language fa-ban");
+});
 
-  // Toggle untuk Transliteration
-  $("#toggle-transliteration").click(function () {
+// Toggle untuk Transliteration
+$("#toggle-transliteration").click(function () {
     showTransliteration = !showTransliteration;
     updateQuoteVisibility();
-    $(this).toggleClass("bg-green-500 bg-red-500");
-    $(this).html(
-      showTransliteration
-        ? '<i class="fas fa-spell-check mr-2"></i> Hide Transliteration'
-        : '<i class="fas fa-spell-check mr-2"></i> Show Transliteration'
-    );
-  });
+    $(this).toggleClass("text-green-500 text-red-500");
+    $(this).find('i').toggleClass("fa-spell-check fa-ban");
+});
 
   populateQariDropdown();
   setRandomBackground();
