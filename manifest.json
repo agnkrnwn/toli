@@ -4,8 +4,8 @@
     "description": "Kumpulan Project Aplikasi Web Saya",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#3b82f6",
-    "theme_color": "#3b82f6",
+    "background_color": "#1f2937",
+    "theme_color": "#1f2937",
     "icons": [
       {
         "src": "./asset/icon/icon-192x192.png",

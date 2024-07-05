@@ -1,4 +1,4 @@
-const CACHE_NAME = "fisl-app-iah-v1-211";
+const CACHE_NAME = "fisal-app-iah-v1-322";
 const urlsToCache = [
   "/",
   "/index.html",
