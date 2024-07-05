@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asmaul Husna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1f2937">
+    <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("../../service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
     <link href="../../asset/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../asset/css/asma2.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Readex+Pro:wght@400;700&display=swap">
