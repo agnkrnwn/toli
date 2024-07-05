@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Fun Fact Generator</title>
+    <link rel="stylesheet" href="../../asset/css/all.min.css">
+    <link rel="stylesheet" href="../../asset/css/random.css">
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+    <div id="fact-container" class="fact-container bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+        <!-- <p class="text-sm text-gray-500 absolute top-2 left-2" style="opacity: 0.5;"></p> -->
+        <div class="text-wrapper">
+            <p id="fun-fact" class="text-lg text-white font-bold"></p>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 w-full bg-gray-900 p-4 flex justify-around items-center">
+        <button onclick="generateFact()" class="text-white">
+            <i class="fas fa-random"></i> <!-- Icon for Generate Fact -->
+        </button>
+        <button onclick="downloadFactImage()" class="text-white">
+            <i class="fas fa-download"></i> <!-- Icon for Download Fact -->
+        </button>
+        <button onclick="openModal()" class="text-white">
+            <i class="fas fa-paint-brush"></i> <!-- Icon for Change Background -->
+        </button>
+        <button onclick="copyTextToClipboard()" class="text-white">
+            <i class="fas fa-copy"></i> <!-- Icon for Copy Text -->
+        </button>
+    </nav>
+
+    <!-- Modal for Background Selection -->
+    <div id="backgroundModal" class="modal flex bg-gray-900">
+        <div class="modal-content bg-gray-900 text-white rounded-lg">
+            <span onclick="closeModal()" class="close"><i class="fas fa-close"></i></span>
+            <h2 class="text-lg font-bold mb-4">Customize Appearance</h2>
+
+            <!-- Select Font Family -->
+            <div class="mb-4">
+                <label for="font-family-select" class="block text-sm font-medium text-gray-400 mb-1">Font
+                    Family:</label>
+                <select id="font-family-select" onchange="setFontFamily(this.value)"
+                    class="w-full py-2 px-4 rounded mb-2 bg-gray-800 text-white">
+                    <option value="Roboto, sans-serif">Roboto</option>
+                    <option value="Open Sans, sans-serif">Open Sans</option>
+                    <option value="Montserrat, sans-serif">Montserrat</option>
+                    <option value="Lato, sans-serif">Lato</option>
+                    <option value="Nunito, sans-serif">Nunito</option>
+                    <option value="Popins, sans-serif">Popins</option>
+                    <!-- Add more font options as needed -->
+                </select>
+            </div>
+
+            <!-- Color Palette -->
+            <div class="flex justify-between mb-4">
+                <button onclick="setBackground('#1F618D')" style="background-color: #1F618D;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#2E86C1')" style="background-color: #2E86C1;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#3498DB')" style="background-color: #3498DB;"
+                    class="w-10 h-10"></button>
+                <button onclick="setBackground('#5DADE2')" style="background-color: #5DADE2;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#85C1E9')" style="background-color: #85C1E9;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#AF7AC5')" style="background-color: #AF7AC5;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#E74C3C')" style="background-color: #E74C3C;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#EC7063')" style="background-color: #EC7063;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#F39C12')" style="background-color: #F39C12;"
+                    class="w-10 h-10 "></button>
+                <button onclick="setBackground('#F7DC6F')" style="background-color: #F7DC6F;"
+                    class="w-10 h-10 "></button>
+            </div>
+
+
+            <!-- Other Background Options -->
+            <button onclick="setBackground('dark')"
+                class="bg-gray-800 text-white py-2 px-4 rounded mb-2 w-full">Dark</button>
+            <button onclick="setBackground('light')"
+                class="bg-gray-200 text-gray-800 py-2 px-4 rounded mb-2 w-full">Light</button>
+            <input type="color" id="color-picker" class="w-full py-2 px-4 rounded mb-2"
+                onchange="setBackground('custom')">
+        </div>
+    </div>
+
+    <script>
+
+        function setFontFamily(fontFamily) {
+            const funFactText = document.getElementById('fun-fact');
+            funFactText.style.fontFamily = fontFamily;
+        }
+
+        async function generateFact() {
+            const response = await fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en');
+            const data = await response.json();
+            const funFactText = document.getElementById('fun-fact');
+            funFactText.innerText = data.text;
+            const selectedFont = document.getElementById('font-family-select').value;
+            funFactText.style.fontFamily = selectedFont;
+        }
+
+        function downloadFactImage() {
+            const factContainer = document.getElementById('fact-container');
+            const navBar = document.querySelector('nav');
+            navBar.style.display = 'none'; // Hide navbar during capture
+
+            html2canvas(factContainer).then(canvas => {
+                const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = `fun-fact-${timestamp}.png`;
+                link.click();
+
+                navBar.style.display = 'flex'; // Show navbar again after capture
+            });
+        }
+
+        function openModal() {
+            document.getElementById('backgroundModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('backgroundModal').style.display = 'none';
+        }
+
+        function setBackground(type) {
+            const factContainer = document.getElementById('fact-container');
+            const funFactText = document.getElementById('fun-fact');
+
+            if (type === 'dark') {
+                factContainer.style.backgroundColor = '#1a202c';
+                funFactText.style.color = '#ffffff';
+            } else if (type === 'light') {
+                factContainer.style.backgroundColor = '#f7fafc';
+                funFactText.style.color = '#000000';
+            } else if (type === 'custom') {
+                const colorPicker = document.getElementById('color-picker');
+                factContainer.style.backgroundColor = colorPicker.value;
+                // Set the text color based on background color brightness
+                funFactText.style.color = isDarkColor(colorPicker.value) ? '#ffffff' : '#000000';
+            } else {
+                factContainer.style.backgroundColor = type;
+                funFactText.style.color = isDarkColor(type) ? '#ffffff' : '#000000';
+            }
+
+            closeModal();
+        }
+
+        function isDarkColor(color) {
+            const rgb = hexToRgb(color);
+            return (rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) < 186;
+        }
+
+        function hexToRgb(hex) {
+            const bigint = parseInt(hex.slice(1), 16);
+            return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
+        }
+
+        function generateRandomCode() {
+            let characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let randomCode = '';
+            for (let i = 0; i < 4; i++) {
+                let randomIndex = Math.floor(Math.random() * characters.length);
+                randomCode += characters[randomIndex];
+            }
+            return randomCode;
+        }
+
+        // Get the paragraph element
+        const paragraph = document.querySelector('p.text-gray-500');
+
+        // Set the random code as its text content
+        if (paragraph) {
+            paragraph.textContent += generateRandomCode();
+        }
+
+        function copyTextToClipboard() {
+            const textToCopy = ' #foryou #tiktok #random #randomfunfact #faktarandom #uselessfact #fyp #faktagaberguna' ;
+
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert('Text copied to clipboard: ' + textToCopy);
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+
+</html>
