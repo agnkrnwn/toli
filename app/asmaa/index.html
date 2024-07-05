@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,40 +24,28 @@
     </script>
     <link href="../../asset/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../asset/css/asma2.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Readex+Pro:wght@400;700&display=swap">
-    <!-- <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'poppins': ['Poppins', 'sans-serif'],
-                        'readex': ['Readex Pro', 'sans-serif'],
-                    },
-                },
-            },
-        }
-    </script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Readex+Pro:wght@400;700&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Readex+Pro:wght@400;700&display=swap');
-        .text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .bg-gradient { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* New CSS class to add bottom margin */
+        .mb-for-nav {
+            margin-bottom: 80px; /* Adjust the value based on the height of your bottom navigation bar */
         }
-        .transition-all { transition: all 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.05); }
-    </style> -->
+    </style>
 </head>
+
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen flex flex-col">
-    <div class="container mx-auto px-4 py-8 flex-grow">
+    <div class="container mx-auto px-4 py-8 flex-grow mb-for-nav">
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-4xl font-bold">Asmaul Husna</h1>
-            <button onclick="toggleDarkMode()" class="text-gray-600 dark:text-gray-300 text-2xl hover:text-blue-500 transition-all">
+            <button onclick="toggleDarkMode()"
+                class="text-gray-600 dark:text-gray-300 text-2xl hover:text-blue-500 transition-all">
                 <i class="fas fa-adjust"></i>
             </button>
         </div>
 
-        <div id="quote-box" class="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl mb-8 bg-gradient hover-scale transition-all">
+        <div id="quote-box"
+            class="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl mb-8 bg-gradient hover-scale transition-all">
             <div class="absolute inset-0 bg-black bg-opacity-30"></div>
             <div class="absolute inset-0 flex flex-col justify-between items-center text-white p-6">
                 <div id="quote-title" class="text-3xl font-readex text-shadow">أسماء الله الحسنى</div>
@@ -72,19 +61,25 @@
 
         <div class="flex flex-col space-y-4">
             <div class="flex">
-                <input type="number" id="quote-number-input" class="flex-grow rounded-l-lg p-4 dark:bg-gray-700 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nomor">
-                <button onclick="generateQuoteByNumber()" class="bg-blue-500 text-white rounded-r-lg px-6 py-4 text-lg hover:bg-blue-600 transition-all">
+                <input type="number" id="quote-number-input"
+                    class="flex-grow rounded-l-lg p-4 dark:bg-gray-700 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Nomor">
+                <button onclick="generateQuoteByNumber()"
+                    class="bg-blue-500 text-white rounded-r-lg px-6 py-4 text-lg hover:bg-blue-600 transition-all">
                     <i class="fas fa-search mr-2"></i>
                 </button>
             </div>
             <div class="grid grid-cols-3 gap-3">
-                <button onclick="generateQuote()" class="bg-green-500 text-white rounded-lg p-4 hover:bg-green-600 transition-all">
+                <button onclick="generateQuote()"
+                    class="bg-green-500 text-white rounded-lg p-4 hover:bg-green-600 transition-all">
                     <i class="fas fa-random"></i>
                 </button>
-                <button onclick="downloadQuote()" class="bg-red-500 text-white rounded-lg p-4 hover:bg-red-600 transition-all">
+                <button onclick="downloadQuote()"
+                    class="bg-red-500 text-white rounded-lg p-4 hover:bg-red-600 transition-all">
                     <i class="fas fa-download"></i>
                 </button>
-                <button onclick="toggleFavorite()" id="favoriteBtn" class="bg-yellow-500 text-white rounded-lg p-4 hover:bg-yellow-600 transition-all">
+                <button onclick="toggleFavorite()" id="favoriteBtn"
+                    class="bg-yellow-500 text-white rounded-lg p-4 hover:bg-yellow-600 transition-all">
                     <i class="far fa-star"></i>
                 </button>
             </div>
@@ -93,11 +88,21 @@
 
     <nav class="bg-white dark:bg-gray-800 shadow-lg fixed bottom-0 left-0 right-0">
         <div class="flex justify-around p-4">
-            <button onclick="showHome()" class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i class="fas fa-home"></i></button>
-            <button onclick="showFavorites()" class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i class="fas fa-list"></i></button>
-            <button onclick="showSettings()" class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i class="fas fa-cog"></i></button>
-            <button onclick="showDetail()" class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i class="fas fa-info-circle"></i></button>
-            <a id="search-link" href="#" target="_blank" class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i class="fas fa-external-link-alt"></i></a>
+            <button onclick="showHome()"
+                class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i
+                    class="fas fa-home"></i></button>
+            <button onclick="showFavorites()"
+                class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i
+                    class="fas fa-list"></i></button>
+            <button onclick="showSettings()"
+                class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i
+                    class="fas fa-cog"></i></button>
+            <button onclick="showDetail()"
+                class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i
+                    class="fas fa-info-circle"></i></button>
+            <a id="search-link" href="#" target="_blank"
+                class="text-gray-600 dark:text-gray-300 text-lg hover:text-blue-500 transition-all"><i
+                    class="fas fa-external-link-alt"></i></a>
         </div>
     </nav>
 
@@ -106,8 +111,10 @@
             <h2 id="quote-judul" class="text-2xl font-bold mb-4"></h2>
             <div id="quote-content" class="mb-4 text-lg max-h-[60vh] overflow-y-auto"></div>
             <div class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 flex justify-end rounded-b-lg">
-                <button onclick="copyDetail()" class="bg-blue-500 text-white rounded px-4 py-2 text-lg"><i class="fas fa-copy mr-2"></i>Salin</button>
-                <button onclick="hideDetail()" class="bg-gray-500 text-white rounded px-4 py-2 ml-2 text-lg"><i class="fas fa-times mr-2"></i>Tutup</button>
+                <button onclick="copyDetail()" class="bg-blue-500 text-white rounded px-4 py-2 text-lg"><i
+                        class="fas fa-copy mr-2"></i>Salin</button>
+                <button onclick="hideDetail()" class="bg-gray-500 text-white rounded px-4 py-2 ml-2 text-lg"><i
+                        class="fas fa-times mr-2"></i>Tutup</button>
             </div>
         </div>
     </div>
@@ -116,7 +123,8 @@
         <div class="bg-white dark:bg-gray-800 p-8 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <h2 class="text-2xl font-bold mb-4">Daftar Favorit</h2>
             <div id="favoritesList" class="space-y-4"></div>
-            <button onclick="hideFavorites()" class="bg-gray-500 text-white rounded px-4 py-2 mt-4 text-lg"><i class="fas fa-times mr-2"></i>Tutup</button>
+            <button onclick="hideFavorites()" class="bg-gray-500 text-white rounded px-4 py-2 mt-4 text-lg"><i
+                    class="fas fa-times mr-2"></i>Tutup</button>
         </div>
     </div>
 
@@ -127,4 +135,5 @@
     <script src="../../asset/js/FileSaver.min.js"></script>
     <script src="../../asset/js/popper.min.js"></script>
 </body>
+
 </html>
