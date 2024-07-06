@@ -70,24 +70,30 @@ window.addEventListener("scroll", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  async function fetchSurahList() {
-    try {
-      const response = await fetch("https://equran.id/api/v2/surat");
-      const data = await response.json();
-
-      if (data.code === 200) {
-        allSurahs = data.data;
-        displayAllSurahs(allSurahs);
-      } else {
-        surahList.innerHTML =
-          '<p class="text-red-500">Gagal memuat daftar surah.</p>';
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      surahList.innerHTML =
-        '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
+async function fetchSurahList() {
+  try {
+    const response = await fetch("https://equran.id/api/v2/surat");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    const text = await response.text(); // Get the response as text first
+    if (!text) {
+      throw new Error("Empty response received");
+    }
+    const data = JSON.parse(text); // Try to parse the text as JSON
+
+    if (data.code === 200) {
+      allSurahs = data.data;
+      displayAllSurahs(allSurahs);
+    } else {
+      throw new Error("Invalid response code");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    surahList.innerHTML =
+      '<p class="text-red-500">Terjadi kesalahan saat memuat daftar surah. Silakan coba lagi nanti.</p>';
   }
+}
 
   function displayAllSurahs(surahs) {
     surahList.innerHTML = surahs
