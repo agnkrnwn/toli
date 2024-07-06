@@ -135,10 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mt-4 space-x-2">
                     <button id="toggleAyatBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
-                        Tampilkan Ayat
+                        Show Ayat
                     </button>
-                    <button id="toggleTafsirBtn" class="px-4 py-2 bg-secondary-500 text-white rounded-md hover:bg-secondary-600 transition-colors duration-200">
-                        Tampilkan Tafsir
+                    <button id="toggleTafsirBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
+                        Show Tafsir
                     </button>
                 </div>
                 <div id="ayatContainer" class="mt-4 hidden"></div>
