@@ -32,6 +32,9 @@
             background-color: #007bff;
             border-color: #007bff;
         }
+        .spinner-border {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -44,8 +47,14 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Check API</button>
         </form>
+        <div class="text-center mt-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <div id="apiResponse" class="mt-4">
             <h3>Response:</h3>
+            <p id="statusCode"></p>
             <pre id="responseOutput"></pre>
         </div>
     </div>
@@ -56,15 +65,35 @@
         document.getElementById('apiForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const apiUrl = document.getElementById('apiUrl').value;
+
+            if (!isValidURL(apiUrl)) {
+                document.getElementById('responseOutput').textContent = 'Error: Invalid URL';
+                return;
+            }
+
+            document.querySelector('.spinner-border').style.display = 'block';
+            document.getElementById('responseOutput').textContent = '';
+            document.getElementById('statusCode').textContent = '';
+
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    document.querySelector('.spinner-border').style.display = 'none';
+                    document.getElementById('statusCode').textContent = 'Status Code: ' + response.status;
+                    return response.json();
+                })
                 .then(data => {
                     document.getElementById('responseOutput').textContent = JSON.stringify(data, null, 2);
                 })
                 .catch(error => {
+                    document.querySelector('.spinner-border').style.display = 'none';
                     document.getElementById('responseOutput').textContent = 'Error: ' + error.message;
                 });
         });
+
+        function isValidURL(string) {
+            var res = string.match(/(http|https):\/\/(\w+:?\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/);
+            return (res !== null);
+        }
     </script>
 </body>
 </html>
