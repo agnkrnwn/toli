@@ -8,35 +8,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let allSurahs = [];
 
   // Membuat tombol scroll to top
-scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 hidden z-50";
-scrollToTopBtn.style.cssText = `
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
-  transform: translateY(100px);
-`;
-document.body.appendChild(scrollToTopBtn);
-
-// Menambahkan event listener untuk scroll
-window.addEventListener("scroll", () => {
-  if (window.pageYOffset > 300) {
-    scrollToTopBtn.style.opacity = "1";
-    scrollToTopBtn.style.transform = "translateY(0)";
-  } else {
-    scrollToTopBtn.style.opacity = "0";
-    scrollToTopBtn.style.transform = "translateY(100px)";
-  }
-});
+  scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 z-50";
+  scrollToTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100px);
+  `;
+  document.body.appendChild(scrollToTopBtn);
 
   fetchSurahList();
 
@@ -59,9 +48,11 @@ window.addEventListener("scroll", () => {
   // Menambahkan event listener untuk scroll
   window.addEventListener("scroll", () => {
     if (window.pageYOffset > 300) {
-      scrollToTopBtn.classList.remove("hidden");
+      scrollToTopBtn.style.opacity = "1";
+      scrollToTopBtn.style.transform = "translateY(0)";
     } else {
-      scrollToTopBtn.classList.add("hidden");
+      scrollToTopBtn.style.opacity = "0";
+      scrollToTopBtn.style.transform = "translateY(100px)";
     }
   });
 
@@ -70,30 +61,24 @@ window.addEventListener("scroll", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-async function fetchSurahList() {
-  try {
-    const response = await fetch("https://equran.id/api/v2/surat");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const text = await response.text(); // Get the response as text first
-    if (!text) {
-      throw new Error("Empty response received");
-    }
-    const data = JSON.parse(text); // Try to parse the text as JSON
+  async function fetchSurahList() {
+    try {
+      const response = await fetch("https://equran.id/api/v2/surat");
+      const data = await response.json();
 
-    if (data.code === 200) {
-      allSurahs = data.data;
-      displayAllSurahs(allSurahs);
-    } else {
-      throw new Error("Invalid response code");
+      if (data.code === 200) {
+        allSurahs = data.data;
+        displayAllSurahs(allSurahs);
+      } else {
+        surahList.innerHTML =
+          '<p class="text-red-500">Gagal memuat daftar surah.</p>';
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      surahList.innerHTML =
+        '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
     }
-  } catch (error) {
-    console.error("Error:", error);
-    surahList.innerHTML =
-      '<p class="text-red-500">Terjadi kesalahan saat memuat daftar surah. Silakan coba lagi nanti.</p>';
   }
-}
 
   function displayAllSurahs(surahs) {
     surahList.innerHTML = surahs
@@ -111,18 +96,19 @@ async function fetchSurahList() {
 
   window.fetchSurahDetail = async function (nomorSurah) {
     try {
-      const response = await fetch(
-        `https://equran.id/api/v2/surat/${nomorSurah}`
-      );
-      const data = await response.json();
+      const [surahResponse, tafsirResponse] = await Promise.all([
+        fetch(`https://equran.id/api/v2/surat/${nomorSurah}`),
+        fetch(`https://equran.id/api/v2/tafsir/${nomorSurah}`)
+      ]);
+      const surahData = await surahResponse.json();
+      const tafsirData = await tafsirResponse.json();
 
-      if (data.code === 200) {
-        displaySurahDetail(data.data);
-        // Scroll ke detail surah
+      if (surahData.code === 200 && tafsirData.code === 200) {
+        displaySurahDetail(surahData.data, tafsirData.data);
         surahDetail.scrollIntoView({ behavior: "smooth" });
       } else {
         surahDetail.innerHTML =
-          '<p class="text-red-500">Gagal memuat detail surah.</p>';
+          '<p class="text-red-500">Gagal memuat detail surah atau tafsir.</p>';
       }
     } catch (error) {
       console.error("Error:", error);
@@ -131,7 +117,7 @@ async function fetchSurahList() {
     }
   };
 
-  function displaySurahDetail(surah) {
+  function displaySurahDetail(surah, tafsir) {
     surahDetail.innerHTML = `
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-4">
@@ -147,24 +133,29 @@ async function fetchSurahList() {
                     <p><strong class="font-semibold">Tempat Turun:</strong> ${surah.tempatTurun}</p>
                     <p><strong class="font-semibold">Deskripsi:</strong> ${surah.deskripsi}</p>
                 </div>
-                <button id="toggleAyatBtn" class="mt-4 px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
-                    Tampilkan Ayat
-                </button>
+                <div class="mt-4 space-x-2">
+                    <button id="toggleAyatBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
+                        Tampilkan Ayat
+                    </button>
+                    <button id="toggleTafsirBtn" class="px-4 py-2 bg-secondary-500 text-white rounded-md hover:bg-secondary-600 transition-colors duration-200">
+                        Tampilkan Tafsir
+                    </button>
+                </div>
                 <div id="ayatContainer" class="mt-4 hidden"></div>
+                <div id="tafsirContainer" class="mt-4 hidden"></div>
             </div>
         `;
 
     const audioToggle = document.getElementById("audioToggle");
     const audio = document.getElementById("surahAudio");
     const toggleAyatBtn = document.getElementById("toggleAyatBtn");
+    const toggleTafsirBtn = document.getElementById("toggleTafsirBtn");
     const ayatContainer = document.getElementById("ayatContainer");
+    const tafsirContainer = document.getElementById("tafsirContainer");
 
-    audioToggle.addEventListener("click", () =>
-      toggleAudio(audio, audioToggle)
-    );
-    toggleAyatBtn.addEventListener("click", () =>
-      toggleAyat(surah.ayat, toggleAyatBtn, ayatContainer)
-    );
+    audioToggle.addEventListener("click", () => toggleAudio(audio, audioToggle));
+    toggleAyatBtn.addEventListener("click", () => toggleAyat(surah.ayat, toggleAyatBtn, ayatContainer));
+    toggleTafsirBtn.addEventListener("click", () => toggleTafsir(tafsir, toggleTafsirBtn, tafsirContainer));
   }
 
   function toggleAudio(audio, button) {
@@ -185,6 +176,18 @@ async function fetchSurahList() {
     } else {
       container.innerHTML = "";
       button.textContent = "Tampilkan Ayat";
+      container.classList.add("hidden");
+    }
+  }
+
+  function toggleTafsir(tafsir, button, container) {
+    if (container.classList.contains("hidden")) {
+      displayTafsir(tafsir, container);
+      button.textContent = "Sembunyikan Tafsir";
+      container.classList.remove("hidden");
+    } else {
+      container.innerHTML = "";
+      button.textContent = "Tampilkan Tafsir";
       container.classList.add("hidden");
     }
   }
@@ -213,26 +216,40 @@ async function fetchSurahList() {
             </div>
         `;
 
-    // Add event listeners to play audio buttons
     const audioButtons = container.querySelectorAll(".play-audio-btn");
     audioButtons.forEach((button) => {
       button.addEventListener("click", () => playAyatAudio(button));
     });
   }
 
+  function displayTafsir(tafsir, container) {
+    container.innerHTML = `
+            <h3 class="text-xl font-semibold mb-4 text-secondary-600 dark:text-secondary-400">Tafsir:</h3>
+            <div class="space-y-4">
+                ${tafsir.tafsir
+                  .map(
+                    (t) => `
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h4 class="text-lg font-semibold mb-2">Ayat ${t.ayat}</h4>
+                        <p class="text-gray-700 dark:text-gray-300">${t.teks}</p>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+        `;
+  }
+
   function playAyatAudio(button) {
     const audioSrc = button.dataset.audio;
     const audio = new Audio(audioSrc);
 
-    // Stop any currently playing audio
     document.querySelectorAll("audio").forEach((a) => a.pause());
 
     audio.play();
 
-    // Change button icon while playing
     button.innerHTML = '<i class="fas fa-pause"></i>';
 
-    // Reset button icon when audio ends
     audio.onended = () => {
       button.innerHTML = '<i class="fas fa-play"></i>';
     };
