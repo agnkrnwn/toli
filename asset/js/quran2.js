@@ -7,7 +7,7 @@ $(document).ready(function () {
   let showArabic = true;
   let showTransliteration = true;
   let bookmarks = JSON.parse(localStorage.getItem("quranBookmarks-v1")) || [];
-  let selectedArabicFont = "hurufb";
+  let selectedArabicFont = "KFGQPCUthmanic";
   let backgroundSetting = "random";
 
   const backgrounds = [];
