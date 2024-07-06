@@ -1099,7 +1099,7 @@ video {
 }
 
 .font-arabic {
-  font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
+  font-family: KFGQPCUthmanic, hurufb, hurufa, amiri, serif;
   /* tambahkan serif sebagai fallback */
 }
 
@@ -1127,7 +1127,7 @@ video {
 #quote-arabic {
   font-size: 1.5rem;
   font-feature-settings: "kern" 1, "liga" 1;
-  font-family: hurufb, KFGQPCUthmanic, hurufa, amiri, serif;
+  font-family: KFGQPCUthmanic, hurufb,  hurufa, amiri, serif;
   font-weight: 400;
   line-height: 1.8;
 }
