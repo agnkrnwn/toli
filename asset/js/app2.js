@@ -1,99 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("searchInput");
-  const surahList = document.getElementById("surahList");
-  const surahDetail = document.getElementById("surahDetail");
-  const darkModeToggle = document.getElementById("darkModeToggle");
-  const scrollToTopBtn = document.createElement("button");
 
-  let allSurahs = [];
 
-  // Membuat tombol scroll to top
-  scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-  scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 z-50";
-  scrollToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    transform: translateY(100px);
-  `;
-  document.body.appendChild(scrollToTopBtn);
 
-  fetchSurahList();
 
-  darkModeToggle.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-  });
 
-  searchInput.addEventListener("input", () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filteredSurahs = allSurahs.filter(
-      (surah) =>
-        surah.namaLatin.toLowerCase().includes(searchTerm) ||
-        surah.arti.toLowerCase().includes(searchTerm) ||
-        surah.nama.toLowerCase().includes(searchTerm) ||
-        surah.nomor.toString().includes(searchTerm)
-    );
-    displayAllSurahs(filteredSurahs);
-  });
 
-  // Menambahkan event listener untuk scroll
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      scrollToTopBtn.style.opacity = "1";
-      scrollToTopBtn.style.transform = "translateY(0)";
-    } else {
-      scrollToTopBtn.style.opacity = "0";
-      scrollToTopBtn.style.transform = "translateY(100px)";
-    }
-  });
-
-  // Menambahkan event listener untuk tombol scroll to top
-  scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  async function fetchSurahList() {
-    try {
-      const response = await fetch("https://equran.id/api/v2/surat");
-      const data = await response.json();
-
-      if (data.code === 200) {
-        allSurahs = data.data;
-        displayAllSurahs(allSurahs);
-      } else {
-        surahList.innerHTML =
-          '<p class="text-red-500">Gagal memuat daftar surah.</p>';
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      surahList.innerHTML =
-        '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
-    }
-  }
-
-  function displayAllSurahs(surahs) {
-    surahList.innerHTML = surahs
-      .map(
-        (surah) => `
-            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer" onclick="fetchSurahDetail(${surah.nomor})">
-                <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400">${surah.nomor}. ${surah.namaLatin}</h3>
-                <p class="text-gray-600 dark:text-gray-400">${surah.arti}</p>
-                <p class="text-sm text-gray-500 dark:text-gray-500">${surah.jumlahAyat} ayat</p>
-            </div>
-        `
-      )
-      .join("");
-  }
-
+  
   window.fetchSurahDetail = async function (nomorSurah) {
     try {
       const [surahResponse, tafsirResponse] = await Promise.all([
