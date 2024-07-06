@@ -171,11 +171,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleAyat(ayat, button, container) {
     if (container.classList.contains("hidden")) {
       displayAyat(ayat, container);
-      button.textContent = "Sembunyikan Ayat";
+      button.textContent = "Hide Ayat";
       container.classList.remove("hidden");
     } else {
       container.innerHTML = "";
-      button.textContent = "Tampilkan Ayat";
+      button.textContent = "Show Ayat";
       container.classList.add("hidden");
     }
   }
@@ -183,11 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleTafsir(tafsir, button, container) {
     if (container.classList.contains("hidden")) {
       displayTafsir(tafsir, container);
-      button.textContent = "Sembunyikan Tafsir";
+      button.textContent = "Hide Tafsir";
       container.classList.remove("hidden");
     } else {
       container.innerHTML = "";
-      button.textContent = "Tampilkan Tafsir";
+      button.textContent = "Show Tafsir";
       container.classList.add("hidden");
     }
   }
