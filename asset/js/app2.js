@@ -8,9 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
   let allSurahs = [];
 
   // Membuat tombol scroll to top
-  scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-  scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 hidden";
-  document.body.appendChild(scrollToTopBtn);
+scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 hidden z-50";
+scrollToTopBtn.style.cssText = `
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(100px);
+`;
+document.body.appendChild(scrollToTopBtn);
+
+// Menambahkan event listener untuk scroll
+window.addEventListener("scroll", () => {
+  if (window.pageYOffset > 300) {
+    scrollToTopBtn.style.opacity = "1";
+    scrollToTopBtn.style.transform = "translateY(0)";
+  } else {
+    scrollToTopBtn.style.opacity = "0";
+    scrollToTopBtn.style.transform = "translateY(100px)";
+  }
+});
 
   fetchSurahList();
 
