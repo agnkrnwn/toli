@@ -176,7 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayAyatWithTafsir(ayat, tafsir, container) {
     container.innerHTML = `
             <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
-            <div cl<h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
             <div class="space-y-6">
                 ${ayat
                   .map(
@@ -194,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="toggle-tafsir-btn mt-2 text-primary-600 dark:text-primary-400 hover:underline" data-ayat="${a.nomorAyat}">
                             Show Tafsir
                         </button>
-                        <div class="tafsir-container hidden mt-2 p-2 rounded">
+                        <div class="tafsir-container hidden mt-2">
                             <p class="text-gray-600 dark:text-gray-400">${tafsir[index] ? tafsir[index].teks : 'Tafsir tidak tersedia'}</p>
                         </div>
                     </div>
