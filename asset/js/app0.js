@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchSurahList();
 
   darkModeToggle.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
+    document.documentElement.classList.togle("dark");
   });
 
   searchInput.addEventListener("input", () => {
@@ -47,10 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
     surahList.innerHTML = surahs
       .map(
         (surah) => `
-            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer" onclick="fetchSurahDetail(${surah.nomor})">
-                <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400">${surah.nomor}. ${surah.namaLatin}</h3>
-                <p class="text-gray-600 dark:text-gray-400">${surah.arti}</p>
-                <p class="text-sm text-gray-500 dark:text-gray-500">${surah.jumlahAyat} ayat</p>
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer" onclick="fetchSurahDetail(${surah.nomor})" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+            <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400">${surah.nomor}. ${surah.namaLatin}</h3>
+            <p class="text-gray-600 dark:text-gray-400">${surah.arti}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500">${surah.jumlahAyat} ayat</p>
+            </div>
+            <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400">${surah.nama}</h3>
             </div>
         `
       )
