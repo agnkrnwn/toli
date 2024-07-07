@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumpulan Doa Islami</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {"50":"#f0f9ff","100":"#e0f2fe","200":"#bae6fd","300":"#7dd3fc","400":"#38bdf8","500":"#0ea5e9","600":"#0284c7","700":"#0369a1","800":"#075985","900":"#0c4a6e"},
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
+    <nav class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Doa Islami</h1>
+            <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8 space-y-4">
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Cari doa..." class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <select id="groupFilter" class="flex-grow sm:flex-grow-0 p-3 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                    <option value="">Semua Grup</option>
+                </select>
+                <select id="tagFilter" class="flex-grow sm:flex-grow-0 p-3 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                    <option value="">Semua Tag</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="doaList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Doa items will be inserted here -->
+        </div>
+    </main>
+
+    <script>
+    let doaData = [];
+    let groups = new Set();
+    let tags = new Set();
+
+    async function loadData() {
+        const response = await fetch('../../asset/data/kumpulandoa.json');
+        doaData = await response.json();
+        
+        doaData.forEach(doa => {
+            if (doa.grup) groups.add(doa.grup);
+            if (doa.tag) doa.tag.split(',').forEach(tag => tags.add(tag.trim()));
+        });
+        populateFilters();
+        displayDoa();
+    }
+
+    function populateFilters() {
+        const groupFilter = document.getElementById('groupFilter');
+        const tagFilter = document.getElementById('tagFilter');
+        groups.forEach(group => {
+            const option = document.createElement('option');
+            option.value = option.textContent = group;
+            groupFilter.appendChild(option);
+        });
+        tags.forEach(tag => {
+            const option = document.createElement('option');
+            option.value = option.textContent = tag;
+            tagFilter.appendChild(option);
+        });
+    }
+
+    function displayDoa() {
+        const doaList = document.getElementById('doaList');
+        const groupFilter = document.getElementById('groupFilter').value;
+        const tagFilter = document.getElementById('tagFilter').value;
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        doaList.innerHTML = '';
+        doaData.forEach(doa => {
+            if ((groupFilter === '' || doa.grup === groupFilter) &&
+                (tagFilter === '' || (doa.tag && doa.tag.includes(tagFilter))) &&
+                (searchInput === '' || doa.nama.toLowerCase().includes(searchInput) || doa.idn.toLowerCase().includes(searchInput))) {
+                const doaItem = document.createElement('div');
+                doaItem.className = 'bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl';
+                doaItem.innerHTML = `
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-3 text-primary-600 dark:text-primary-400">${doa.nama}</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Grup: ${doa.grup || 'Tidak ada'}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Tag: ${doa.tag || 'Tidak ada'}</p>
+                        <p class="mb-3 text-right font-arabic text-xl leading-relaxed">${doa.ar}</p>
+                        <p class="mb-3 italic text-gray-700 dark:text-gray-300">${doa.tr}</p>
+                        <p class="mb-4 text-gray-800 dark:text-gray-200">${doa.idn}</p>
+                        <details class="text-sm text-gray-700 dark:text-gray-300">
+                            <summary class="cursor-pointer hover:text-primary-500 transition duration-300">Tentang doa ini</summary>
+                            <p class="mt-2 pl-4 border-l-2 border-primary-500">${doa.tentang || 'Tidak ada informasi tambahan.'}</p>
+                        </details>
+                    </div>
+                `;
+                doaList.appendChild(doaItem);
+            }
+        });
+    }
+
+    document.getElementById('groupFilter').addEventListener('change', displayDoa);
+    document.getElementById('tagFilter').addEventListener('change', displayDoa);
+    document.getElementById('searchInput').addEventListener('input', displayDoa);
+
+    document.getElementById('darkModeToggle').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
+
+    loadData();
+    </script>
+</body>
+</html>
