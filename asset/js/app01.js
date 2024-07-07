@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let allSurahs = [];
 
-  ToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
   scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 z-50";
   scrollToTopBtn.style.cssText = `
     position: fixed;
