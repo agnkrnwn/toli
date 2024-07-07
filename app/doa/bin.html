@@ -67,7 +67,7 @@
     let doaData = [];
     let groups = new Set();
     let tags = new Set();
-    let bookmarks = new Set(JSON.parse(localStorage.getItem('bookmarks')) || []);
+    let bookmarks = new Set(JSON.parse(localStorage.getItem('bookmarksppp')) || []);
     let currentPage = 1;
     const itemsPerPage = 6;
 
@@ -182,7 +182,7 @@
         } else {
             bookmarks.add(id);
         }
-        localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
+        localStorage.setItem('bookmarksppp', JSON.stringify(Array.from(bookmarks)));
         displayDoa();
         displayBookmarks();
     }
