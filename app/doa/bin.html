@@ -50,7 +50,14 @@
         <div id="doaList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Doa items will be inserted here -->
         </div>
-        
+
+        <div id="bookmarkSection" class="mt-6">
+            <h2 class="text-2xl font-bold mb-4">Bookmarked Doa</h2>
+            <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Bookmarked items will be inserted here -->
+            </div>
+        </div>
+
         <div class="mt-6 flex justify-center">
             <button id="prevPage" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200">Previous</button>
             <button id="nextPage" class="ml-4 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200">Next</button>
@@ -60,7 +67,7 @@
     let doaData = [];
     let groups = new Set();
     let tags = new Set();
-    let bookmarks = new Set();
+    let bookmarks = new Set(JSON.parse(localStorage.getItem('bookmarks')) || []);
     let currentPage = 1;
     const itemsPerPage = 6;
 
@@ -76,6 +83,7 @@
         });
         populateFilters();
         displayDoa();
+        displayBookmarks();
     }
 
     // Fungsi untuk mengisi dropdown filter
@@ -123,57 +131,87 @@
                 <p class="mb-2 text-right font-arabic text-lg">${doa.ar}</p>
                 <p class="mb-2 italic">${doa.tr}</p>
                 <p class="mb-3">${doa.idn}</p>
-                <audio controls class="w-full mb-3">
-                    <source src="${doa.audio}" type="audio/mp3">
-                    Your browser does not support the audio element.
-                </audio>
+                <button class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200" onclick="speakText('${doa.ar}')">🔊 Dengar</button>
                 <details class="text-sm text-gray-700 dark:text-gray-300">
                     <summary class="cursor-pointer hover:text-primary-600">Tentang doa ini</summary>
                     <p class="mt-2">${doa.tentang || 'Tidak ada informasi tambahan.'}</p>
                 </details>
-                <button class="mt-4 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200" onclick="toggleBookmark('${doa.id}')">
-                    ${bookmarks.has(doa.id) ? 'Hapus Bookmark' : 'Tambah Bookmark'}
+                <button class="mt-4 p-2 rounded-lg ${bookmarks.has(doa.id) ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200'}" onclick="toggleBookmark('${doa.id}')">
+                    ${bookmarks.has(doa.id) ? '★ Bookmarked' : '☆ Bookmark'}
                 </button>
             `;
             doaList.appendChild(doaItem);
         });
 
+        // Update pagination buttons
         document.getElementById('prevPage').disabled = currentPage === 1;
         document.getElementById('nextPage').disabled = currentPage === totalPages;
     }
 
-    // Event listener untuk filter dan pencarian
-    document.getElementById('groupFilter').addEventListener('change', displayDoa);
-    document.getElementById('tagFilter').addEventListener('change', displayDoa);
-    document.getElementById('searchInput').addEventListener('input', displayDoa);
+    // Fungsi untuk menampilkan doa yang dibookmark
+    function displayBookmarks() {
+        const bookmarkList = document.getElementById('bookmarkList');
+        bookmarkList.innerHTML = '';
 
-    // Toggle dark mode
-    document.getElementById('darkModeToggle').addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-    });
+        const bookmarkedItems = doaData.filter(doa => bookmarks.has(doa.id));
+        bookmarkedItems.forEach(doa => {
+            const bookmarkItem = document.createElement('div');
+            bookmarkItem.className = 'bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300';
+            bookmarkItem.innerHTML = `
+                <h2 class="text-xl font-semibold mb-3">${doa.nama}</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Grup: ${doa.grup || 'Tidak ada'}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Tag: ${doa.tag || 'Tidak ada'}</p>
+                <p class="mb-2 text-right font-arabic text-lg">${doa.ar}</p>
+                <p class="mb-2 italic">${doa.tr}</p>
+                <p class="mb-3">${doa.idn}</p>
+                <button class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200" onclick="speakText('${doa.ar}')">🔊 Dengar</button>
+                <details class="text-sm text-gray-700 dark:text-gray-300">
+                    <summary class="cursor-pointer hover:text-primary-600">Tentang doa ini</summary>
+                    <p class="mt-2">${doa.tentang || 'Tidak ada informasi tambahan.'}</p>
+                </details>
+                <button class="mt-4 p-2 rounded-lg bg-red-500 text-white" onclick="toggleBookmark('${doa.id}')">★ Hapus Bookmark</button>
+            `;
+            bookmarkList.appendChild(bookmarkItem);
+        });
+    }
 
-    // Pagination
-    document.getElementById('prevPage').addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayDoa();
-        }
-    });
-
-    document.getElementById('nextPage').addEventListener('click', () => {
-        currentPage++;
-        displayDoa();
-    });
-
-    // Bookmark handling
+    // Fungsi untuk toggle bookmark
     function toggleBookmark(id) {
         if (bookmarks.has(id)) {
             bookmarks.delete(id);
         } else {
             bookmarks.add(id);
         }
+        localStorage.setItem('bookmarks', JSON.stringify(Array.from(bookmarks)));
         displayDoa();
+        displayBookmarks();
     }
+
+    // Text-to-speech function
+    function speakText(text) {
+        const msg = new SpeechSynthesisUtterance();
+        msg.lang = 'ar';
+        msg.text = text;
+        window.speechSynthesis.speak(msg);
+    }
+
+    // Event listeners
+    document.getElementById('groupFilter').addEventListener('change', displayDoa);
+    document.getElementById('tagFilter').addEventListener('change', displayDoa);
+    document.getElementById('searchInput').addEventListener('input', displayDoa);
+    document.getElementById('darkModeToggle').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displayDoa();
+        }
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage++;
+        displayDoa();
+    });
 
     // Memuat data saat halaman dimuat
     loadData();
