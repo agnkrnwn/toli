@@ -219,18 +219,34 @@
     }
 }
 
-    function showFavorites() {
-        const doaList = document.getElementById('doaList');
-        doaList.innerHTML = `
-        <div class="w-full flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Doa Favorit</h2>
-            <button id="backButton" class="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600 transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+function showFavorites() {
+    const doaList = document.getElementById('doaList');
+    doaList.innerHTML = `
+        <div class="w-full flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold text-primary-600 dark:text-primary-400">Doa Favorit</h2>
+            <button id="backButton" class="bg-primary-500 text-white px-4 py-2 rounded-full hover:bg-primary-600 transition duration-300 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
+                Kembali
             </button>
         </div>
     `;
+    
+    if (favorites.length === 0) {
+        doaList.innerHTML += `
+            <div class="text-center text-gray-600 dark:text-gray-400 mt-12">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <p class="text-xl">Belum ada doa favorit.</p>
+                <p class="mt-2">Tambahkan doa ke favorit dengan menekan tombol hati pada detail doa.</p>
+            </div>
+        `;
+    } else {
+        const favoritesContainer = document.createElement('div');
+        favoritesContainer.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
+        
         favorites.forEach((doa, index) => {
             const doaItem = document.createElement('div');
             doaItem.className = 'bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1 cursor-pointer';
@@ -244,13 +260,28 @@
                     <p class="text-gray-800 dark:text-gray-200 line-clamp-3">${doa.idn}</p>
                 </div>
             `;
-            
             doaItem.addEventListener('click', () => showModal(doa));
-            doaList.appendChild(doaItem);
+            favoritesContainer.appendChild(doaItem);
         });
-        AOS.refresh();
-        document.getElementById('backButton').addEventListener('click', displayDoa);
+        
+        doaList.appendChild(favoritesContainer);
     }
+
+    document.getElementById('backButton').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('groupFilter').value = '';
+        document.getElementById('tagFilter').value = '';
+        displayDoa();
+    });
+
+    // Reset filter dan search
+    document.getElementById('searchInput').value = '';
+    document.getElementById('groupFilter').value = '';
+    document.getElementById('tagFilter').value = '';
+
+    // Refresh animasi
+    AOS.refresh();
+}
 
     
     document.getElementById('groupFilter').addEventListener('change', displayDoa);
