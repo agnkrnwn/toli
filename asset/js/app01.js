@@ -100,15 +100,31 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch(`https://equran.id/api/v2/surat/${nomorSurah}`),
             fetch(`https://equran.id/api/v2/tafsir/${nomorSurah}`)
         ]);
-        const surahData = await surahResponse.json();
-        const tafsirData = await tafsirResponse.json();
+
+        let surahData, tafsirData;
+
+        try {
+            surahData = await surahResponse.json();
+        } catch (error) {
+            console.error("Error parsing surah data:", error);
+            surahData = { code: 500, message: "Error parsing surah data" };
+        }
+
+        try {
+            tafsirData = await tafsirResponse.json();
+        } catch (error) {
+            console.error("Error parsing tafsir data:", error);
+            tafsirData = { code: 500, message: "Error parsing tafsir data" };
+        }
 
         if (surahData.code === 200 && tafsirData.code === 200) {
             displaySurahDetail(surahData.data, tafsirData.data);
             surahDetail.scrollIntoView({ behavior: "smooth" });
         } else {
-            surahDetail.innerHTML =
-                '<p class="text-red-500">Gagal memuat detail surah atau tafsir.</p>';
+            let errorMessage = "";
+            if (surahData.code !== 200) errorMessage += `Gagal memuat detail surah: ${surahData.message}. `;
+            if (tafsirData.code !== 200) errorMessage += `Gagal memuat tafsir: ${tafsirData.message}.`;
+            surahDetail.innerHTML = `<p class="text-red-500">${errorMessage}</p>`;
         }
     } catch (error) {
         console.error("Error:", error);
