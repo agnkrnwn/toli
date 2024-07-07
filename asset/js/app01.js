@@ -3,8 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const surahList = document.getElementById("surahList");
   const surahDetail = document.getElementById("surahDetail");
   const darkModeToggle = document.getElementById("darkModeToggle");
+  const scrollToTopBtn = document.createElement("button");
 
   let allSurahs = [];
+
+  ToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  scrollToTopBtn.className = "fixed bottom-4 right-4 bg-primary-500 text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors duration-200 z-50";
+  scrollToTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100px);
+  `;
+  document.body.appendChild(scrollToTopBtn);
 
   fetchSurahList();
 
@@ -42,6 +62,20 @@ document.addEventListener("DOMContentLoaded", () => {
         '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
     }
   }
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.style.opacity = "1";
+      scrollToTopBtn.style.transform = "translateY(0)";
+    } else {
+      scrollToTopBtn.style.opacity = "0";
+      scrollToTopBtn.style.transform = "translateY(100px)";
+    }
+  });
+
+  scrollToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
   function displayAllSurahs(surahs) {
     surahList.innerHTML = surahs
