@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumpulan Doa Islami</title>
+    <title>Doa Islami Modern</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -16,46 +18,67 @@
                     },
                     fontFamily: {
                         'sans': ['Poppins', 'sans-serif'],
+                        'arabic': ['Amiri', 'serif'],
                     },
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
-    <nav class="bg-white dark:bg-gray-800 shadow-md">
+<body class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-200 font-sans min-h-screen transition-colors duration-300">
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full z-10 transition-all duration-300 ease-in-out">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Doa Islami</h1>
-            <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
+            <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-primary-700">Doa Islami</h1>
+            <div class="flex items-center space-x-4">
+                <button id="darkModeToggle" class="p-2 rounded-full bg-primary-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <button id="shareButton" class="p-2 rounded-full bg-primary-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-8">
-        <div class="mb-8 space-y-4">
-            <div class="relative">
-                <input type="text" id="searchInput" placeholder="Cari doa..." class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <div class="mb-12 space-y-6" data-aos="fade-up">
+            <div class="relative max-w-2xl mx-auto">
+                <input type="text" id="searchInput" placeholder="Cari doa..." class="w-full p-4 pr-12 rounded-full border-2 border-primary-300 dark:border-primary-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300 text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute right-4 top-1/2 transform -translate-y-1/2 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
-            <div class="flex flex-wrap gap-4">
-                <select id="groupFilter" class="flex-grow sm:flex-grow-0 p-3 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+            <div class="flex flex-wrap justify-center gap-4">
+                <select id="groupFilter" class="p-3 rounded-full border-2 border-primary-300 dark:border-primary-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
                     <option value="">Semua Grup</option>
                 </select>
-                <select id="tagFilter" class="flex-grow sm:flex-grow-0 p-3 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
+                <select id="tagFilter" class="p-3 rounded-full border-2 border-primary-300 dark:border-primary-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition duration-300">
                     <option value="">Semua Tag</option>
                 </select>
             </div>
         </div>
         
-        <div id="doaList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="doaList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Doa items will be inserted here -->
         </div>
     </main>
+
+    <div id="shareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Bagikan Aplikasi</h2>
+            <p class="mb-4">Bagikan aplikasi Doa Islami ini dengan teman dan keluarga Anda:</p>
+            <div class="flex space-x-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Facebook</button>
+                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">WhatsApp</button>
+                <button class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 transition duration-300">Twitter</button>
+            </div>
+            <button id="closeShareModal" class="mt-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">Tutup</button>
+        </div>
+    </div>
 
     <script>
     let doaData = [];
@@ -95,29 +118,41 @@
         const tagFilter = document.getElementById('tagFilter').value;
         const searchInput = document.getElementById('searchInput').value.toLowerCase();
         doaList.innerHTML = '';
-        doaData.forEach(doa => {
+        doaData.forEach((doa, index) => {
             if ((groupFilter === '' || doa.grup === groupFilter) &&
                 (tagFilter === '' || (doa.tag && doa.tag.includes(tagFilter))) &&
                 (searchInput === '' || doa.nama.toLowerCase().includes(searchInput) || doa.idn.toLowerCase().includes(searchInput))) {
                 const doaItem = document.createElement('div');
-                doaItem.className = 'bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl';
+                doaItem.className = 'bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1';
+                doaItem.setAttribute('data-aos', 'fade-up');
+                doaItem.setAttribute('data-aos-delay', (index % 3) * 100);
                 doaItem.innerHTML = `
-                    <div class="p-6">
-                        <h2 class="text-xl font-semibold mb-3 text-primary-600 dark:text-primary-400">${doa.nama}</h2>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Grup: ${doa.grup || 'Tidak ada'}</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Tag: ${doa.tag || 'Tidak ada'}</p>
-                        <p class="mb-3 text-right font-arabic text-xl leading-relaxed">${doa.ar}</p>
-                        <p class="mb-3 italic text-gray-700 dark:text-gray-300">${doa.tr}</p>
-                        <p class="mb-4 text-gray-800 dark:text-gray-200">${doa.idn}</p>
+                    <div class="p-6 space-y-4">
+                        <h2 class="text-2xl font-semibold text-primary-600 dark:text-primary-400">${doa.nama}</h2>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">${doa.grup || 'Tidak ada grup'}</span>
+                            ${doa.tag ? doa.tag.split(',').map(tag => `<span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm">${tag.trim()}</span>`).join('') : ''}
+                        </div>
+                        <p class="text-right font-arabic text-2xl leading-relaxed">${doa.ar}</p>
+                        <p class="italic text-gray-600 dark:text-gray-400">${doa.tr}</p>
+                        <p class="text-gray-800 dark:text-gray-200">${doa.idn}</p>
                         <details class="text-sm text-gray-700 dark:text-gray-300">
-                            <summary class="cursor-pointer hover:text-primary-500 transition duration-300">Tentang doa ini</summary>
+                            <summary class="cursor-pointer hover:text-primary-500 transition duration-300 font-semibold">Tentang doa ini</summary>
                             <p class="mt-2 pl-4 border-l-2 border-primary-500">${doa.tentang || 'Tidak ada informasi tambahan.'}</p>
                         </details>
+                        <button class="mt-4 bg-primary-500 text-white px-4 py-2 rounded-full hover:bg-primary-600 transition duration-300" onclick="speak('${doa.ar}')">Bacakan Doa</button>
                     </div>
                 `;
                 doaList.appendChild(doaItem);
             }
         });
+        AOS.refresh();
+    }
+
+    function speak(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA';
+        speechSynthesis.speak(utterance);
     }
 
     document.getElementById('groupFilter').addEventListener('change', displayDoa);
@@ -126,6 +161,23 @@
 
     document.getElementById('darkModeToggle').addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
+    });
+
+    document.getElementById('shareButton').addEventListener('click', () => {
+        document.getElementById('shareModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeShareModal').addEventListener('click', () => {
+        document.getElementById('shareModal').classList.add('hidden');
+    });
+
+    window.addEventListener('load', () => {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
     });
 
     loadData();
