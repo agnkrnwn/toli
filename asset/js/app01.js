@@ -96,26 +96,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.fetchSurahDetail = async function (nomorSurah) {
     try {
-      const [surahResponse, tafsirResponse] = await Promise.all([
-        fetch(`https://equran.id/api/v2/surat/${nomorSurah}`),
-        fetch(`https://equran.id/api/v2/tafsir/${nomorSurah}`)
-      ]);
-      const surahData = await surahResponse.json();
-      const tafsirData = await tafsirResponse.json();
+        const [surahResponse, tafsirResponse] = await Promise.all([
+            fetch(`https://equran.id/api/v2/surat/${nomorSurah}`),
+            fetch(`https://equran.id/api/v2/tafsir/${nomorSurah}`)
+        ]);
+        const surahData = await surahResponse.json();
+        const tafsirData = await tafsirResponse.json();
 
-      if (surahData.code === 200 && tafsirData.code === 200) {
-        displaySurahDetail(surahData.data, tafsirData.data);
-        surahDetail.scrollIntoView({ behavior: "smooth" });
-      } else {
-        surahDetail.innerHTML =
-          '<p class="text-red-500">Gagal memuat detail surah atau tafsir.</p>';
-      }
+        if (surahData.code === 200 && tafsirData.code === 200) {
+            displaySurahDetail(surahData.data, tafsirData.data);
+            surahDetail.scrollIntoView({ behavior: "smooth" });
+        } else {
+            surahDetail.innerHTML =
+                '<p class="text-red-500">Gagal memuat detail surah atau tafsir.</p>';
+        }
     } catch (error) {
-      console.error("Error:", error);
-      surahDetail.innerHTML =
-        '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
+        console.error("Error:", error);
+        surahDetail.innerHTML =
+            '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
     }
-  };
+};
 
   function displaySurahDetail(surah, tafsir) {
     surahDetail.innerHTML = `
@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayAyatWithTafsir(ayat, tafsir, container) {
     container.innerHTML = `
             <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
+            <div cl<h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
             <div class="space-y-6">
                 ${ayat
                   .map(
@@ -193,8 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="toggle-tafsir-btn mt-2 text-primary-600 dark:text-primary-400 hover:underline" data-ayat="${a.nomorAyat}">
                             Show Tafsir
                         </button>
-                        <div class="tafsir-container hidden mt-2 p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                            <p class="text-gray-600 dark:text-gray-400">${tafsir[index].teks}</p>
+                        <div class="tafsir-container hidden mt-2 p-2 rounded">
+                            <p class="text-gray-600 dark:text-gray-400">${tafsir[index] ? tafsir[index].teks : 'Tafsir tidak tersedia'}</p>
                         </div>
                     </div>
                 `
