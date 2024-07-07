@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchSurahList();
 
   darkModeToggle.addEventListener("click", () => {
-    document.documentElement.classList.togle("dark");
+    document.documentElement.classList.toggle("dark");
   });
 
   searchInput.addEventListener("input", () => {
