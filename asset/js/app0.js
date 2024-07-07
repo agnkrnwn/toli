@@ -58,4 +58,167 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  window.fetchSurahDetail = async function (nomorSurah) {
+    try {
+      const [surahResponse, tafsirResponse] = await Promise.all([
+        fetch(`https://equran.id/api/v2/surat/${nomorSurah}`),
+        fetch(`https://equran.id/api/v2/tafsir/${nomorSurah}`)
+      ]);
+      const surahData = await surahResponse.json();
+      const tafsirData = await tafsirResponse.json();
+
+      if (surahData.code === 200 && tafsirData.code === 200) {
+        displaySurahDetail(surahData.data, tafsirData.data);
+        surahDetail.scrollIntoView({ behavior: "smooth" });
+      } else {
+        surahDetail.innerHTML =
+          '<p class="text-red-500">Gagal memuat detail surah atau tafsir.</p>';
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      surahDetail.innerHTML =
+        '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
+    }
+  };
+
+  function displaySurahDetail(surah, tafsir) {
+    surahDetail.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400">${surah.nomor}. ${surah.namaLatin} (${surah.nama})</h2>
+                    <button id="audioToggle" class="text-primary-800 dark:text-primary-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <audio id="surahAudio" src="${surah.audioFull["05"]}" preload="none"></audio>
+                <div class="space-y-2 text-gray-700 dark:text-gray-300">
+                    <p><strong class="font-semibold">Arti:</strong> ${surah.arti}</p>
+                    <p><strong class="font-semibold">Jumlah Ayat:</strong> ${surah.jumlahAyat}</p>
+                    <p><strong class="font-semibold">Tempat Turun:</strong> ${surah.tempatTurun}</p>
+                    <p><strong class="font-semibold">Deskripsi:</strong> ${surah.deskripsi}</p>
+                </div>
+                <div class="mt-4 space-x-2">
+                    <button id="toggleAyatBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
+                        Show Ayat
+                    </button>
+                    <button id="toggleTafsirBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
+                        Show Tafsir
+                    </button>
+                </div>
+                <div id="ayatContainer" class="mt-4 hidden"></div>
+                <div id="tafsirContainer" class="mt-4 hidden"></div>
+            </div>
+        `;
+
+    const audioToggle = document.getElementById("audioToggle");
+    const audio = document.getElementById("surahAudio");
+    const toggleAyatBtn = document.getElementById("toggleAyatBtn");
+    const toggleTafsirBtn = document.getElementById("toggleTafsirBtn");
+    const ayatContainer = document.getElementById("ayatContainer");
+    const tafsirContainer = document.getElementById("tafsirContainer");
+
+    audioToggle.addEventListener("click", () => toggleAudio(audio, audioToggle));
+    toggleAyatBtn.addEventListener("click", () => toggleAyat(surah.ayat, toggleAyatBtn, ayatContainer));
+    toggleTafsirBtn.addEventListener("click", () => toggleTafsir(tafsir, toggleTafsirBtn, tafsirContainer));
+  }
+
+  function toggleAudio(audio, button) {
+    if (audio.paused) {
+      audio.play();
+      button.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      audio.pause();
+      button.innerHTML = '<i class="fas fa-play"></i>';
+    }
+  }
+
+  function toggleAyat(ayat, button, container) {
+    if (container.classList.contains("hidden")) {
+      displayAyat(ayat, container);
+      button.textContent = "Hide Ayat";
+      container.classList.remove("hidden");
+    } else {
+      container.innerHTML = "";
+      button.textContent = "Show Ayat";
+      container.classList.add("hidden");
+    }
+  }
+
+  function toggleTafsir(tafsir, button, container) {
+    if (container.classList.contains("hidden")) {
+      displayTafsir(tafsir, container);
+      button.textContent = "Hide Tafsir";
+      container.classList.remove("hidden");
+    } else {
+      container.innerHTML = "";
+      button.textContent = "Show Tafsir";
+      container.classList.add("hidden");
+    }
+  }
+
+  function displayAyat(ayat, container) {
+    container.innerHTML = `
+            <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
+            <div class="space-y-6">
+                ${ayat
+                  .map(
+                    (a) => `
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-lg font-semibold">${a.nomorAyat}.</span>
+                            <button class="play-audio-btn text-primary-800 dark:text-primary-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200" data-audio="${a.audio["05"]}">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <p class="text-right text-2xl mb-2 font-arabic">${a.teksArab}</p>
+                        <p class="mb-1 text-lg">${a.teksLatin}</p>
+                        <p class="text-gray-600 dark:text-gray-400">${a.teksIndonesia}</p>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+        `;
+
+    const audioButtons = container.querySelectorAll(".play-audio-btn");
+    audioButtons.forEach((button) => {
+      button.addEventListener("click", () => playAyatAudio(button));
+    });
+  }
+
+  function displayTafsir(tafsir, container) {
+    container.innerHTML = `
+            <h3 class="text-xl font-semibold mb-4 text-secondary-600 dark:text-secondary-400">Tafsir:</h3>
+            <div class="space-y-4">
+                ${tafsir.tafsir
+                  .map(
+                    (t) => `
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h4 class="text-lg font-semibold mb-2">Ayat ${t.ayat}</h4>
+                        <p class="text-gray-700 dark:text-gray-300">${t.teks}</p>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+        `;
+  }
+
+  function playAyatAudio(button) {
+    const audioSrc = button.dataset.audio;
+    const audio = new Audio(audioSrc);
+
+    document.querySelectorAll("audio").forEach((a) => a.pause());
+
+    audio.play();
+
+    button.innerHTML = '<i class="fas fa-pause"></i>';
+
+    audio.onended = () => {
+      button.innerHTML = '<i class="fas fa-play"></i>';
+    };
+  }
+});
+
+
 
