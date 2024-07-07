@@ -190,26 +190,37 @@
     }
 
     function showFavorites() {
-        const doaList = document.getElementById('doaList');
-        doaList.innerHTML = '';
-        favorites.forEach((doa, index) => {
-            const doaItem = document.createElement('div');
-            doaItem.className = 'bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1 cursor-pointer';
-            doaItem.setAttribute('data-aos', 'fade-up');
-            doaItem.setAttribute('data-aos-delay', (index % 3) * 100);
-            doaItem.innerHTML = `
-                <div class="p-6 space-y-4">
-                    <h2 class="text-2xl font-semibold text-primary-600 dark:text-primary-400">${doa.nama}</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Grup: ${doa.grup || 'Tidak ada grup'}</p>
-                    <p class="text-right font-arabic text-2xl leading-relaxed line-clamp-2">${doa.ar}</p>
-                    <p class="text-gray-800 dark:text-gray-200 line-clamp-3">${doa.idn}</p>
-                </div>
-            `;
-            doaItem.addEventListener('click', () => showModal(doa));
-            doaList.appendChild(doaItem);
-        });
-        AOS.refresh();
-    }
+    const doaList = document.getElementById('doaList');
+    doaList.innerHTML = '';
+
+    // Tambahkan tombol "Kembali" di bagian atas
+    const backButton = document.createElement('button');
+    backButton.className = 'mb-4 px-4 py-2 bg-primary-500 text-white rounded-lg shadow hover:bg-primary-600 transition duration-300';
+    backButton.innerText = 'Kembali';
+    backButton.addEventListener('click', () => {
+        location.reload(); // Refresh halaman
+    });
+    doaList.appendChild(backButton);
+
+    favorites.forEach((doa, index) => {
+        const doaItem = document.createElement('div');
+        doaItem.className = 'bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1 cursor-pointer';
+        doaItem.setAttribute('data-aos', 'fade-up');
+        doaItem.setAttribute('data-aos-delay', (index % 3) * 100);
+        doaItem.innerHTML = `
+            <div class="p-6 space-y-4">
+                <h2 class="text-2xl font-semibold text-primary-600 dark:text-primary-400">${doa.nama}</h2>
+                <p class="text-gray-600 dark:text-gray-400">Grup: ${doa.grup || 'Tidak ada grup'}</p>
+                <p class="text-right font-arabic text-2xl leading-relaxed line-clamp-2">${doa.ar}</p>
+                <p class="text-gray-800 dark:text-gray-200 line-clamp-3">${doa.idn}</p>
+            </div>
+        `;
+        doaItem.addEventListener('click', () => showModal(doa));
+        doaList.appendChild(doaItem);
+    });
+    AOS.refresh();
+}
+
 
     document.getElementById('groupFilter').addEventListener('change', displayDoa);
     document.getElementById('tagFilter').addEventListener('change', displayDoa);
