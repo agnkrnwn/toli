@@ -152,11 +152,33 @@
         document.getElementById('modalAbout').textContent = doa.tentang || 'Tidak ada informasi tambahan.';
         document.getElementById('doaModal').classList.remove('hidden');
 
-        document.getElementById('speakButton').onclick = () => speak(doa.ar);
-        document.getElementById('favoriteButton').onclick = () => toggleFavorite(doa);
-        document.getElementById('closeModal').onclick = () => document.getElementById('doaModal').classList.add('hidden');
-        
-        updateFavoriteButton(doa);
+    const modalButtons = `
+        <div class="flex justify-between">
+            <button id="speakButton" class="bg-primary-500 text-white p-2 rounded hover:bg-primary-600 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+            </button>
+            <button id="favoriteButton" class="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+            </button>
+            <button id="closeModal" class="bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 p-2 rounded hover:bg-gray-400 dark:hover:bg-gray-500 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    `;
+
+    document.querySelector('#doaModal .bg-white').innerHTML += modalButtons;
+
+    document.getElementById('speakButton').onclick = () => speak(doa.ar);
+    document.getElementById('favoriteButton').onclick = () => toggleFavorite(doa);
+    document.getElementById('closeModal').onclick = () => document.getElementById('doaModal').classList.add('hidden');
+    
+    updateFavoriteButton(doa);
     }
 
     function speak(text) {
@@ -177,21 +199,38 @@
     }
 
     function updateFavoriteButton(doa) {
-        const button = document.getElementById('favoriteButton');
-        if (favorites.some(fav => fav.nama === doa.nama)) {
-            button.textContent = 'Hapus dari Favorit';
-            button.classList.remove('bg-red-500', 'hover:bg-red-600');
-            button.classList.add('bg-gray-500', 'hover:bg-gray-600');
-        } else {
-            button.textContent = 'Tambah ke Favorit';
-            button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
-            button.classList.add('bg-red-500', 'hover:bg-red-600');
-        }
+    const button = document.getElementById('favoriteButton');
+    if (favorites.some(fav => fav.nama === doa.nama)) {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        `;
+        button.classList.remove('bg-red-500', 'hover:bg-red-600');
+        button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+    } else {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        `;
+        button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+        button.classList.add('bg-red-500', 'hover:bg-red-600');
     }
+}
 
     function showFavorites() {
         const doaList = document.getElementById('doaList');
-        doaList.innerHTML = '';
+        doaList.innerHTML = `
+        <div class="w-full flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Doa Favorit</h2>
+            <button id="backButton" class="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </button>
+        </div>
+    `;
         favorites.forEach((doa, index) => {
             const doaItem = document.createElement('div');
             doaItem.className = 'bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1 cursor-pointer';
@@ -205,12 +244,14 @@
                     <p class="text-gray-800 dark:text-gray-200 line-clamp-3">${doa.idn}</p>
                 </div>
             `;
+            
             doaItem.addEventListener('click', () => showModal(doa));
             doaList.appendChild(doaItem);
         });
         AOS.refresh();
     }
 
+    document.getElementById('backButton').addEventListener('click', displayDoa);
     document.getElementById('groupFilter').addEventListener('change', displayDoa);
     document.getElementById('tagFilter').addEventListener('change', displayDoa);
     document.getElementById('searchInput').addEventListener('input', displayDoa);
