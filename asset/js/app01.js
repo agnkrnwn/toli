@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             Show Tafsir
                         </button>
                         <div class="tafsir-container hidden mt-2 p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                            ${tafsir[index].teks}
+                            <p class="text-gray-600 dark:text-gray-400">${tafsir[index].teks}</p>
                         </div>
                     </div>
                 `
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tafsirButtons.forEach((button) => {
       button.addEventListener("click", () => toggleTafsirPerAyat(button));
     });
-  }
+}
 
   function playAyatAudio(button) {
     const audioSrc = button.dataset.audio;
