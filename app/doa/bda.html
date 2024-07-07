@@ -249,9 +249,10 @@
             doaList.appendChild(doaItem);
         });
         AOS.refresh();
+        document.getElementById('backButton').addEventListener('click', displayDoa);
     }
 
-    document.getElementById('backButton').addEventListener('click', displayDoa);
+    
     document.getElementById('groupFilter').addEventListener('change', displayDoa);
     document.getElementById('tagFilter').addEventListener('change', displayDoa);
     document.getElementById('searchInput').addEventListener('input', displayDoa);
