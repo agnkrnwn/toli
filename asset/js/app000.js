@@ -29,9 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetchSurahList();
 
-  darkModeToggle.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-  });
+  // Dark mode toggle functionality
+  darkModeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+});
+
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'true' || 
+    (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+}
 
   searchInput.addEventListener("input", () => {
     const searchTerm = searchInput.value.toLowerCase();
