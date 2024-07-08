@@ -53,6 +53,25 @@ if (localStorage.getItem('darkMode') === 'true' ||
     displayAllSurahs(filteredSurahs);
   });
 
+  // Fungsi untuk menampilkan Al-Fatihah
+  async function showAlFatihah() {
+    try {
+        const response = await fetch('https://equran.id/api/v2/surat/1');
+        const data = await response.json();
+        if (data.code === 200) {
+            displaySurahDetail(data.data);
+        } else {
+            surahDetail.innerHTML = '<p class="text-red-500">Gagal memuat Al-Fatihah.</p>';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        surahDetail.innerHTML = '<p class="text-red-500">Terjadi kesalahan. Silakan coba lagi nanti.</p>';
+    }
+}
+
+// Panggil fungsi showAlFatihah saat halaman dimuat
+document.addEventListener('DOMContentLoaded', showAlFatihah);
+
   async function fetchSurahList() {
     try {
       const response = await fetch("https://equran.id/api/v2/surat");
