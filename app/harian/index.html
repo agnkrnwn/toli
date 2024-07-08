@@ -29,7 +29,7 @@
             <div class="col-lg-8 col-md-10">
                 <div class="card text-center p-3">
                     <div class="card-body">
-                        <h5 id="title" class="card-title"></h5>
+                        <h5 id="title" class="card-title">Loading...</h5>
                         <p id="arabic" class="card-text"></p>
                         <p id="latin" class="card-text"></p>
                         <p id="translation" class="card-text"></p>
@@ -41,9 +41,14 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('../../asset/data/doa.json')
-                .then(response => response.json())
+            console.log("DOM fully loaded and parsed");
+            fetch('./doa.json')
+                .then(response => {
+                    console.log("Fetching data...");
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("Data fetched:", data);
                     document.getElementById('title').textContent = data.title;
                     document.getElementById('arabic').innerHTML = data.arabic;
                     document.getElementById('latin').textContent = data.latin;
