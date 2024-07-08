@@ -238,7 +238,11 @@ if (localStorage.getItem('darkMode') === 'true' ||
             Show Tafsir
           </button>
           <div class="tafsir-container hidden mt-2">
-            <p class="text-gray-600 dark:text-gray-400">${tafsir[i] ? tafsir[i].teks : 'Tafsir tidak tersedia'}</p>
+            <p class="text-gray-600 dark:text-gray-400">
+              ${tafsir[i] ? tafsir[i].teks.split('\n').map(line => `
+                <span class="block mb-2">${line}</span>
+              `).join('') : 'Tafsir tidak tersedia'}
+            </p>
           </div>
         `;
         fragment.appendChild(div);
