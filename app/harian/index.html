@@ -1,73 +1,28 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doa Harian</title>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --card-bg: #1e1e1e;
-            --accent-color: #bb86fc;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                },
+            },
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: var(--accent-color);
-            text-align: center;
-        }
-        h2 {
-            color: var(--accent-color);
-            margin-top: 0;
-        }
-        .arabic {
-            font-size: 24px;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-        .latin {
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-        .translation {
-            font-size: 14px;
-            color: #a0a0a0;
-        }
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .card {
-                padding: 15px;
-            }
-            .arabic {
-                font-size: 20px;
-            }
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="container">
-        <h1>Doa Harian</h1>
-        <div id="doa-container"></div>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-indigo-600 dark:text-indigo-400">Doa Harian</h1>
+        <div id="doa-container" class="grid gap-6 md:grid-cols-2"></div>
     </div>
 
     <script>
@@ -84,11 +39,13 @@
 
         function createDoaCard(doa) {
             return `
-                <div class="card">
-                    <h2>${doa.title}</h2>
-                    <div class="arabic">${doa.arabic}</div>
-                    <div class="latin">${doa.latin}</div>
-                    <div class="translation">${doa.translation}</div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">${doa.title}</h2>
+                        <div class="text-right text-2xl mb-4 font-bold text-gray-700 dark:text-gray-300">${doa.arabic}</div>
+                        <div class="italic mb-2 text-gray-600 dark:text-gray-400">${doa.latin}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-500">${doa.translation}</div>
+                    </div>
                 </div>
             `;
         }
