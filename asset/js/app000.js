@@ -206,6 +206,14 @@ if (localStorage.getItem('darkMode') === 'true' ||
     }
   }
 
+  function formatTafsir(text) {
+    return text
+      .split('\n')
+      .map(paragraph => paragraph.trim())
+      .filter(paragraph => paragraph.length > 0)
+      .join('\n\n');
+  }
+
   function displayAyatWithTafsir(ayat, tafsir, container) {
     container.innerHTML = `
             <h3 class="text-xl font-semibold mb-4 text-primary-600 dark:text-primary-400">Ayat-ayat:</h3>
@@ -238,8 +246,10 @@ if (localStorage.getItem('darkMode') === 'true' ||
             Show Tafsir
           </button>
           <div class="tafsir-container hidden mt-2">
-            <p class="text-gray-600 dark:text-gray-400">${tafsir[i] ? tafsir[i].teks : 'Tafsir tidak tersedia'}</p>
-          </div>
+  <p class="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
+    ${tafsir[i] ? formatTafsir(tafsir[i].teks) : 'Tafsir tidak tersedia'}
+  </p>
+</div>
         `;
         fragment.appendChild(div);
       }
