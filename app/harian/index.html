@@ -42,7 +42,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             console.log("DOM fully loaded and parsed");
-            fetch('./doa.json')
+            fetch('https://agnk.netlify.app/app/harian/doa.json')
                 .then(response => {
                     console.log("Fetching data...");
                     return response.json();
