@@ -1,62 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Doa Harian</title>
     <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --accent-color: #bb86fc;
+        }
         body {
-            background-color: #121212;
-            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
         }
-
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
         .card {
-            background-color: #1e1e1e;
-            border: none;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .card-title {
-            color: #ffcc00;
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+        }
+        h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        .arabic {
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .latin {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .translation {
+            font-size: 14px;
+            color: #a0a0a0;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 15px;
+            }
+            .arabic {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-                <div class="card text-center p-3">
-                    <div class="card-body">
-                        <h5 id="title" class="card-title">Loading...</h5>
-                        <p id="arabic" class="card-text"></p>
-                        <p id="latin" class="card-text"></p>
-                        <p id="translation" class="card-text"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <h1>Doa Harian</h1>
+        <div id="doa-container"></div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log("DOM fully loaded and parsed");
-            fetch('./doa.json')
-                .then(response => {
-                    console.log("Fetching data...");
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Data fetched:", data);
-                    document.getElementById('title').textContent = data.title;
-                    document.getElementById('arabic').innerHTML = data.arabic;
-                    document.getElementById('latin').textContent = data.latin;
-                    document.getElementById('translation').textContent = data.translation;
-                })
-                .catch(error => console.error('Error fetching the JSON data:', error));
-        });
+        async function fetchDoa() {
+            try {
+                const response = await fetch('https://agnk.netlify.app/app/harian/doa.json');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        function createDoaCard(doa) {
+            return `
+                <div class="card">
+                    <h2>${doa.title}</h2>
+                    <div class="arabic">${doa.arabic}</div>
+                    <div class="latin">${doa.latin}</div>
+                    <div class="translation">${doa.translation}</div>
+                </div>
+            `;
+        }
+
+        async function displayDoa() {
+            const doaContainer = document.getElementById('doa-container');
+            const doaList = await fetchDoa();
+
+            doaList.forEach(doa => {
+                doaContainer.innerHTML += createDoaCard(doa);
+            });
+        }
+
+        displayDoa();
     </script>
 </body>
-
 </html>
