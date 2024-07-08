@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const surahDetail = document.getElementById("surahDetail");
   const darkModeToggle = document.getElementById("darkModeToggle");
   const scrollToTopBtn = document.createElement("button");
-
+ 
   let allSurahs = [];
   let surahCache = new Map();
 
