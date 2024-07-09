@@ -160,15 +160,25 @@ if (localStorage.getItem('darkMode') === 'true' ||
                     </button>
                 </div>
                 <audio id="surahAudio" src="${surah.audioFull["05"]}" preload="none"></audio>
+                <div id="audioInfo" class="mb-4 hidden">
+                    <p class="text-gray-700 dark:text-gray-300">Now playing: ${surah.namaLatin}</p>
+                    <div id="progressBar" class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                        <div id="progressBarFill" class="bg-primary-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
                 <div class="space-y-2 text-gray-700 dark:text-gray-300">
                     <p><strong class="font-semibold">Arti:</strong> ${surah.arti}</p>
                     <p><strong class="font-semibold">Jumlah Ayat:</strong> ${surah.jumlahAyat}</p>
                     <p><strong class="font-semibold">Tempat Turun:</strong> ${surah.tempatTurun}</p>
                     <p><strong class="font-semibold">Deskripsi:</strong> ${surah.deskripsi}</p>
                 </div>
-                <div class="mt-4 space-x-2">
+                <div class="mt-4 space-x-2 flex items-center">
                     <button id="toggleAyatBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
                         Show Ayat
+                    </button>
+                    <input id="ayatInput" type="number" min="1" max="${surah.jumlahAyat}" class="ml-2 px-2 py-1 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600" placeholder="Go to Ayat">
+                    <button id="goToAyatBtn" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors duration-200">
+                        Go
                     </button>
                 </div>
                 <div id="ayatContainer" class="mt-4 hidden"></div>
@@ -179,18 +189,30 @@ if (localStorage.getItem('darkMode') === 'true' ||
     const audio = document.getElementById("surahAudio");
     const toggleAyatBtn = document.getElementById("toggleAyatBtn");
     const ayatContainer = document.getElementById("ayatContainer");
+    const ayatInput = document.getElementById("ayatInput");
+    const goToAyatBtn = document.getElementById("goToAyatBtn");
+    const audioInfo = document.getElementById("audioInfo");
+    const progressBarFill = document.getElementById("progressBarFill");
 
-    audioToggle.addEventListener("click", () => toggleAudio(audio, audioToggle));
+    audioToggle.addEventListener("click", () => toggleAudio(audio, audioToggle, audioInfo));
     toggleAyatBtn.addEventListener("click", () => toggleAyat(surah.ayat, tafsir.tafsir, toggleAyatBtn, ayatContainer));
+    goToAyatBtn.addEventListener("click", () => goToAyat(ayatInput.value, ayatContainer));
+
+    audio.addEventListener("timeupdate", () => {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBarFill.style.width = `${progress}%`;
+    });
   }
 
-  function toggleAudio(audio, button) {
+  function toggleAudio(audio, button, audioInfo) {
     if (audio.paused) {
       audio.play();
       button.innerHTML = '<i class="fas fa-pause"></i>';
+      audioInfo.classList.remove("hidden");
     } else {
       audio.pause();
       button.innerHTML = '<i class="fas fa-play"></i>';
+      audioInfo.classList.add("hidden");
     }
   }
 
@@ -203,6 +225,13 @@ if (localStorage.getItem('darkMode') === 'true' ||
       container.innerHTML = "";
       button.textContent = "Show Ayat";
       container.classList.add("hidden");
+    }
+  }
+
+  function goToAyat(ayatNumber, container) {
+    const ayatElement = container.querySelector(`[data-ayat="${ayatNumber}"]`);
+    if (ayatElement) {
+      ayatElement.scrollIntoView({ behavior: "smooth" });
     }
   }
 
@@ -224,6 +253,7 @@ if (localStorage.getItem('darkMode') === 'true' ||
         const a = ayat[i];
         const div = document.createElement("div");
         div.className = "border-b border-gray-200 dark:border-gray-700 pb-4";
+        div.setAttribute("data-ayat", a.nomorAyat);
         div.innerHTML = `
           <div class="flex justify-between items-center mb-2">
             <span class="text-lg font-semibold">${a.nomorAyat}.</span>
