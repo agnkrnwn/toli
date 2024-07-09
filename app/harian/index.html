@@ -110,7 +110,7 @@
             // Vibrate if supported
             if ('vibrate' in navigator) {
                 if (tapCount === maxTaps) {
-                    navigator.vibrate([100, 50, 100]); // Longer vibration for last tap
+                    navigator.vibrate([200, 50, 200]); // Longer vibration for last tap
                 } else {
                     navigator.vibrate(50);
                 }
@@ -134,7 +134,7 @@
             setTimeout(() => {
                 messageElement.classList.add('hidden');
                 messageElement.classList.remove('fade-in-out');
-            }, 2000);
+            }, 4000);
         }
 
         function updateDzikirDisplay() {
