@@ -7,9 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 </head>
-<body class="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 p-4 transition-colors duration-500">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Counter Dzikir</h1>
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Counter Dzikir</h1>
+            <button onclick="toggleDarkMode()" class="p-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
         <div class="mb-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
             <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="sm:w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
@@ -17,6 +22,14 @@
         </div>
         <div id="counterList" class="space-y-2"></div>
         <div id="activeCounter" class="mt-4"></div>
+    </div>
+
+    <!-- Custom Modal -->
+    <div id="customModal" class="fixed inset-0 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded shadow-lg">
+            <p class="text-gray-800 dark:text-white mb-4" id="modalMessage"></p>
+            <button onclick="closeModal()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">OK</button>
+        </div>
     </div>
 
     <script>
@@ -59,7 +72,7 @@
                 counter.count++;
                 if (counter.count >= counter.goal) {
                     counter.completed = true;
-                    alert(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
+                    showModal(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
                 }
                 saveCounters();
                 renderActiveCounter();
@@ -162,6 +175,19 @@
             } else {
                 activeCounterElement.innerHTML = '';
             }
+        }
+
+        function showModal(message) {
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
         }
 
         loadCounters();
