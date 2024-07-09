@@ -10,10 +10,10 @@
 <body class="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Counter Dzikir</h1>
-        <div class="mb-4 flex space-x-2">
-            <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
-            <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
-            <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Tambah</button>
+        <div class="mb-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+    <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
+    <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="sm:w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
+    <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Tambah</button>
         </div>
         <div id="counterList" class="space-y-2"></div>
         <div id="activeCounter" class="mt-4"></div>
