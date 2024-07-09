@@ -55,7 +55,7 @@ if (localStorage.getItem('darkMode') === 'true' ||
 
   async function fetchSurahList() {
     try {
-      const response = await fetch("https://equran.id/api/v2/surat");
+      const response = await fetch("https://agnk.netlify.app/asset/data/surat.json");
       const data = await response.json();
 
       if (data.code === 200) {
