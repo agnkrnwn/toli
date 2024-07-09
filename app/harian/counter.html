@@ -14,17 +14,19 @@
             <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
             <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Tambah</button>
         </div>
-        <div id="counterList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <div id="counterList" class="space-y-2"></div>
+        <div id="activeCounter" class="mt-4"></div>
     </div>
 
     <script>
         let counters = [];
+        let activeCounterId = null;
 
         function loadCounters() {
             const savedCounters = localStorage.getItem('counterdzikirv2');
             if (savedCounters) {
                 counters = JSON.parse(savedCounters);
-                renderCounters();
+                renderCounterList();
             }
         }
 
@@ -44,7 +46,7 @@
             };
             counters.push(newCounter);
             saveCounters();
-            renderCounters();
+            renderCounterList();
             document.getElementById('newCounterName').value = '';
             document.getElementById('newCounterGoal').value = '100';
         }
@@ -54,8 +56,11 @@
             if (counter) {
                 counter.count++;
                 saveCounters();
-                renderCounters();
+                renderActiveCounter();
                 navigator.vibrate(50);
+                if (counter.count >= counter.goal) {
+                    alert(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
+                }
             }
         }
 
@@ -68,7 +73,10 @@
                     counter.name = newName;
                     counter.goal = newGoal;
                     saveCounters();
-                    renderCounters();
+                    renderCounterList();
+                    if (activeCounterId === id) {
+                        renderActiveCounter();
+                    }
                 }
             }
         }
@@ -76,38 +84,63 @@
         function deleteCounter(id) {
             counters = counters.filter(c => c.id !== id);
             saveCounters();
-            renderCounters();
+            renderCounterList();
+            if (activeCounterId === id) {
+                activeCounterId = null;
+                renderActiveCounter();
+            }
         }
 
-        function renderCounters() {
+        function renderCounterList() {
             const counterList = document.getElementById('counterList');
             counterList.innerHTML = '';
             counters.forEach(counter => {
                 const counterElement = document.createElement('div');
-                counterElement.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md p-4';
+                counterElement.className = 'flex justify-between items-center bg-white dark:bg-gray-800 rounded-lg shadow-md p-4';
                 counterElement.innerHTML = `
-                    <h2 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">${counter.name}</h2>
-                    <p class="text-3xl font-bold mb-2 text-gray-800 dark:text-white">${counter.count}</p>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${(counter.count / counter.goal) * 100}%"></div>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        Progress: ${counter.count} / ${counter.goal}
-                    </p>
-                    <button onclick="incrementCounter(${counter.id})" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mb-2">
-                        Tambah
-                    </button>
+                    <span class="text-lg font-semibold text-gray-800 dark:text-white">${counter.name}</span>
                     <div class="flex space-x-2">
-                        <button onclick="editCounter(${counter.id})" class="flex-1 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                        <button onclick="setActiveCounter(${counter.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Pilih
+                        </button>
+                        <button onclick="editCounter(${counter.id})" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">
                             Edit
                         </button>
-                        <button onclick="deleteCounter(${counter.id})" class="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                        <button onclick="deleteCounter(${counter.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
                             Hapus
                         </button>
                     </div>
                 `;
                 counterList.appendChild(counterElement);
             });
+        }
+
+        function setActiveCounter(id) {
+            activeCounterId = id;
+            renderActiveCounter();
+        }
+
+        function renderActiveCounter() {
+            const activeCounterElement = document.getElementById('activeCounter');
+            if (activeCounterId) {
+                const counter = counters.find(c => c.id === activeCounterId);
+                if (counter) {
+                    activeCounterElement.innerHTML = `
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 cursor-pointer" onclick="incrementCounter(${counter.id})">
+                            <h2 class="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">${counter.name}</h2>
+                            <p class="text-4xl font-bold mb-2 text-gray-800 dark:text-white">${counter.count}</p>
+                            <div class="w-full bg-gray-200 rounded-full h-4 mb-4 dark:bg-gray-700">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: ${(counter.count / counter.goal) * 100}%"></div>
+                            </div>
+                            <p class="text-lg text-gray-600 dark:text-gray-300">
+                                Progress: ${counter.count} / ${counter.goal}
+                            </p>
+                        </div>
+                    `;
+                }
+            } else {
+                activeCounterElement.innerHTML = '';
+            }
         }
 
         loadCounters();
