@@ -6,6 +6,15 @@
     <title>Dzikir Harian</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .tap-animation {
+            animation: pulse 0.3s ease-in-out;
+        }
+    </style>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -55,7 +64,7 @@
 
         function createDzikirCard(dzikir, index, taps) {
             return `
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" id="dzikir-${index}">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer" id="dzikir-${index}" onclick="tapDzikir(${index}, ${taps})">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">${dzikir.title}</h2>
@@ -63,8 +72,7 @@
                         </div>
                         <div class="text-right text-2xl mb-4 font-bold text-gray-700 dark:text-gray-300">${dzikir.arabic}</div>
                         <div class="italic mb-2 text-gray-600 dark:text-gray-400">${dzikir.latin}</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-500 mb-4">${dzikir.translation}</div>
-                        <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" onclick="tapDzikir(${index}, ${taps})">Tap</button>
+                        <div class="text-sm text-gray-500 dark:text-gray-500">${dzikir.translation}</div>
                     </div>
                 </div>
             `;
@@ -81,7 +89,13 @@
 
         function tapDzikir(index, maxTaps) {
             tapCount++;
-            document.getElementById(`tap-count-${index}`).textContent = tapCount;
+            const dzikirElement = document.getElementById(`dzikir-${index}`);
+            const tapCountElement = document.getElementById(`tap-count-${index}`);
+            
+            dzikirElement.classList.add('tap-animation');
+            setTimeout(() => dzikirElement.classList.remove('tap-animation'), 300);
+
+            tapCountElement.textContent = tapCount;
             
             // Vibrate if supported
             if ('vibrate' in navigator) {
