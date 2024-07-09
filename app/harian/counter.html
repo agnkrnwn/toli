@@ -11,9 +11,9 @@
     <div class="max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold mb-4 text-gray-800 dark:text-white">Counter Dzikir</h1>
         <div class="mb-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-    <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
-    <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="sm:w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
-    <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Tambah</button>
+            <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
+            <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="sm:w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
+            <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Tambah</button>
         </div>
         <div id="counterList" class="space-y-2"></div>
         <div id="activeCounter" class="mt-4"></div>
@@ -22,6 +22,7 @@
     <script>
         let counters = [];
         let activeCounterId = null;
+        let alertShown = false;
 
         function loadCounters() {
             const savedCounters = localStorage.getItem('counterdzikirv2');
@@ -54,13 +55,15 @@
 
         function incrementCounter(id) {
             const counter = counters.find(c => c.id === id);
-            if (counter) {
+            if (counter && !alertShown) {
                 counter.count++;
                 saveCounters();
                 renderActiveCounter();
                 navigator.vibrate(50);
                 if (counter.count >= counter.goal) {
+                    alertShown = true;
                     alert(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
+                    alertShown = false;
                 }
             }
         }
@@ -114,16 +117,16 @@
                     <span class="text-lg font-semibold text-gray-800 dark:text-white">${counter.name}</span>
                     <div class="flex space-x-2">
                         <button onclick="setActiveCounter(${counter.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <i class="fa fa-play"></i> Pilih
+                            <i class="fa fa-play"></i>
                         </button>
                         <button onclick="editCounter(${counter.id})" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                            <i class="fa fa-edit"></i> Edit
+                            <i class="fa fa-edit"></i>
                         </button>
                         <button onclick="deleteCounter(${counter.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
-                            <i class="fa fa-trash"></i> Hapus
+                            <i class="fa fa-trash"></i>
                         </button>
                         <button onclick="resetCounter(${counter.id})" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                            <i class="fa fa-undo"></i> Reset
+                            <i class="fa fa-undo"></i>
                         </button>
                     </div>
                 `;
