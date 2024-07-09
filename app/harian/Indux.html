@@ -23,10 +23,18 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-4xl font-bold text-center mb-8 text-indigo-600 dark:text-indigo-400">Dzikir Harian</h1>
         <div id="dzikir-container" class="space-y-6"></div>
-        <div id="settings" class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <button id="open-settings" class="mt-8 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">Pengaturan</button>
+    </div>
+
+    <!-- Modal Pengaturan -->
+    <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full">
             <h2 class="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Pengaturan</h2>
-            <div id="tap-settings" class="space-y-4"></div>
-            <button id="save-settings" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">Simpan Pengaturan</button>
+            <div id="tap-settings" class="space-y-4 mb-4"></div>
+            <div class="flex justify-end space-x-2">
+                <button id="close-settings" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition-colors">Tutup</button>
+                <button id="save-settings" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">Simpan</button>
+            </div>
         </div>
     </div>
 
@@ -47,16 +55,16 @@
 
         function createDzikirCard(dzikir, index, taps) {
             return `
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl ${index === currentDzikirIndex ? '' : 'hidden'}" id="dzikir-${index}">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" id="dzikir-${index}">
                     <div class="p-6">
-                        <h2 class="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">${dzikir.title}</h2>
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">${dzikir.title}</h2>
+                            <span class="text-lg font-semibold"><span id="tap-count-${index}">0</span>/${taps}</span>
+                        </div>
                         <div class="text-right text-2xl mb-4 font-bold text-gray-700 dark:text-gray-300">${dzikir.arabic}</div>
                         <div class="italic mb-2 text-gray-600 dark:text-gray-400">${dzikir.latin}</div>
                         <div class="text-sm text-gray-500 dark:text-gray-500 mb-4">${dzikir.translation}</div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-lg font-semibold">Tap: <span id="tap-count-${index}">0</span>/${taps}</span>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" onclick="tapDzikir(${index}, ${taps})">Tap</button>
-                        </div>
+                        <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" onclick="tapDzikir(${index}, ${taps})">Tap</button>
                     </div>
                 </div>
             `;
@@ -74,6 +82,12 @@
         function tapDzikir(index, maxTaps) {
             tapCount++;
             document.getElementById(`tap-count-${index}`).textContent = tapCount;
+            
+            // Vibrate if supported
+            if ('vibrate' in navigator) {
+                navigator.vibrate(50);
+            }
+
             if (tapCount >= maxTaps) {
                 tapCount = 0;
                 currentDzikirIndex++;
@@ -88,7 +102,7 @@
             dzikirData.forEach((_, index) => {
                 const dzikirElement = document.getElementById(`dzikir-${index}`);
                 if (dzikirElement) {
-                    dzikirElement.classList.toggle('hidden', index !== currentDzikirIndex);
+                    dzikirElement.style.display = index === currentDzikirIndex ? 'block' : 'none';
                 }
             });
             document.getElementById(`tap-count-${currentDzikirIndex}`).textContent = '0';
@@ -115,15 +129,23 @@
             });
 
             updateDzikirDisplay();
-
-            document.getElementById('save-settings').addEventListener('click', () => {
-                const newSettings = dzikirData.map((_, index) => 
-                    parseInt(document.getElementById(`tap-setting-${index}`).value) || 1
-                );
-                saveSettings(newSettings);
-                location.reload();
-            });
         }
+
+        document.getElementById('open-settings').addEventListener('click', () => {
+            document.getElementById('settings-modal').style.display = 'flex';
+        });
+
+        document.getElementById('close-settings').addEventListener('click', () => {
+            document.getElementById('settings-modal').style.display = 'none';
+        });
+
+        document.getElementById('save-settings').addEventListener('click', () => {
+            const newSettings = dzikirData.map((_, index) => 
+                parseInt(document.getElementById(`tap-setting-${index}`).value) || 1
+            );
+            saveSettings(newSettings);
+            location.reload();
+        });
 
         fetchDzikirData();
     </script>
