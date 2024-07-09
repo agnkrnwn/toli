@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter Dzikir</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 </head>
 <body class="min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
     <div class="max-w-4xl mx-auto">
@@ -12,7 +13,7 @@
         <div class="mb-4 flex space-x-2">
             <input type="text" id="newCounterName" placeholder="Nama Dzikir" class="flex-grow p-2 border rounded dark:bg-gray-800 dark:text-white">
             <input type="number" id="newCounterGoal" placeholder="Target" value="100" class="w-24 p-2 border rounded dark:bg-gray-800 dark:text-white">
-            <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Tambah</button>
+            <button onclick="addCounter()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">Tambah</button>
         </div>
         <div id="counterList" class="space-y-2"></div>
         <div id="activeCounter" class="mt-4"></div>
@@ -91,6 +92,18 @@
             }
         }
 
+        function resetCounter(id) {
+            const counter = counters.find(c => c.id === id);
+            if (counter) {
+                counter.count = 0;
+                saveCounters();
+                renderActiveCounter();
+                if (activeCounterId === id) {
+                    renderActiveCounter();
+                }
+            }
+        }
+
         function renderCounterList() {
             const counterList = document.getElementById('counterList');
             counterList.innerHTML = '';
@@ -100,14 +113,17 @@
                 counterElement.innerHTML = `
                     <span class="text-lg font-semibold text-gray-800 dark:text-white">${counter.name}</span>
                     <div class="flex space-x-2">
-                        <button onclick="setActiveCounter(${counter.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
-                            Pilih
+                        <button onclick="setActiveCounter(${counter.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <i class="fa fa-play"></i> Pilih
                         </button>
-                        <button onclick="editCounter(${counter.id})" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">
-                            Edit
+                        <button onclick="editCounter(${counter.id})" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                            <i class="fa fa-edit"></i> Edit
                         </button>
-                        <button onclick="deleteCounter(${counter.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                            Hapus
+                        <button onclick="deleteCounter(${counter.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+                            <i class="fa fa-trash"></i> Hapus
+                        </button>
+                        <button onclick="resetCounter(${counter.id})" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                            <i class="fa fa-undo"></i> Reset
                         </button>
                     </div>
                 `;
@@ -130,7 +146,7 @@
                             <h2 class="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">${counter.name}</h2>
                             <p class="text-4xl font-bold mb-2 text-gray-800 dark:text-white">${counter.count}</p>
                             <div class="w-full bg-gray-200 rounded-full h-4 mb-4 dark:bg-gray-700">
-                                <div class="bg-blue-600 h-4 rounded-full" style="width: ${(counter.count / counter.goal) * 100}%"></div>
+                                <div class="bg-blue-600 h-4 rounded-full transition-width duration-300" style="width: ${(counter.count / counter.goal) * 100}%"></div>
                             </div>
                             <p class="text-lg text-gray-600 dark:text-gray-300">
                                 Progress: ${counter.count} / ${counter.goal}
