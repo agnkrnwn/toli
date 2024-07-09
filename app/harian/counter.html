@@ -22,7 +22,6 @@
     <script>
         let counters = [];
         let activeCounterId = null;
-        let alertShown = false;
 
         function loadCounters() {
             const savedCounters = localStorage.getItem('counterdzikirv2');
@@ -44,7 +43,8 @@
                 id: Date.now(),
                 name: name,
                 count: 0,
-                goal: goal
+                goal: goal,
+                completed: false
             };
             counters.push(newCounter);
             saveCounters();
@@ -55,16 +55,15 @@
 
         function incrementCounter(id) {
             const counter = counters.find(c => c.id === id);
-            if (counter && !alertShown) {
+            if (counter && !counter.completed) {
                 counter.count++;
+                if (counter.count >= counter.goal) {
+                    counter.completed = true;
+                    alert(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
+                }
                 saveCounters();
                 renderActiveCounter();
                 navigator.vibrate(50);
-                if (counter.count >= counter.goal) {
-                    alertShown = true;
-                    alert(`Selamat! Anda telah menyelesaikan dzikir "${counter.name}"`);
-                    alertShown = false;
-                }
             }
         }
 
@@ -76,6 +75,8 @@
                 if (newName && newGoal) {
                     counter.name = newName;
                     counter.goal = newGoal;
+                    counter.completed = false;
+                    counter.count = 0;
                     saveCounters();
                     renderCounterList();
                     if (activeCounterId === id) {
@@ -99,6 +100,7 @@
             const counter = counters.find(c => c.id === id);
             if (counter) {
                 counter.count = 0;
+                counter.completed = false;
                 saveCounters();
                 renderActiveCounter();
                 if (activeCounterId === id) {
@@ -117,16 +119,16 @@
                     <span class="text-lg font-semibold text-gray-800 dark:text-white">${counter.name}</span>
                     <div class="flex space-x-2">
                         <button onclick="setActiveCounter(${counter.id})" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <i class="fa fa-play"></i>
+                            <i class="fa fa-play"></i> Pilih
                         </button>
                         <button onclick="editCounter(${counter.id})" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                            <i class="fa fa-edit"></i>
+                            <i class="fa fa-edit"></i> Edit
                         </button>
                         <button onclick="deleteCounter(${counter.id})" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-trash"></i> Hapus
                         </button>
                         <button onclick="resetCounter(${counter.id})" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                            <i class="fa fa-undo"></i>
+                            <i class="fa fa-undo"></i> Reset
                         </button>
                     </div>
                 `;
@@ -145,7 +147,7 @@
                 const counter = counters.find(c => c.id === activeCounterId);
                 if (counter) {
                     activeCounterElement.innerHTML = `
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 cursor-pointer" onclick="incrementCounter(${counter.id})">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 cursor-pointer ${counter.completed ? '' : 'active-counter'}" onclick="incrementCounter(${counter.id})">
                             <h2 class="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">${counter.name}</h2>
                             <p class="text-4xl font-bold mb-2 text-gray-800 dark:text-white">${counter.count}</p>
                             <div class="w-full bg-gray-200 rounded-full h-4 mb-4 dark:bg-gray-700">
