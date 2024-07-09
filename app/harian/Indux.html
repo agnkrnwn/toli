@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dzikir Harian</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-indigo-600 dark:text-indigo-400">Dzikir Harian</h1>
+        <div id="dzikir-container" class="space-y-6"></div>
+        <div id="settings" class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">Pengaturan</h2>
+            <div id="tap-settings" class="space-y-4"></div>
+            <button id="save-settings" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">Simpan Pengaturan</button>
+        </div>
+    </div>
+
+    <script>
+        let dzikirData = [];
+        const defaultTaps = [11, 3, 1, 3, 1, 3, 7];
+        let currentDzikirIndex = 0;
+        let tapCount = 0;
+
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('dzikirv1');
+            return savedSettings ? JSON.parse(savedSettings) : defaultTaps;
+        }
+
+        function saveSettings(settings) {
+            localStorage.setItem('dzikirv1', JSON.stringify(settings));
+        }
+
+        function createDzikirCard(dzikir, index, taps) {
+            return `
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl ${index === currentDzikirIndex ? '' : 'hidden'}" id="dzikir-${index}">
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">${dzikir.title}</h2>
+                        <div class="text-right text-2xl mb-4 font-bold text-gray-700 dark:text-gray-300">${dzikir.arabic}</div>
+                        <div class="italic mb-2 text-gray-600 dark:text-gray-400">${dzikir.latin}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-500 mb-4">${dzikir.translation}</div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-semibold">Tap: <span id="tap-count-${index}">0</span>/${taps}</span>
+                            <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" onclick="tapDzikir(${index}, ${taps})">Tap</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTapSetting(index, defaultValue) {
+            return `
+                <div class="flex items-center justify-between">
+                    <label for="tap-setting-${index}" class="text-sm font-medium">${dzikirData[index].title}:</label>
+                    <input type="number" id="tap-setting-${index}" value="${defaultValue}" min="1" class="w-20 p-2 border rounded dark:bg-gray-700 dark:border-gray-600">
+                </div>
+            `;
+        }
+
+        function tapDzikir(index, maxTaps) {
+            tapCount++;
+            document.getElementById(`tap-count-${index}`).textContent = tapCount;
+            if (tapCount >= maxTaps) {
+                tapCount = 0;
+                currentDzikirIndex++;
+                if (currentDzikirIndex >= dzikirData.length) {
+                    currentDzikirIndex = 0;
+                }
+                updateDzikirDisplay();
+            }
+        }
+
+        function updateDzikirDisplay() {
+            dzikirData.forEach((_, index) => {
+                const dzikirElement = document.getElementById(`dzikir-${index}`);
+                if (dzikirElement) {
+                    dzikirElement.classList.toggle('hidden', index !== currentDzikirIndex);
+                }
+            });
+            document.getElementById(`tap-count-${currentDzikirIndex}`).textContent = '0';
+        }
+
+        async function fetchDzikirData() {
+            try {
+                const response = await fetch('https://agnk.netlify.app/app/harian/doa.json');
+                dzikirData = await response.json();
+                displayDzikir();
+            } catch (error) {
+                console.error('Error fetching dzikir data:', error);
+            }
+        }
+
+        function displayDzikir() {
+            const dzikirContainer = document.getElementById('dzikir-container');
+            const tapSettings = document.getElementById('tap-settings');
+            const settings = loadSettings();
+
+            dzikirData.forEach((dzikir, index) => {
+                dzikirContainer.innerHTML += createDzikirCard(dzikir, index, settings[index] || defaultTaps[index] || 1);
+                tapSettings.innerHTML += createTapSetting(index, settings[index] || defaultTaps[index] || 1);
+            });
+
+            updateDzikirDisplay();
+
+            document.getElementById('save-settings').addEventListener('click', () => {
+                const newSettings = dzikirData.map((_, index) => 
+                    parseInt(document.getElementById(`tap-setting-${index}`).value) || 1
+                );
+                saveSettings(newSettings);
+                location.reload();
+            });
+        }
+
+        fetchDzikirData();
+    </script>
+</body>
+</html>
