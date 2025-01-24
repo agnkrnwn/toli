@@ -16,44 +16,40 @@
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
-  <div class="max-w-lg mx-auto mt-10 p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-    <h1 class="text-2xl font-bold text-center mb-6">Hadis Viewer</h1>
-    <div class="space-y-4">
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg space-y-4">
+    <h1 class="text-2xl font-bold text-center">Hadis Viewer</h1>
+    
+    <!-- Form Input -->
+    <div class="flex space-x-2">
       <!-- Dropdown penulis -->
-      <div>
-        <label for="hadith-author" class="block text-sm font-medium mb-1">Pilih Penulis:</label>
-        <select id="hadith-author" class="w-full border dark:border-gray-700 rounded p-2 bg-gray-50 dark:bg-gray-700">
-          <option value="" disabled selected>-- Pilih Penulis --</option>
-          <option value="bukhari">Bukhari</option>
-          <option value="muslim">Muslim</option>
-          <option value="tirmidzi">Tirmidzi</option>
-          <option value="ibnu-majah">Ibnu Majah</option>
-          <option value="nasai">Nasai</option>
-          <option value="malik">Malik</option>
-          <option value="abu-dawud">Abu Dawud</option>
-        </select>
-      </div>
-
+      <select id="hadith-author" class="flex-1 border dark:border-gray-700 rounded p-2 bg-gray-50 dark:bg-gray-700">
+        <option value="" disabled selected>-- Pilih Penulis --</option>
+        <option value="bukhari">Bukhari</option>
+        <option value="muslim">Muslim</option>
+        <option value="tirmidzi">Tirmidzi</option>
+        <option value="ibnu-majah">Ibnu Majah</option>
+        <option value="nasai">Nasai</option>
+        <option value="malik">Malik</option>
+        <option value="abu-dawud">Abu Dawud</option>
+      </select>
+      
       <!-- Input nomor hadis -->
-      <div>
-        <label for="hadith-number" class="block text-sm font-medium mb-1">Nomor Hadis:</label>
-        <input id="hadith-number" type="number" placeholder="Masukkan nomor hadis" class="w-full border dark:border-gray-700 rounded p-2 bg-gray-50 dark:bg-gray-700">
-      </div>
+      <input id="hadith-number" type="number" placeholder="No. Hadis" class="flex-1 border dark:border-gray-700 rounded p-2 bg-gray-50 dark:bg-gray-700">
+    </div>
 
-      <!-- Tombol cari dan acak -->
-      <div class="flex gap-2">
-        <button id="generate-custom" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 dark:hover:bg-blue-400">
-          Cari Hadis
-        </button>
-        <button id="generate-hadith" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 dark:hover:bg-green-400">
-          Hadis Acak
-        </button>
-      </div>
+    <!-- Tombol -->
+    <div class="flex space-x-2">
+      <button id="generate-custom" class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 dark:hover:bg-blue-400">
+        Cari
+      </button>
+      <button id="generate-hadith" class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 dark:hover:bg-green-400">
+        Acak
+      </button>
     </div>
 
     <!-- Tampilan hasil -->
     <div id="quote" class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded shadow-md text-center">
-      <div id="quote-text" class="text-lg font-medium"></div>
+      <div id="quote-text" class="text-lg font-medium leading-relaxed"></div>
       <div id="quote-reference" class="text-sm mt-2 text-gray-600 dark:text-gray-400"></div>
     </div>
   </div>
@@ -63,7 +59,7 @@
       // Tombol cari hadis berdasarkan input
       $('#generate-custom').click(() => {
         const authorSlug = $('#hadith-author').val();
-        const hadithNumber = $('#hadith-number').val();
+        const hadithNumber = parseInt($('#hadith-number').val());
 
         if (!authorSlug || !hadithNumber) {
           alert('Silakan pilih penulis dan masukkan nomor hadis.');
@@ -73,6 +69,14 @@
         fetch(`../../asset/data/hadist/${authorSlug}.json`)
           .then(response => response.json())
           .then(data => {
+            const maxHadith = data.length;
+
+            // Validasi nomor hadis
+            if (hadithNumber > maxHadith) {
+              alert(`Penulis "${authorSlug}" hanya memiliki ${maxHadith} hadis.`);
+              return;
+            }
+
             const hadith = data.find(item => item.number == hadithNumber);
             if (hadith) {
               displayHadith(hadith, authorSlug);
@@ -100,10 +104,9 @@
 
       // Fungsi menampilkan hadis
       function displayHadith(hadith, author) {
-        const arabicText = hadith.arab ? `<p class="text-xl text-right font-semibold">${hadith.arab}</p>` : '';
-        const translation = `<p class="text-lg">${hadith.id}</p>`;
-        $('#quote-text').html(`${arabicText}${translation}`);
-        $('#quote-reference').text(`${author.replace('-', ' ')} - ${hadith.number}`);
+        const translation = `<p>${hadith.id}</p>`;
+        $('#quote-text').html(translation);
+        $('#quote-reference').text(`${author.replace('-', ' ')} - Hadis No. ${hadith.number}`);
       }
     });
   </script>
