@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hadis Viewer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    .off { opacity: 0.5; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-bold text-center mb-5">Hadis Viewer</h1>
+    <div class="flex flex-col items-center mb-4">
+      <button id="generate-hadith" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        Tampilkan Hadis Acak
+      </button>
+      <button id="toggle-arabic" class="bg-gray-500 text-white py-2 px-4 mt-3 rounded hover:bg-gray-600 off">
+        <span>Include Arabic</span>
+      </button>
+    </div>
+    <div id="quote" class="p-5 bg-gray-50 rounded shadow-md text-center">
+      <div id="quote-text" class="text-lg text-gray-800"></div>
+      <div id="quote-reference" class="text-sm text-gray-600 mt-2"></div>
+    </div>
+    <div class="flex flex-col items-center mt-5">
+      <input id="hadith-author" type="text" placeholder="Nama Penulis (e.g. bukhari)" class="border p-2 rounded w-full mb-2">
+      <input id="hadith-number" type="number" placeholder="Nomor Hadis" class="border p-2 rounded w-full mb-2">
+      <button id="generate-custom" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
+        Tampilkan Hadis Spesifik
+      </button>
+      <button id="save-screenshot" class="bg-purple-500 text-white py-2 px-4 mt-3 rounded hover:bg-purple-600">
+        Simpan Gambar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      let excludeArabic = true; // Status default exclude Arabic
+
+      // Tombol tampilkan hadis acak
+      $('#generate-hadith').click(() => {
+        getRandomHadith();
+      });
+
+      // Tombol toggle bahasa Arab
+      $('#toggle-arabic').click(() => {
+        excludeArabic = !excludeArabic;
+        $('#toggle-arabic').toggleClass('off', excludeArabic);
+        $('#toggle-arabic span').text(excludeArabic ? 'Include Arabic' : 'Exclude Arabic');
+      });
+
+      // Tombol tampilkan hadis spesifik
+      $('#generate-custom').click(() => {
+        const authorSlug = $('#hadith-author').val().trim();
+        const hadithNumber = $('#hadith-number').val().trim();
+
+        if (!authorSlug || !hadithNumber) {
+          alert('Isi nama penulis dan nomor hadis!');
+          return;
+        }
+
+        fetch(`../../asset/data/hadist/${authorSlug}.json`)
+          .then(response => response.json())
+          .then(data => {
+            const hadith = data.find(item => item.number == hadithNumber);
+            if (hadith) {
+              displayHadith(hadith, authorSlug);
+            } else {
+              alert('Hadis tidak ditemukan.');
+            }
+          })
+          .catch(() => alert('Gagal mengambil data hadis.'));
+      });
+
+      // Tombol simpan gambar
+      $('#save-screenshot').click(() => {
+        html2canvas(document.querySelector('#quote')).then(canvas => {
+          canvas.toBlob(blob => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `Hadith_${Date.now()}.png`;
+            a.click();
+          });
+        });
+      });
+
+      // Fungsi menampilkan hadis acak
+      function getRandomHadith() {
+        const authors = ['abu-dawud', 'ahmad', 'bukhari', 'ibnu-majah', 'malik', 'nasai', 'tirmidzi'];
+        const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
+        fetch(`../../asset/data/hadist/${randomAuthor}.json`)
+          .then(response => response.json())
+          .then(data => {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const randomHadith = data[randomIndex];
+            displayHadith(randomHadith, randomAuthor);
+          })
+          .catch(() => alert('Gagal mengambil data hadis.'));
+      }
+
+      // Fungsi menampilkan hadis ke HTML
+      function displayHadith(hadith, author) {
+        const arabicText = excludeArabic ? '' : `<p class="text-xl text-right font-semibold">${hadith.arab}</p>`;
+        const translation = `<p class="text-lg">${hadith.id}</p>`;
+        $('#quote-text').html(`${arabicText}${translation}`);
+        $('#quote-reference').text(`${author.replace('-', ' ')} - ${hadith.number}`);
+      }
+    });
+  </script>
+</body>
+</html>
