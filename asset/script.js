@@ -47,7 +47,7 @@ async function handleSearch() {
   }
 
   try {
-    const response = await fetch(`data/hadith/${author}.json`);
+    const response = await fetch(`data/hadist/${author}.json`);
     const data = await response.json();
     
     const hadith = data.find(h => h.number == number);
