@@ -106,117 +106,138 @@
     </div>
 
     <!-- Download Template (Hidden) -->
-    <div id="download-template" class="download-template p-6 bg-white rounded-lg">
-      <div class="text-2xl font-arab mb-4 text-gray-800" id="template-text"></div>
-      <div class="text-right text-sm text-gray-600" id="template-reference"></div>
+    <div id="download-template" class="fixed left-[9999px] w-[600px] p-8 bg-white shadow-xl rounded-lg">
+      <!-- Konten akan diisi oleh JavaScript -->
     </div>
   </div>
 
   <script>
     $(document).ready(function() {
       let currentHadith = null;
-
-      // Tampilkan tombol edit
-      function showEditButton() {
-        $('#action-buttons').html(`
-          <button id="edit-hadith" class="text-purple-600 hover:text-purple-700" title="Edit">
-            <i class="fas fa-edit"></i>
-          </button>
-        `);
-      }
-
-      // Mode edit
-      $(document).on('click', '#edit-hadith', function() {
-        const text = $('#quote-text').text();
-        $('#quote-text').hide();
-        $('#edit-area').show();
-        $('#hadith-editor').val(text);
-      });
-
-      // Download sebagai gambar
-      $('#download-btn').click(function() {
-        const editedText = $('#hadith-editor').val();
-        const reference = $('#quote-reference').text();
-        
-        // Update template
-        $('#template-text').text(editedText);
-        $('#template-reference').text(reference);
-        
-        // Generate gambar
-        html2canvas(document.querySelector("#download-template")).then(canvas => {
-          const link = document.createElement('a');
-          link.download = `hadis-${Date.now()}.png`;
-          link.href = canvas.toDataURL();
-          link.click();
-        });
-      });
-
-      // Tampilkan hadis
-      function displayHadith(hadith, author) {
-        currentHadith = hadith;
-        $('#quote-text').text(hadith.id).show();
-        $('#quote-reference').text(`${author} | No. ${hadith.number}`);
-        $('#edit-area').hide();
-        showEditButton();
-      }
-
-      // ... (kode fetch hadis sama seperti sebelumnya)
-      let isDarkMode = false;
-
-      // Toggle Dark Mode
+      let isEditMode = false;
+  
+      // Toggle Dark Mode (opsional)
       $('#toggle-theme').click(() => {
-        isDarkMode = !isDarkMode;
-        $('body').attr('data-theme', isDarkMode ? 'dark' : 'light');
-        $('#toggle-theme').text(isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode');
+        $('body').toggleClass('dark-mode');
       });
-
-      // Tombol Cari Hadis
-      $('#generate-custom').click(() => {
+  
+      // Fungsi utama pencarian hadis
+      $('#generate-custom').click(async () => {
         const authorSlug = $('#hadith-author').val();
         const hadithNumber = parseInt($('#hadith-number').val());
-
+  
         if (!authorSlug || !hadithNumber) {
-          alert('Silakan pilih penulis dan masukkan nomor hadis.');
+          showAlert('error', 'Pilih penulis dan masukkan nomor hadis!');
           return;
         }
-
-        fetch(`../../asset/data/hadist/${authorSlug}.json`)
-          .then(response => response.json())
-          .then(data => {
-            const maxHadith = data.length;
-
-            // Validasi nomor hadis
-            if (hadithNumber > maxHadith) {
-              alert(`Penulis "${authorSlug}" hanya memiliki ${maxHadith} hadis.`);
-              return;
-            }
-
-            const hadith = data.find(item => item.number == hadithNumber);
-            if (hadith) {
-              displayHadith(hadith, authorSlug);
-            } else {
-              alert('Hadis tidak ditemukan.');
-            }
-          })
-          .catch(() => alert('Gagal mengambil data hadis.'));
+  
+        try {
+          const response = await fetch(`data/hadith/${authorSlug}.json`);
+          const data = await response.json();
+          
+          if (hadithNumber > data.length) {
+            showAlert('warning', `Maksimal nomor hadis: ${data.length}`);
+            return;
+          }
+  
+          const hadith = data.find(item => item.number === hadithNumber);
+          if (hadith) {
+            displayHadith(hadith, authorSlug);
+            initEditFeatures();
+          }
+        } catch (error) {
+          showAlert('error', 'Gagal memuat hadis');
+        }
       });
-
-      // Tombol Hadis Acak
-      $('#generate-hadith').click(() => {
-        const authors = ['abu-dawud', 'ahmad', 'bukhari', 'ibnu-majah', 'malik', 'nasai', 'tirmidzi'];
+  
+      // Fungsi acak hadis
+      $('#generate-hadith').click(async () => {
+        const authors = ['bukhari', 'muslim', 'tirmidzi', 'ibnu-majah'];
         const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
-
-        fetch(`../../asset/data/hadist/${randomAuthor}.json`)
-          .then(response => response.json())
-          .then(data => {
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const randomHadith = data[randomIndex];
-            displayHadith(randomHadith, randomAuthor);
-          })
-          .catch(() => alert('Gagal mengambil data hadis.'));
+        
+        try {
+          const response = await fetch(`data/hadith/${randomAuthor}.json`);
+          const data = await response.json();
+          const randomHadith = data[Math.floor(Math.random() * data.length)];
+          
+          displayHadith(randomHadith, randomAuthor);
+          initEditFeatures();
+        } catch (error) {
+          showAlert('error', 'Gagal memuat hadis acak');
+        }
       });
-
-      
+  
+      // Tampilkan hadis dengan format
+      function displayHadith(hadith, author) {
+        currentHadith = hadith;
+        const formattedAuthor = author.replace(/-/g, ' ').toUpperCase();
+        
+        $('#quote-text').html(hadith.id);
+        $('#quote-reference').html(`
+          <i class="fas fa-user-edit mr-2"></i>${formattedAuthor} 
+          <i class="fas fa-hashtag mx-2"></i>${hadith.number}
+        `);
+        
+        $('#action-buttons').removeClass('hidden');
+        $('#edit-area').addClass('hidden');
+      }
+  
+      // Fitur Edit & Download
+      function initEditFeatures() {
+        // Toggle edit mode
+        $('#edit-hadith').click(() => {
+          isEditMode = !isEditMode;
+          if (isEditMode) {
+            $('#quote-text').addClass('hidden');
+            $('#edit-area').removeClass('hidden');
+            $('#hadith-editor').val($('#quote-text').text());
+          }
+        });
+  
+        // Download sebagai gambar
+        $('#download-btn').click(async () => {
+          const editedText = $('#hadith-editor').val();
+          const reference = $('#quote-reference').html();
+          
+          // Prepare template
+          $('#download-template').html(`
+            <div class="text-3xl leading-relaxed text-gray-800 mb-6">${editedText}</div>
+            <div class="text-right text-gray-600">
+              ${reference}
+              <div class="mt-4 text-sm">${new Date().toLocaleDateString('id-ID')}</div>
+            </div>
+          `);
+  
+          // Convert to image
+          try {
+            const canvas = await html2canvas(document.querySelector("#download-template"), {
+              useCORS: true,
+              scale: 2,
+              logging: true
+            });
+            
+            const link = document.createElement('a');
+            link.download = `hadis-${currentHadith.number}-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+            
+            showAlert('success', 'Download berhasil!');
+          } catch (error) {
+            showAlert('error', 'Gagal mengkonversi ke gambar');
+          }
+        });
+      }
+  
+      // Notifikasi
+      function showAlert(type, message) {
+        const alert = $(`
+          <div class="alert fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white ${type === 'error' ? 'bg-red-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-green-500'}">
+            ${message}
+          </div>
+        `);
+        
+        alert.appendTo('body').delay(3000).fadeOut();
+      }
     });
   </script>
 </body>
