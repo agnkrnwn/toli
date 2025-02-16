@@ -82,16 +82,44 @@
       </div>
     </div>
     
-    <div id="quote" class="mt-6 hidden card">
-      <p id="quote-text" class="text-lg font-semibold arab-text"></p>
-      <p id="quote-reference" class="text-sm text-gray-500 mt-2"></p>
-      <div class="mt-4 flex justify-between">
-        <button id="edit-hadith" class="text-blue-500 hover:underline">Edit</button>
-        <button id="download-btn" class="text-green-500 hover:underline">Download</button>
+    <!-- Hadis Display -->
+    <div id="quote" class="space-y-5">
+      <div class="p-5 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+        <div id="quote-text" class="hadith-text"></div>
+        <div id="quote-reference" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
       </div>
-      <div id="edit-area" class="hidden mt-4">
-        <textarea id="hadith-editor" class="w-full p-3 border rounded-lg"></textarea>
-        <button id="save-edit" class="btn-primary w-full mt-3">Simpan</button>
+
+      <!-- Action Buttons -->
+      <div id="action-buttons" class="flex gap-3 justify-end">
+        <button id="edit-hadith" class="action-btn">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <!-- Edit Area -->
+      <div id="edit-area" class="hidden space-y-4">
+        <textarea id="hadith-editor" class="w-full p-4 rounded-lg bg-white dark:bg-gray-800 border dark:border-gray-700" rows="5"></textarea>
+        <button id="download-btn" class="btn-primary w-full">
+          <i class="fas fa-download mr-2"></i>Download sebagai Gambar
+        </button>
+      </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="text-center">
+      <button id="toggle-theme" class="px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-sm">
+        <i class="fas fa-moon mr-2"></i>Dark Mode
+      </button>
+    </div>
+  </div>
+
+  <!-- Download Template -->
+  <div id="download-template">
+    <div class="p-6 bg-white rounded-xl">
+      <div class="text-2xl leading-relaxed text-gray-800 mb-4 font-arab" id="template-text"></div>
+      <div class="text-right text-gray-600">
+        <div id="template-reference"></div>
+        <div class="mt-2 text-sm">Diunduh pada: <span id="download-date"></span></div>
       </div>
     </div>
   </div>
