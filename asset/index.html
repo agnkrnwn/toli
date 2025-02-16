@@ -6,60 +6,104 @@
   <title>Hadis Finder</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to bottom, #f9fafb, #e5e7eb);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
       color-scheme: light dark;
       transition: background 0.3s, color 0.3s;
     }
 
     [data-theme="dark"] {
-      background: linear-gradient(to bottom, #1f2937, #111827);
+      background: linear-gradient(135deg, #1f2937, #111827);
       color: #e5e7eb;
+    }
+
+    .card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .card {
+      background: rgba(31, 41, 55, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .button-secondary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center font-sans transition-all" data-theme="light">
-  <div class="w-full max-w-md p-6 bg-white dark:bg-gray-800 shadow-xl rounded-lg transition-all">
-    <h1 class="text-2xl font-extrabold text-center mb-6 text-gray-800 dark:text-gray-200">Hadis Finder</h1>
+  <div class="w-full max-w-lg p-6 card transition-all">
+    <h1 class="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">🔍 Hadis Finder</h1>
 
     <!-- Input Form -->
-    <div class="space-y-4">
+    <div class="space-y-6">
       <!-- Dropdown and Input -->
-      <div class="flex items-center space-x-2">
-        <select id="hadith-author" class="flex-1 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-blue-500">
-          <option value="" disabled selected>Pilih Penulis</option>
-          <option value="bukhari">Bukhari</option>
-          <option value="muslim">Muslim</option>
-          <option value="tirmidzi">Tirmidzi</option>
+      <div class="flex flex-col space-y-4">
+        <select id="hadith-author" class="glass-effect p-3 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200">
+          <option value="" disabled selected>Pilih Penulis Hadis</option>
+          <option value="bukhari">Imam Bukhari</option>
+          <option value="muslim">Imam Muslim</option>
+          <option value="tirmidzi">Imam Tirmidzi</option>
           <option value="ibnu-majah">Ibnu Majah</option>
-          <option value="nasai">Nasai</option>
-          <option value="malik">Malik</option>
+          <option value="nasai">Imam Nasai</option>
+          <option value="malik">Imam Malik</option>
           <option value="abu-dawud">Abu Dawud</option>
         </select>
-        <input id="hadith-number" type="number" placeholder="No." class="w-20 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 text-center">
+        <input id="hadith-number" type="number" placeholder="Masukkan Nomor Hadis" class="glass-effect p-3 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-center">
       </div>
 
       <!-- Buttons -->
-      <div class="grid grid-cols-2 gap-3">
-        <button id="generate-custom" class="py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
-          Cari
+      <div class="grid grid-cols-2 gap-4">
+        <button id="generate-custom" class="button-primary py-3 rounded-lg">
+          🔍 Cari Hadis
         </button>
-        <button id="generate-hadith" class="py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">
-          Acak
+        <button id="generate-hadith" class="button-secondary py-3 rounded-lg">
+          🎲 Acak Hadis
         </button>
       </div>
     </div>
 
     <!-- Output -->
-    <div id="quote" class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-md">
+    <div id="quote" class="mt-8 p-6 glass-effect rounded-lg shadow-md">
       <div id="quote-text" class="text-lg text-center leading-relaxed text-gray-800 dark:text-gray-200"></div>
       <div id="quote-reference" class="mt-3 text-sm text-center text-gray-600 dark:text-gray-400"></div>
     </div>
 
     <!-- Dark Mode Toggle -->
-    <div class="mt-6 text-center">
-      <button id="toggle-theme" class="text-sm bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-full text-gray-800 dark:text-gray-200 transition-all">
+    <div class="mt-8 text-center">
+      <button id="toggle-theme" class="glass-effect px-4 py-2 rounded-full text-gray-800 dark:text-gray-200 transition-all">
         🌙 Dark Mode
       </button>
     </div>
