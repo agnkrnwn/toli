@@ -58,7 +58,7 @@ $(document).ready(function() {
         });
       });
     });
-  
+   
     // Function to get a random hadith
     function getRandomHadith() {
       const authors = [

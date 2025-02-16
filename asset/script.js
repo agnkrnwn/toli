@@ -61,11 +61,11 @@ async function handleSearch() {
 
 // Handle Hadis Acak
 async function handleRandom() {
-  const authors = ['bukhari', 'muslim', 'tirmidzi', 'ibnu-majah'];
+  const authors = ['abu-dawud', 'ahmad', 'bukhari', 'ibnu-majah', 'malik', 'nasai', 'tirmidzi'];
   const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
 
   try {
-    const response = await fetch(`data/hadith/${randomAuthor}.json`);
+    const response = await fetch(`data/hadist/${randomAuthor}.json`);
     const data = await response.json();
     const randomHadith = data[Math.floor(Math.random() * data.length)];
     
