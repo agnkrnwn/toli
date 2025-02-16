@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hadis Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      color-scheme: light dark;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    [data-theme="dark"] {
+      background: linear-gradient(135deg, #1f2937, #111827);
+      color: #e5e7eb;
+    }
+
+    .card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .card {
+      background: rgba(31, 41, 55, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .button-secondary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center font-sans transition-all" data-theme="light">
+  <div class="w-full max-w-lg p-6 card transition-all">
+    <h1 class="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">🔍 Hadis Finder</h1>
+
+    <!-- Input Form -->
+    <div class="space-y-6">
+      <!-- Dropdown and Input -->
+      <div class="flex flex-col space-y-4">
+        <select id="hadith-author" class="glass-effect p-3 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200">
+          <option value="" disabled selected>Pilih Penulis Hadis</option>
+          <option value="bukhari">Imam Bukhari</option>
+          <option value="muslim">Imam Muslim</option>
+          <option value="tirmidzi">Imam Tirmidzi</option>
+          <option value="ibnu-majah">Ibnu Majah</option>
+          <option value="nasai">Imam Nasai</option>
+          <option value="malik">Imam Malik</option>
+          <option value="abu-dawud">Abu Dawud</option>
+        </select>
+        <input id="hadith-number" type="number" placeholder="Masukkan Nomor Hadis" class="glass-effect p-3 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-center">
+      </div>
+
+      <!-- Buttons -->
+      <div class="grid grid-cols-2 gap-4">
+        <button id="generate-custom" class="button-primary py-3 rounded-lg">
+          🔍 Cari Hadis
+        </button>
+        <button id="generate-hadith" class="button-secondary py-3 rounded-lg">
+          🎲 Acak Hadis
+        </button>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div id="quote" class="mt-8 p-6 glass-effect rounded-lg shadow-md">
+      <div id="quote-text" class="text-lg text-center leading-relaxed text-gray-800 dark:text-gray-200"></div>
+      <div id="quote-reference" class="mt-3 text-sm text-center text-gray-600 dark:text-gray-400"></div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="mt-8 text-center">
+      <button id="toggle-theme" class="glass-effect px-4 py-2 rounded-full text-gray-800 dark:text-gray-200 transition-all">
+        🌙 Dark Mode
+      </button>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      let isDarkMode = false;
+
+      // Toggle Dark Mode
+      $('#toggle-theme').click(() => {
+        isDarkMode = !isDarkMode;
+        $('body').attr('data-theme', isDarkMode ? 'dark' : 'light');
+        $('#toggle-theme').text(isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode');
+      });
+
+      // Tombol Cari Hadis
+      $('#generate-custom').click(() => {
+        const authorSlug = $('#hadith-author').val();
+        const hadithNumber = parseInt($('#hadith-number').val());
+
+        if (!authorSlug || !hadithNumber) {
+          alert('Silakan pilih penulis dan masukkan nomor hadis.');
+          return;
+        }
+
+        fetch(`../../asset/data/hadist/${authorSlug}.json`)
+          .then(response => response.json())
+          .then(data => {
+            const maxHadith = data.length;
+
+            // Validasi nomor hadis
+            if (hadithNumber > maxHadith) {
+              alert(`Penulis "${authorSlug}" hanya memiliki ${maxHadith} hadis.`);
+              return;
+            }
+
+            const hadith = data.find(item => item.number == hadithNumber);
+            if (hadith) {
+              displayHadith(hadith, authorSlug);
+            } else {
+              alert('Hadis tidak ditemukan.');
+            }
+          })
+          .catch(() => alert('Gagal mengambil data hadis.'));
+      });
+
+      // Tombol Hadis Acak
+      $('#generate-hadith').click(() => {
+        const authors = ['abu-dawud', 'ahmad', 'bukhari', 'ibnu-majah', 'malik', 'nasai', 'tirmidzi'];
+        const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
+
+        fetch(`../../asset/data/hadist/${randomAuthor}.json`)
+          .then(response => response.json())
+          .then(data => {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const randomHadith = data[randomIndex];
+            displayHadith(randomHadith, randomAuthor);
+          })
+          .catch(() => alert('Gagal mengambil data hadis.'));
+      });
+
+      // Menampilkan Hadis
+      function displayHadith(hadith, author) {
+        $('#quote-text').text(hadith.id);
+        $('#quote-reference').text(`Penulis: ${author.replace('-', ' ')} | Hadis No. ${hadith.number}`);
+      }
+    });
+  </script>
+</body>
+</html>
