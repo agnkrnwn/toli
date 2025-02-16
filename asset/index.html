@@ -1,64 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hadis Finder</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f4f4f9;
     }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-    }
-
-    .dark-mode body {
-      background-color: #1a202c;
-      color: white;
-    }
-
-    .dark-mode .card {
-      background: #2d3748;
-    }
   </style>
 </head>
-<body>
-  <div class="container">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+  <div class="max-w-[800px] mx-auto p-5">
+    <!-- Header -->
     <h1 class="text-2xl font-bold text-center mb-6">Hadis Finder</h1>
-    <div class="card">
+
+    <!-- Form Card -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+      <!-- Pilih Penulis Hadis -->
       <div class="mb-4">
-        <label class="block mb-2 font-medium">Pilih Penulis Hadis</label>
-        <select id="hadith-author" class="w-full p-3 border rounded-lg">
+        <label for="hadith-author" class="block mb-2 font-medium">Pilih Penulis Hadis</label>
+        <select id="hadith-author" class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg">
           <option value="abu-dawud">Abu Dawud</option>
           <option value="ahmad">Ahmad</option>
           <option value="bukhari">Bukhari</option>
@@ -71,59 +39,118 @@
         </select>
       </div>
 
+      <!-- Nomor Hadis -->
       <div class="mb-4">
-        <label class="block mb-2 font-medium">Nomor Hadis</label>
-        <input type="number" id="hadith-number" class="w-full p-3 border rounded-lg" placeholder="Masukkan nomor hadis">
+        <label for="hadith-number" class="block mb-2 font-medium">Nomor Hadis</label>
+        <input
+          type="number"
+          id="hadith-number"
+          class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg"
+          placeholder="Masukkan nomor hadis"
+        />
       </div>
 
+      <!-- Tombol Aksi -->
       <div class="flex gap-4">
-        <button id="generate-custom" class="btn-primary flex-1">Cari Hadis</button>
-        <button id="generate-hadith" class="btn-primary flex-1">Hadis Acak</button>
+        <button
+          id="generate-custom"
+          class="flex-1 py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
+        >
+          Cari Hadis
+        </button>
+        <button
+          id="generate-hadith"
+          class="flex-1 py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
+        >
+          Hadis Acak
+        </button>
       </div>
     </div>
-    
-    <!-- Hadis Display -->
-    <div id="quote" class="space-y-5">
+
+    <!-- Tampilan Hadis -->
+    <div id="quote" class="mt-6 space-y-5">
+      <!-- Hadis Card -->
       <div class="p-5 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
-        <div id="quote-text" class="hadith-text"></div>
+        <div id="quote-text" class="text-lg font-medium"></div>
         <div id="quote-reference" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
       </div>
 
-      <!-- Action Buttons -->
+      <!-- Tombol Aksi (Edit) -->
       <div id="action-buttons" class="flex gap-3 justify-end">
-        <button id="edit-hadith" class="action-btn">
+        <button id="edit-hadith" class="p-2 hover:text-blue-500 transition">
           <i class="fas fa-edit"></i>
         </button>
       </div>
 
-      <!-- Edit Area -->
+      <!-- Area Edit -->
       <div id="edit-area" class="hidden space-y-4">
-        <textarea id="hadith-editor" class="w-full p-4 rounded-lg bg-white dark:bg-gray-800 border dark:border-gray-700" rows="5"></textarea>
-        <button id="download-btn" class="btn-primary w-full">
+        <textarea
+          id="hadith-editor"
+          class="w-full p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700"
+          rows="5"
+        ></textarea>
+        <button
+          id="download-btn"
+          class="w-full py-2 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
+        >
           <i class="fas fa-download mr-2"></i>Download sebagai Gambar
         </button>
       </div>
     </div>
 
     <!-- Theme Toggle -->
-    <div class="text-center">
-      <button id="toggle-theme" class="px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-sm">
+    <div class="text-center mt-6">
+      <button
+        id="toggle-theme"
+        class="px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition"
+      >
         <i class="fas fa-moon mr-2"></i>Dark Mode
       </button>
     </div>
   </div>
 
   <!-- Download Template -->
-  <div id="download-template">
-    <div class="p-6 bg-white rounded-xl">
-      <div class="text-2xl leading-relaxed text-gray-800 mb-4 font-arab" id="template-text"></div>
-      <div class="text-right text-gray-600">
+  <div id="download-template" class="max-w-[800px] mx-auto mt-8">
+    <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+      <div id="template-text" class="text-2xl leading-relaxed text-gray-800 dark:text-white mb-4 font-arab"></div>
+      <div class="text-right text-gray-600 dark:text-gray-400">
         <div id="template-reference"></div>
-        <div class="mt-2 text-sm">Diunduh pada: <span id="download-date"></span></div>
+        <div class="mt-2 text-sm">
+          Diunduh pada: <span id="download-date"></span>
+        </div>
       </div>
     </div>
   </div>
-  
+
+
+  <script>
+    // Theme toggle functio vvvvnality
+    const body = document.body;
+    const themeToggle = document.getElementById('toggle-theme');
+    const icon = themeToggle.querySelector('i');
+
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      body.classList.add('dark');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      
+      if (body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        localStorage.setItem('theme', 'light');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    });
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
