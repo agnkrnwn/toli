@@ -1,174 +1,159 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" sizes="32x32" href="https://www.gstatic.com/android/keyboard/emojikitchen/20231113/u1f4da/u1f4da_u1f4df.png">
-    <title>Hadis Finder</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f4f4f9;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-    <div class="max-w-[800px] mx-auto p-5">
-      <!-- Header -->
-      <h1 class="text-2xl font-bold text-center mb-6">Hadis Finder</h1>
 
-      <!-- Form Card -->
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
-        <!-- Dropdown dan Input (selalu sejajar, 2 kolom) -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <!-- Pilih Penulis Hadis -->
-          <div>
-            <label for="hadith-author" class="block mb-2 font-medium">
-              Pilih Penulis Hadis
-            </label>
-            <select
-              id="hadith-author"
-              class="w-full p-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg"
-            >
-              <option value="abu-dawud">Abu Dawud</option>
-              <option value="ahmad">Ahmad</option>
-              <option value="bukhari">Bukhari</option>
-              <option value="darimi">Darimi</option>
-              <option value="ibnu-majah">Ibnu Majah</option>
-              <option value="malik">Malik</option>
-              <option value="muslim">Muslim</option>
-              <option value="nasai">Nasai</option>
-              <option value="tirmidzi">Tirmidzi</option>
-            </select>
-          </div>
-          <!-- Nomor Hadis -->
-          <div>
-            <label for="hadith-number" class="block mb-2 font-medium">
-              Nomor Hadis
-            </label>
-            <input
-              type="number"
-              id="hadith-number"
-              class="w-full p-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg"
-              placeholder="Masukkan nomor hadis"
-            />
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://www.gstatic.com/android/keyboard/emojikitchen/20231113/u1f4da/u1f4da_u1f4df.png">
+  <title>Hadis Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f4f9;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+  <div class="max-w-[800px] mx-auto p-5">
+    <!-- Header -->
+    <h1 class="text-2xl font-bold text-center mb-6">Hadis Finder</h1>
+
+    <!-- Form Card -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+      <!-- Dropdown dan Input (selalu sejajar, 2 kolom) -->
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <!-- Pilih Penulis Hadis -->
+        <div>
+          <label for="hadith-author" class="block mb-2 font-medium">
+            Pilih Penulis Hadis
+          </label>
+          <select id="hadith-author"
+            class="w-full p-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg">
+            <option value="abu-dawud">Abu Dawud</option>
+            <option value="ahmad">Ahmad</option>
+            <option value="bukhari">Bukhari</option>
+            <option value="darimi">Darimi</option>
+            <option value="ibnu-majah">Ibnu Majah</option>
+            <option value="malik">Malik</option>
+            <option value="muslim">Muslim</option>
+            <option value="nasai">Nasai</option>
+            <option value="tirmidzi">Tirmidzi</option>
+          </select>
         </div>
+        <!-- Nomor Hadis -->
+        <div>
+          <label for="hadith-number" class="block mb-2 font-medium">
+            Nomor Hadis
+          </label>
+          <input type="number" id="hadith-number"
+            class="w-full p-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg"
+            placeholder="Masukkan nomor hadis" />
+        </div>
+      </div>
 
-        <!-- Tombol Aksi: Cari Hadis | Hadis Acak | Dark Mode (selalu 3 kolom) -->
-        <div class="grid grid-cols-3 gap-4">
-          <button
-            id="generate-custom"
-            class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
-          >
+      <!-- Tombol Aksi: Cari Hadis | Hadis Acak | Dark Mode (selalu 3 kolom) -->
+      <div class="grid grid-cols-4 gap-3">
+        <button id="generate-custom"
+          class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition">
           <i class="fas fa-search"></i>
-          </button>
-          <button
-            id="generate-hadith"
-            class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
-          >
+        </button>
+        <button id="generate-hadith"
+          class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition">
           <i class="fas fa-shuffle"></i>
-          </button>
-          <button
-            id="toggle-theme"
-            class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
-          >
-            <i class="fas fa-moon mr-2"></i>
-          </button>
-        </div>
+        </button>
+        <button id="toggle-theme"
+          class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition">
+          <i class="fas fa-moon mr-2"></i>
+        </button>
+        <button id="edit-hadith"
+          class="py-3 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tampilan Hadis -->
+    <div id="quote" class="mt-6 space-y-5">
+      <!-- Hadis Card -->
+      <div class="p-5 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+        <div id="quote-text" class="text-lg font-medium"></div>
+        <div id="quote-reference" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
       </div>
 
-      <!-- Tampilan Hadis -->
-      <div id="quote" class="mt-6 space-y-5">
-        <!-- Hadis Card -->
-        <div class="p-5 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
-          <div id="quote-text" class="text-lg font-medium"></div>
-          <div
-            id="quote-reference"
-            class="mt-4 text-sm text-gray-600 dark:text-gray-400"
-          ></div>
-        </div>
+      <!-- Tombol Aksi (Edit) -->
+      <!-- <div id="action-buttons" class="flex gap-3 justify-end">
+        <button id="edit-hadith" class="p-2 hover:text-blue-500 transition">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div> -->
 
-        <!-- Tombol Aksi (Edit) -->
-        <div id="action-buttons" class="flex gap-3 justify-end">
-          <button id="edit-hadith" class="p-2 hover:text-blue-500 transition">
-            <i class="fas fa-edit"></i>
-          </button>
-        </div>
-
-        <!-- Area Edit -->
-        <div id="edit-area" class="hidden space-y-4">
-          <textarea
-            id="hadith-editor"
-            class="w-full p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700"
-            rows="5"
-          ></textarea>
-          <button
-            id="download-btn"
-            class="w-full py-2 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition"
-          >
-            <i class="fas fa-download mr-2"></i>Download
-          </button>
-        </div>
+      <!-- Area Edit -->
+      <div id="edit-area" class="hidden space-y-4">
+        <textarea id="hadith-editor"
+          class="w-full p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700"
+          rows="5"></textarea>
+        <button id="download-btn"
+          class="w-full py-2 text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg hover:opacity-90 transition">
+          <i class="fas fa-download mr-2"></i>Download
+        </button>
       </div>
+    </div>
 
-      <!-- Download Template -->
-      <div id="download-template" class="max-w-[800px] mx-auto mt-8">
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
-          <div
-            id="template-text"
-            class="text-2xl leading-relaxed text-gray-800 dark:text-white mb-4 font-arab"
-          ></div>
-          <div class="text-right text-gray-600 dark:text-gray-400">
-            <div id="template-reference"></div>
-            <div class="mt-2 text-sm">
-              everyday hadist
-              <!-- Diunduh pada: <span id="download-date"></span> -->
-            </div>
+    <!-- Download Template -->
+    <div id="download-template" class="max-w-[800px] mx-auto mt-8">
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+        <div id="template-text" class="text-2xl leading-relaxed text-gray-800 dark:text-white mb-4 font-arab"></div>
+        <div class="text-right text-gray-600 dark:text-gray-400">
+          <div id="template-reference"></div>
+          <div class="mt-2 text-sm">
+            everyday hadist
+            <!-- Diunduh pada: <span id="download-date"></span> -->
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      // Fungsi toggle dark mode
-      const body = document.body;
-      const themeToggle = document.getElementById("toggle-theme");
-      const icon = themeToggle.querySelector("i");
+  <script>
+    // Fungsi toggle dark mode
+    const body = document.body;
+    const themeToggle = document.getElementById("toggle-theme");
+    const icon = themeToggle.querySelector("i");
 
-      // Cek preferensi tema yang tersimpan
-      if (
-        localStorage.getItem("theme") === "dark" ||
-        (!localStorage.getItem("theme") &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        body.classList.add("dark");
+    // Cek preferensi tema yang tersimpan
+    if (
+      localStorage.getItem("theme") === "dark" ||
+      (!localStorage.getItem("theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      body.classList.add("dark");
+      icon.classList.remove("fa-moon");
+      icon.classList.add("fa-sun");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+
+      if (body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
         icon.classList.remove("fa-moon");
         icon.classList.add("fa-sun");
+      } else {
+        localStorage.setItem("theme", "light");
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
       }
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
 
-      themeToggle.addEventListener("click", () => {
-        body.classList.toggle("dark");
-
-        if (body.classList.contains("dark")) {
-          localStorage.setItem("theme", "dark");
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
-        } else {
-          localStorage.setItem("theme", "light");
-          icon.classList.remove("fa-sun");
-          icon.classList.add("fa-moon");
-        }
-      });
-    </script>
-    <script src="script.js"></script>
-  </body>
 </html>
