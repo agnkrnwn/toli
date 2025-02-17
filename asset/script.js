@@ -131,7 +131,7 @@ async function handleDownload() {
       width: '600px',
       padding: '20px',
       margin: '0 auto',
-      backgroundColor: $('body').hasClass('dark') ? '#2d3748' : '#ffffff',
+      backgroundColor: $('body').hasClass('dark') ? '#2d3748' : '#2d3748',
       position: 'absolute',
       top: '-10000px',
       left: '-10000px'
@@ -148,10 +148,10 @@ async function handleDownload() {
     // Tambahkan clone ke body (secara tersembunyi)
     $('body').append($templateClone);
 
-    // Konversi clone ke gambar menggunakan html2canvas
+    // Konversi clone ke gambar menggunakan html2canvas yeee
     const canvas = await html2canvas($templateClone[0], {
       scale: 2,
-      useCORS: true,
+      useCORtokapnS: true,
       logging: false
     });
 
