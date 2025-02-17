@@ -109,11 +109,9 @@ function toggleEditMode() {
   $('#edit-area').toggle(!isEditing);
 }
 
-// Handle Download
-// Handle Download (Revisi)
 async function handleDownload() {
   try {
-    // Update Template
+    // Update konten template sesuai dengan yang diedit
     $('#template-text').text($('#hadith-editor').val());
     $('#template-reference').html($('#quote-reference').html());
     $('#download-date').text(new Date().toLocaleDateString('id-ID', {
@@ -123,42 +121,28 @@ async function handleDownload() {
       day: 'numeric'
     }));
 
-    // Buat clone dari #download-template untuk diproses tanpa mengganggu tampilan asli
-    const $templateClone = $('#download-template').clone();
-
-    // Terapkan styling tetap agar konsisten (misalnya lebar tetap, padding dan teks terpusat)
-    $templateClone.css({
-      width: '600px',
-      padding: '20px',
-      margin: '0 auto',
-      backgroundColor: $('body').hasClass('dark') ? '#2d3748' : '#2d3748',
+    // Buat container sementara dengan styling khusus
+    const $tempContainer = $('<div></div>').css({
       position: 'absolute',
       top: '-10000px',
-      left: '-10000px'
-    });
-    // Pastikan teks di dalam template terpusat dan membungkus kata dengan rapi
-    $templateClone.find('#template-text').css({
-      textAlign: 'center',
-      wordWrap: 'break-word'
-    });
-    $templateClone.find('#template-reference').css({
-      textAlign: 'center'
-    });
+      left: '-10000px',
+      width: '600px'
+    }).html($('#download-template').html());
+    
+    // Tambahkan container ke body agar bisa dirender
+    $('body').append($tempContainer);
 
-    // Tambahkan clone ke body (secara tersembunyi)
-    $('body').append($templateClone);
-
-    // Konversi clone ke gambar menggunakan html2canvas yeee
-    const canvas = await html2canvas($templateClone[0], {
+    // Konversi container ke gambar
+    const canvas = await html2canvas($tempContainer[0], {
       scale: 2,
-      useCORtokapnS: true,
+      useCORS: true,
       logging: false
     });
 
-    // Hapus clone dari DOM
-    $templateClone.remove();
+    // Hapus container sementara
+    $tempContainer.remove();
 
-    // Trigger Download
+    // Buat dan klik link download
     const link = document.createElement('a');
     link.download = `hadis-${currentHadith.number}-${Date.now()}.png`;
     link.href = canvas.toDataURL();
@@ -169,6 +153,7 @@ async function handleDownload() {
     showAlert('error', 'Gagal mengunduh gambar');
   }
 }
+
 
 
 // Tampilkan Notifikasi
