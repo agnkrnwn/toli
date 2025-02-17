@@ -110,6 +110,7 @@ function toggleEditMode() {
 }
 
 // Handle Download
+// Handle Download (Revisi)
 async function handleDownload() {
   try {
     // Update Template
@@ -122,12 +123,40 @@ async function handleDownload() {
       day: 'numeric'
     }));
 
-    // Konversi ke Gambar
-    const canvas = await html2canvas(document.querySelector("#download-template"), {
+    // Buat clone dari #download-template untuk diproses tanpa mengganggu tampilan asli
+    const $templateClone = $('#download-template').clone();
+
+    // Terapkan styling tetap agar konsisten (misalnya lebar tetap, padding dan teks terpusat)
+    $templateClone.css({
+      width: '600px',
+      padding: '20px',
+      margin: '0 auto',
+      backgroundColor: $('body').hasClass('dark') ? '#2d3748' : '#ffffff',
+      position: 'absolute',
+      top: '-10000px',
+      left: '-10000px'
+    });
+    // Pastikan teks di dalam template terpusat dan membungkus kata dengan rapi
+    $templateClone.find('#template-text').css({
+      textAlign: 'center',
+      wordWrap: 'break-word'
+    });
+    $templateClone.find('#template-reference').css({
+      textAlign: 'center'
+    });
+
+    // Tambahkan clone ke body (secara tersembunyi)
+    $('body').append($templateClone);
+
+    // Konversi clone ke gambar menggunakan html2canvas
+    const canvas = await html2canvas($templateClone[0], {
       scale: 2,
       useCORS: true,
-      logging: true
+      logging: false
     });
+
+    // Hapus clone dari DOM
+    $templateClone.remove();
 
     // Trigger Download
     const link = document.createElement('a');
@@ -140,6 +169,7 @@ async function handleDownload() {
     showAlert('error', 'Gagal mengunduh gambar');
   }
 }
+
 
 // Tampilkan Notifikasi
 function showAlert(type, message) {
