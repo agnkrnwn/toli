@@ -215,7 +215,7 @@ if (localStorage.getItem('darkMode') === 'true' ||
       audioInfo.classList.add("hidden");
     }
   }
-
+ 
   function toggleAyat(ayat, tafsir, button, container) {
     if (container.classList.contains("hidden")) {
       displayAyatWithTafsir(ayat, tafsir, container);
