@@ -1,206 +1,189 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
   <meta charset="UTF-8">
+  <title>Jadwal Sholat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jadwal Sholat & Cuaca</title>
+  <meta name="theme-color" content="#1f2937">
+  <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
   <link rel="manifest" href="../../manifest.json">
-  <link href="../../asset/css/all.min.css" rel="stylesheet">
-  <link href="../../asset/css/select2.min.css" rel="stylesheet">
-  <style>
-    /* Reset dasar */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      letter-spacing: 1px;
-    }
-    .btn {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-      color: #fff;
-    }
-    .btn:hover {
-      background: rgba(255,255,255,0.4);
-    }
-    .select-custom {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      margin-bottom: 20px;
-      outline: none;
-    }
-    /* Glassmorphism Card */
-    .glass-card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
-      margin-bottom: 30px;
-    }
-    .glass-card h2 {
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-    }
-    .weather-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .weather-section .details {
-      font-size: 1.2rem;
-    }
-    .countdown {
-      margin-top: 15px;
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-align: center;
-    }
-    /* Jadwal Sholat */
-    .schedule-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .schedule-item {
-      background: rgba(255,255,255,0.15);
-      border-radius: 15px;
-      padding: 15px;
-      text-align: center;
-      backdrop-filter: blur(5px);
-    }
-    .schedule-item i {
-      font-size: 1.5rem;
-      margin-bottom: 5px;
-      display: block;
-    }
-    .error-message {
-      text-align: center;
-      color: #ff6b6b;
-      margin-top: 20px;
-    }
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("../../service-worker.js")
+        navigator.serviceWorker
+          .register("../../service-worker.js")
           .then(reg => console.log("Service worker registered.", reg))
           .catch(err => console.log("Service worker registration failed:", err));
       });
     }
   </script>
+  <link href="../../asset/css/all.min.css" rel="stylesheet">
+  <link href="../../asset/css/select2.min.css" rel="stylesheet">
+  <link href="../../asset/css/sholat.css" rel="stylesheet">
+  <style>
+    /* Minimalis Flat UI Style */
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .container {
+      max-width: 720px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .btn {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      background-color: #e5e7eb;
+      color: #374151;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #d1d5db;
+    }
+    .select-custom {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      background-color: #fff;
+      color: #111827;
+    }
+    .main-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      transition: transform 0.3s;
+    }
+    .main-button:hover {
+      transform: scale(1.02);
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111827;
+    }
+    .card p,
+    .card span {
+      color: #374151;
+    }
+    .grid-schedule {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <header>
+<body class="bg-gray-50 dark:bg-gray-900">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="header">
       <button id="notificationToggle" class="btn">
         <i class="fas fa-bell"></i>
       </button>
-      <h1><i class="fas fa-mosque"></i> Jadwal Sholat & Cuaca</h1>
+      <h1><i class="fas fa-mosque mr-2"></i>Jadwal Sholat</h1>
       <button id="darkModeToggle" class="btn">
-        <i class="fas fa-moon"></i>
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:inline"></i>
       </button>
-    </header>
-    <select id="select-kota" class="select-custom">
-      <option value="">- Pilih Kota -</option>
-    </select>
-    <button id="getSchedule" class="btn" style="width:100%; margin-bottom:20px; background: rgba(255,255,255,0.3);">
-      <i class="fas fa-calendar-alt"></i> Tampilkan Jadwal
+    </div>
+    <!-- Pilih Kota -->
+    <div class="mb-4 relative">
+      <select id="select-kota" class="select-custom">
+        <option value="">- Pilih Kota -</option>
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-500">
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+        </svg>
+      </div>
+    </div>
+    <!-- Tombol Tampilkan Jadwal -->
+    <button id="getSchedule" class="main-button shadow-lg mb-6">
+      <i class="fas fa-calendar-alt mr-2"></i>Tampilkan Jadwal
     </button>
     <!-- Weather Card -->
-    <div class="glass-card" id="weatherCard">
-      <div class="weather-section">
-        <div class="details">
-          <h2 id="location"></h2>
-          <p id="full-date"></p>
-        </div>
-        <div id="weather-icon" style="font-size: 3rem;"></div>
+    <div class="card">
+      <div class="flex items-center mb-4">
+        <h2 id="location" class="text-2xl font-semibold"></h2>
+        <div id="weather-icon" class="ml-5 text-2xl"></div>
       </div>
-      <div class="countdown" id="countdown"></div>
+      <div class="mb-4">
+        <div id="full-date" class="font-medium"></div>
+      </div>
+      <p id="countdown" class="text-lg font-semibold text-blue-600 mb-4"></p>
     </div>
-    <!-- Schedule Card -->
-    <div class="glass-card" id="scheduleCard" style="display:none;">
-      <div class="schedule-grid">
-        <div class="schedule-item">
-          <i class="fas fa-moon" style="color: #4fc3f7;"></i>
-          <p>Imsak</p>
-          <p id="imsak"></p>
+    <!-- Jadwal Sholat -->
+    <div id="schedule" class="card hidden">
+      <div class="grid-schedule">
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-moon text-blue-400 mr-2"></i>
+          <span class="font-semibold">Imsak:</span>
+          <span id="imsak"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-pray" style="color: #81c784;"></i>
-          <p>Subuh</p>
-          <p id="subuh"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-pray text-blue-500 mr-2"></i>
+          <span class="font-semibold">Subuh:</span>
+          <span id="subuh"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-cloud-sun" style="color: #ffb74d;"></i>
-          <p>Terbit</p>
-          <p id="terbit"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-cloud-sun text-orange-400 mr-2"></i>
+          <span class="font-semibold">Terbit:</span>
+          <span id="terbit"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-sun" style="color: #fdd835;"></i>
-          <p>Dhuha</p>
-          <p id="dhuha"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-sun text-yellow-600 mr-2"></i>
+          <span class="font-semibold">Dhuha:</span>
+          <span id="dhuha"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-sun" style="color: #ffe082;"></i>
-          <p>Dzuhur</p>
-          <p id="dzuhur"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-sun text-yellow-400 mr-2"></i>
+          <span class="font-semibold">Dzuhur:</span>
+          <span id="dzuhur"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-cloud-sun" style="color: #ffcc80;"></i>
-          <p>Ashar</p>
-          <p id="ashar"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-cloud-sun text-orange-500 mr-2"></i>
+          <span class="font-semibold">Ashar:</span>
+          <span id="ashar"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-cloud-moon" style="color: #e57373;"></i>
-          <p>Maghrib</p>
-          <p id="maghrib"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-cloud-moon text-red-500 mr-2"></i>
+          <span class="font-semibold">Maghrib:</span>
+          <span id="maghrib"></span>
         </div>
-        <div class="schedule-item">
-          <i class="fas fa-moon" style="color: #9575cd;"></i>
-          <p>Isya</p>
-          <p id="isya"></p>
+        <div class="bg-gray-100 p-4 rounded-md">
+          <i class="fas fa-moon text-indigo-500 mr-2"></i>
+          <span class="font-semibold">Isya:</span>
+          <span id="isya"></span>
         </div>
       </div>
     </div>
-    <div id="errorMsg" class="error-message"></div>
+    <!-- Pesan Error -->
+    <div id="errorMsg" class="mt-4 text-center text-red-500 hidden"></div>
   </div>
-  
   <script src="../../asset/js/jquery-3.6.0.min.js"></script>
   <script src="../../asset/js/select2.min.js"></script>
   <script src="../../asset/js/sholat3.js"></script>
