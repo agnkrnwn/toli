@@ -13,128 +13,187 @@
   <link href="../../asset/css/all.min.css" rel="stylesheet">
   <link href="../../asset/css/select2.min.css" rel="stylesheet" />
   <link href="../../asset/css/sholat.css" rel="stylesheet" />
+  <style>
+    /* Custom styling untuk tampilan yang lebih minimalis & modern */
+    body {
+      background: #f7f9fc;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid #fff;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .select-custom {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background: #fff;
+      color: #333;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin-bottom: 8px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
   <script>
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("../../service-worker.js")
-          .then((reg) => console.log("Service worker registered.", reg))
-          .catch((err) => console.log("Service worker registration failed:", err));
+      window.addEventListener("load", function() {
+        navigator.serviceWorker.register("../../service-worker.js")
+          .then(function(reg) { console.log("Service worker registered.", reg); })
+          .catch(function(err) { console.log("Service worker registration failed:", err); });
       });
     }
   </script>
 </head>
-<body class="bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900">
+<body class="dark:bg-gray-900">
   <!-- Header -->
-  <header class="bg-white dark:bg-gray-900 shadow-lg">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-3">
-        <button id="notificationToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-          <i class="fas fa-bell"></i>
-        </button>
-        <h1 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
-          <i class="fas fa-mosque mr-2"></i>Jadwal Sholat & Cuaca
-        </h1>
-      </div>
-      <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-        <i class="fas fa-moon dark:hidden"></i>
-        <i class="fas fa-sun hidden dark:inline"></i>
+  <header class="header">
+    <div class="flex-between">
+      <button id="notificationToggle" class="btn">
+        <i class="fas fa-bell"></i>
+      </button>
+      <h1>
+        <i class="fas fa-mosque"></i> Jadwal Sholat & Cuaca
+      </h1>
+      <button id="darkModeToggle" class="btn">
+        <i class="fas fa-moon"></i>
       </button>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="container mx-auto px-4 py-8">
-    <!-- Kota Selector -->
-    <div class="mb-6">
-      <select id="select-kota" class="w-full p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-600">
-        <option value="">- Pilih Kota -</option>
-      </select>
-    </div>
-    <!-- Tampilkan Jadwal Button -->
-    <div class="mb-6">
-      <button id="getSchedule" class="w-full py-3 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold shadow-md transform transition hover:scale-105">
-        <i class="fas fa-calendar-alt mr-2"></i> Tampilkan Jadwal
-      </button>
-    </div>
+  <!-- Main Container -->
+  <main class="container mx-auto px-4">
+    <!-- Pilih Kota -->
+    <select id="select-kota" class="select-custom dark:bg-gray-700 dark:text-white">
+      <option value="">- Pilih Kota -</option>
+    </select>
+    <!-- Tombol Tampilkan Jadwal -->
+    <button id="getSchedule" class="btn w-full mb-4" style="background: #667eea; border: none;">
+      <i class="fas fa-calendar-alt mr-2"></i> Tampilkan Jadwal
+    </button>
 
-    <!-- Cards Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Grid untuk Weather Card dan Jadwal Sholat -->
+    <div class="grid-2">
       <!-- Weather Card -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <h2 id="location" class="text-2xl font-semibold text-gray-900 dark:text-white"></h2>
-          <div id="weather-icon" class="text-3xl"></div>
+      <div class="card">
+        <div class="flex-between">
+          <div>
+            <h2 id="location" class="text-xl font-semibold text-gray-800 dark:text-white"></h2>
+            <p id="full-date" class="text-sm text-gray-500 dark:text-gray-300"></p>
+          </div>
+          <div id="weather-icon" class="text-4xl"></div>
         </div>
-        <div class="mt-4">
-          <p id="full-date" class="text-gray-600 dark:text-gray-300"></p>
-          <p id="countdown" class="mt-2 text-lg font-bold text-primary-600 dark:text-primary-400"></p>
-        </div>
+        <p id="countdown" class="mt-4 text-lg font-bold text-primary-600 dark:text-primary-400"></p>
       </div>
       <!-- Jadwal Sholat Card -->
-      <div id="schedule" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 hidden">
+      <div id="schedule" class="card hidden">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-moon text-blue-400 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-moon text-blue-400 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Imsak</p>
-              <p id="imsak" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Imsak</p>
+              <p id="imsak" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-pray text-blue-500 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-pray text-blue-500 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Subuh</p>
-              <p id="subuh" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Subuh</p>
+              <p id="subuh" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-cloud-sun text-orange-400 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-cloud-sun text-orange-400 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Terbit</p>
-              <p id="terbit" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Terbit</p>
+              <p id="terbit" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-sun text-yellow-600 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-sun text-yellow-600 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Dhuha</p>
-              <p id="dhuha" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Dhuha</p>
+              <p id="dhuha" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-sun text-yellow-400 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-sun text-yellow-400 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Dzuhur</p>
-              <p id="dzuhur" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Dzuhur</p>
+              <p id="dzuhur" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-cloud-sun text-orange-500 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-cloud-sun text-orange-500 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Ashar</p>
-              <p id="ashar" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Ashar</p>
+              <p id="ashar" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-cloud-moon text-red-500 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-cloud-moon text-red-500 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Maghrib</p>
-              <p id="maghrib" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Maghrib</p>
+              <p id="maghrib" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
-          <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex items-center space-x-3">
-            <i class="fas fa-moon text-indigo-500 text-xl"></i>
+          <div class="flex items-center">
+            <i class="fas fa-moon text-indigo-500 text-xl mr-3"></i>
             <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Isya</p>
-              <p id="isya" class="font-semibold text-gray-900 dark:text-white"></p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Isya</p>
+              <p id="isya" class="font-semibold text-gray-800 dark:text-white"></p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Error Message -->
+    <!-- Pesan Error -->
     <div id="errorMsg" class="mt-4 text-red-500 text-center hidden"></div>
   </main>
 
