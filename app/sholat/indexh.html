@@ -1,202 +1,206 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jadwal Sholat & Cuaca</title>
-  <meta name="theme-color" content="#1f2937">
-  <link rel="icon" href="../../asset/icon/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" sizes="180x180" href="../../asset/icon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../../asset/icon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../../asset/icon/favicon-16x16.png">
   <link rel="manifest" href="../../manifest.json">
   <link href="../../asset/css/all.min.css" rel="stylesheet">
-  <link href="../../asset/css/select2.min.css" rel="stylesheet" />
-  <link href="../../asset/css/sholatx.css" rel="stylesheet" />
+  <link href="../../asset/css/select2.min.css" rel="stylesheet">
   <style>
-    /* Custom styling untuk tampilan yang lebih minimalis & modern */
-    body {
-      background: #f7f9fc;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .header {
+    body {
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      text-align: center;
     }
-    .header h1 {
-      margin: 0;
-      font-size: 1.75rem;
-    }
-    .flex-between {
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 40px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 1px;
     }
     .btn {
-      padding: 10px 20px;
+      background: rgba(255,255,255,0.2);
       border: none;
+      padding: 10px 15px;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 600;
-      background: transparent;
-      border: 1px solid #fff;
-      color: #fff;
       transition: background 0.3s;
+      color: #fff;
     }
     .btn:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.4);
     }
     .select-custom {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
       margin-bottom: 20px;
-      background: #fff;
-      color: #333;
+      outline: none;
     }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
+    /* Glassmorphism Card */
+    .glass-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+      margin-bottom: 30px;
     }
-    .card h2 {
-      margin-bottom: 8px;
+    .glass-card h2 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
     }
-    .grid-2 {
+    .weather-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .weather-section .details {
+      font-size: 1.2rem;
+    }
+    .countdown {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    /* Jadwal Sholat */
+    .schedule-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
     }
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
+    .schedule-item {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+    .schedule-item i {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .error-message {
+      text-align: center;
+      color: #ff6b6b;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
       }
     }
   </style>
   <script>
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
+      window.addEventListener("load", () => {
         navigator.serviceWorker.register("../../service-worker.js")
-          .then(function(reg) { console.log("Service worker registered.", reg); })
-          .catch(function(err) { console.log("Service worker registration failed:", err); });
+          .then(reg => console.log("Service worker registered.", reg))
+          .catch(err => console.log("Service worker registration failed:", err));
       });
     }
   </script>
 </head>
-<body class="dark:bg-gray-900">
-  <!-- Header -->
-  <header class="header">
-    <div class="flex-between">
+<body>
+  <div class="container">
+    <header>
       <button id="notificationToggle" class="btn">
         <i class="fas fa-bell"></i>
       </button>
-      <h1>
-        <i class="fas fa-mosque"></i> Jadwal Sholat & Cuaca
-      </h1>
+      <h1><i class="fas fa-mosque"></i> Jadwal Sholat & Cuaca</h1>
       <button id="darkModeToggle" class="btn">
         <i class="fas fa-moon"></i>
       </button>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="container mx-auto px-4">
-    <!-- Pilih Kota -->
-    <select id="select-kota" class="select-custom dark:bg-gray-700 dark:text-white">
+    </header>
+    <select id="select-kota" class="select-custom">
       <option value="">- Pilih Kota -</option>
     </select>
-    <!-- Tombol Tampilkan Jadwal -->
-    <button id="getSchedule" class="btn w-full mb-4" style="background: #667eea; border: none;">
-      <i class="fas fa-calendar-alt mr-2"></i> Tampilkan Jadwal
+    <button id="getSchedule" class="btn" style="width:100%; margin-bottom:20px; background: rgba(255,255,255,0.3);">
+      <i class="fas fa-calendar-alt"></i> Tampilkan Jadwal
     </button>
-
-    <!-- Grid untuk Weather Card dan Jadwal Sholat -->
-    <div class="grid-2">
-      <!-- Weather Card -->
-      <div class="card">
-        <div class="flex-between">
-          <div>
-            <h2 id="location" class="text-xl font-semibold text-gray-800 dark:text-white"></h2>
-            <p id="full-date" class="text-sm text-gray-500 dark:text-gray-300"></p>
-          </div>
-          <div id="weather-icon" class="text-4xl"></div>
+    <!-- Weather Card -->
+    <div class="glass-card" id="weatherCard">
+      <div class="weather-section">
+        <div class="details">
+          <h2 id="location"></h2>
+          <p id="full-date"></p>
         </div>
-        <p id="countdown" class="mt-4 text-lg font-bold text-primary-600 dark:text-primary-400"></p>
+        <div id="weather-icon" style="font-size: 3rem;"></div>
       </div>
-      <!-- Jadwal Sholat Card -->
-      <div id="schedule" class="card hidden">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="flex items-center">
-            <i class="fas fa-moon text-blue-400 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Imsak</p>
-              <p id="imsak" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-pray text-blue-500 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Subuh</p>
-              <p id="subuh" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-cloud-sun text-orange-400 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Terbit</p>
-              <p id="terbit" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-sun text-yellow-600 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Dhuha</p>
-              <p id="dhuha" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-sun text-yellow-400 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Dzuhur</p>
-              <p id="dzuhur" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-cloud-sun text-orange-500 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Ashar</p>
-              <p id="ashar" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-cloud-moon text-red-500 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Maghrib</p>
-              <p id="maghrib" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-moon text-indigo-500 text-xl mr-3"></i>
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-300">Isya</p>
-              <p id="isya" class="font-semibold text-gray-800 dark:text-white"></p>
-            </div>
-          </div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+    <!-- Schedule Card -->
+    <div class="glass-card" id="scheduleCard" style="display:none;">
+      <div class="schedule-grid">
+        <div class="schedule-item">
+          <i class="fas fa-moon" style="color: #4fc3f7;"></i>
+          <p>Imsak</p>
+          <p id="imsak"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-pray" style="color: #81c784;"></i>
+          <p>Subuh</p>
+          <p id="subuh"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-cloud-sun" style="color: #ffb74d;"></i>
+          <p>Terbit</p>
+          <p id="terbit"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-sun" style="color: #fdd835;"></i>
+          <p>Dhuha</p>
+          <p id="dhuha"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-sun" style="color: #ffe082;"></i>
+          <p>Dzuhur</p>
+          <p id="dzuhur"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-cloud-sun" style="color: #ffcc80;"></i>
+          <p>Ashar</p>
+          <p id="ashar"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-cloud-moon" style="color: #e57373;"></i>
+          <p>Maghrib</p>
+          <p id="maghrib"></p>
+        </div>
+        <div class="schedule-item">
+          <i class="fas fa-moon" style="color: #9575cd;"></i>
+          <p>Isya</p>
+          <p id="isya"></p>
         </div>
       </div>
     </div>
-
-    <!-- Pesan Error -->
-    <div id="errorMsg" class="mt-4 text-red-500 text-center hidden"></div>
-  </main>
-
+    <div id="errorMsg" class="error-message"></div>
+  </div>
+  
   <script src="../../asset/js/jquery-3.6.0.min.js"></script>
   <script src="../../asset/js/select2.min.js"></script>
   <script src="../../asset/js/sholat3.js"></script>
