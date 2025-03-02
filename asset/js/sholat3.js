@@ -442,4 +442,4 @@ $(document).ready(function () {
   if (notificationsEnabled) {
     requestNotificationPermission();
   }
-});
+);
